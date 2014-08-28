@@ -6,26 +6,11 @@
 <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
 <script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
 
-<!-- optional: use jqGrid
-<link rel="stylesheet" type="text/css" href="../../lib/css/jqGrid/ui.jqgrid-4.5.4.css"/>
-<script type="text/javascript" src="../../lib/js/jqGrid/jquery.jqGrid-4.5.4.min.js"></script>
-<script type="text/javascript" src="../../lib/js/jqGrid/i18n/grid.locale-en.js"></script>
--->
-
-<!-- optional: use multiselect
-<link rel="stylesheet" type="text/css" href="../../lib/css/jquery.multiselect-1.13.css"/>
-<script type="text/javascript" src="../../lib/js/jquery.multiselect-1.13.min.js"></script>
--->
-
 <!-- these two file always have to be included -->
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 <script type="text/javascript" src="../../js/adapter-settings.js"></script>
 
 <style>
-    .table_header {
-        background-color: blue;
-        color: white;
-    }
     h4 {
         font-size: 16px;
         width: 370px;
@@ -34,10 +19,6 @@
         padding-top: 2px;
         padding-bottom: 2px;
         background-color: lightblue;
-    }
-    .ip {
-        width: 150px;
-        text-align: right;
     }
 </style>
 <!-- you have to define 2 functions in the global scope: -->
@@ -68,6 +49,7 @@
     
     function init() {
         $('#test').button().click(test);
+        $('#save').button("disable");
     }
 
     // the function loadSettings has to exist ...
@@ -77,12 +59,15 @@
             if ($('#' + key + '.value').attr('type') == 'checkbox') {
                 $('#' + key + '.value').prop('checked', settings[key]).change(function() {
                     changed = true;
+                    $('#save').button("enable");
                 });
             } else {
                 $('#' + key + '.value').val(settings[key]).change(function() {
                     changed = true;
+                    $('#save').button("enable");
                 }).keyup(function() {
                     changed = true;
+                    $('#save').button("enable");
                 });
             }
         }
@@ -144,6 +129,7 @@
         // example: select elements with class=value and build settings object
         changed = false;
         callback(getSettings());
+        $('#save').button("disable");
     }
 </script>
 
