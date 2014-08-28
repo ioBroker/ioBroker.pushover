@@ -27,6 +27,7 @@
         color: white;
     }
     h4 {
+        font-size: 16px;
         width: 370px;
         padding-left:5px;
         padding-right: 5px;
@@ -49,127 +50,42 @@
     var changed =     false;
 
     var adapterWords = {
-        "Connection settings":{"en": "Connection settings", "de": "Verbindungseinstellungen", "ru": "Настройки соединения"},
-        "Transport:"         :{"en": "Transport:",     "de": "Transport:",      "ru": "Протокол:"},
-        "Service:"           :{"en": "Service:",       "de": "Service:",        "ru": "Сервисе:"},
-        "Host:"              :{"en": "Host:",          "de": "Host:",           "ru": "Хост:"},
-        "Port:"              :{"en": "Port:",          "de": "Port:",           "ru": "Порт:"},
-        "SSL connection:"    :{"en": "SSL connection", "de": "SSL Verbindung:", "ru": "SSL соединиение:"},
-        "User:"              :{"en": "User:",          "de": "Anwender:",       "ru": "Пользователь:"},
-        "Password:"          :{"en": "Password:",      "de": "Kennwort:",       "ru": "Пароль:"},
-        "Defaults"           :{"en": "Defaults",       "de": "Voreinstellung",  "ru": "Значения по умолчанию"},
-        "From:"              :{"en": "From:",          "de": "Von:",            "ru": "От:"},
-        "To:"                :{"en": "To:",            "de": "Nach:",           "ru": "Кому:"},
-        "Subject:"           :{"en": "Subject:",       "de": "Thema:",          "ru": "Тема:"}
+        "Pushover adapter settings":    {"de": "Pushover-Adapter Einstellungen", "ru": "Настройки Pushover драйвера"},
+        "Pushover settings":            {"de": "Pushover Einstellungen:",        "ru": "Настройки Pushover сервера"},
+        "Group Key:":                   {"de": "Group Key:",                     "ru": "Group Key:"},
+        "Token:":                       {"de": "Token:",                         "ru": "Token:"},
+        "Title:":                       {"de": "Titel:",                         "ru": "Заголовок:"},
+        "Sound:":                       {"de": "Klang:",                         "ru": "Звук:"},
+        "Priority:":                    {"de": "Vorrang:",                       "ru": "Приоритет:"},
+        "Test":                         {"de": "Test",                           "ru": "Тест"},
+        "Notification settings":        {"de": "Mitteilung Einstellungen",       "ru": "Настройки сообщения"},
+        "Group Key of Delivery Group":  {"de": "Group Key von Delivery Group",   "ru": "Group Key of Delivery Group"},
+        "API Token/Key of Application": {"de": "API Token/Key von Application",  "ru": "API Token/Key of Application"},
+        "quiet":                        {"de": "still",                          "ru": "без звука"},
+        "default":                      {"de": "Voreinstellung",                 "ru": "по умолчанию"},
+        "high-priority":                {"de": "Hoch-Prior",                     "ru": "приоритет"}
     };
-
-    function encrypt(key, value) {
-        var result="";
-        for(var i = 0; i < value.length; ++i) {
-            result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-        }
-        return result;
-    }
-
-    function decrypt(key, value) {
-        var result = "";
-        for(var i = 0; i < value.length; ++i) {
-            result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-        }
-        return result;
-    }
-
-    function showHideSettings()  {
-        if ($('#transportOptions_service').val() == '') {
-            $('#_email_host').show();
-            $('#_email_port').show();
-            $('#_email_secure').show();
-        } else {
-            $('#_email_host').hide();
-            $('#_email_port').hide();
-            $('#_email_secure').hide();
-
-            $('#_email_host').val('');
-            $('#_email_port').val('');
-            $('#_email_secure').prop('checked', false);
-        }    
-    }
     
     function init() {
-        $('#transportOptions_service').change(showHideSettings);
         $('#test').button().click(test);
-    }
-
-    function loadHelper(settings, param, subparam) {
-        if (!settings) return;
-
-        if (subparam && param) {
-            for (var key in settings[param][subparam]) {
-                if (typeof settings[param][subparam][key] != 'object') {
-                    if (key == "pass") {
-                        settings[param][subparam][key] = decrypt("Zgfr56gFe87jJOM", settings[param][subparam][key]);
-                    };
-
-                    // example: select elements with id=key and class=value and insert value
-                    if ($('#' + param + '_' + subparam + '_' + key + '.value').attr('type') == 'checkbox') {
-                        $('#' + param + '_' + subparam + '_' + key + '.value').prop('checked', settings[param][subparam][key]).change(function() {
-                            changed = true;
-                        });
-                    } else {
-                        $('#' + param + '_' + subparam + '_' + key + '.value').val(settings[param][subparam][key]).change(function() {
-                            changed = true;
-                        }).keyup(function() {
-                            changed = true;
-                        });
-                    }
-                } else {
-                    alert("4th level is not supported");
-                }
-            }
-        } else if (param) {
-            for (var key in settings[param]) {
-                if (typeof settings[param][key] != 'object') {
-                    // example: select elements with id=key and class=value and insert value
-                    if ($('#' + param + '_' + key + '.value').attr('type') == 'checkbox') {
-                        $('#' + param + '_' + key + '.value').prop('checked', settings[param][key]).change(function() {
-                            changed = true;
-                        });
-                    } else {
-                        $('#' + param + '_' + key + '.value').val(settings[param][key]).change(function() {
-                            changed = true;
-                        }).keyup(function() {
-                            changed = true;
-                        });
-                    }
-                } else {
-                    loadHelper(settings, param, key);
-                }
-            }
-        } else {
-            for (var key in settings) {
-                if (typeof settings[key] != 'object') {
-                    // example: select elements with id=key and class=value and insert value
-                    if ($('#' + key + '.value').attr('type') == 'checkbox') {
-                        $('#' + key + '.value').prop('checked', settings[key]).change(function() {
-                            changed = true;
-                        });
-                    } else {
-                        $('#' + key + '.value').val(settings[key]).change(function() {
-                            changed = true;
-                        }).keyup(function() {
-                            changed = true;
-                        });
-                    }
-                } else {
-                    loadHelper(settings, key);
-                }
-            }
-        }
     }
 
     // the function loadSettings has to exist ...
     function load(settings) {
-        loadHelper(settings);
+        for (var key in settings) {
+            // example: select elements with id=key and class=value and insert value
+            if ($('#' + key + '.value').attr('type') == 'checkbox') {
+                $('#' + key + '.value').prop('checked', settings[key]).change(function() {
+                    changed = true;
+                });
+            } else {
+                $('#' + key + '.value').val(settings[key]).change(function() {
+                    changed = true;
+                }).keyup(function() {
+                    changed = true;
+                });
+            }
+        }
 
         init ();
     }
@@ -177,15 +93,15 @@
     function test() {
         var newValue = JSON.stringify(getSettings());
         if (!common.enabled) {
-            alert("Enable first the adapter to test email.");
+            showMessage("Enable first the adapter to test notification.");
             return;
         }
         if (changed) {
-            alert("First save the adapter");
+            showMessage("First save the settings");
             return;
         }
-        sendTo('email.' + instance, 'send', 'This is test email!');
-        alert('Check the log or your email');
+        sendTo('pushover.' + instance, 'send', 'This is test notification!');
+        showMessage('Check the log or your pushover app!');
     }
 
     function saveHelper(obj, id, value) {
@@ -206,6 +122,7 @@
         }
         return obj;
     }
+
     function getSettings() {
         var obj = {};
         $('.value').each(function () {
@@ -235,30 +152,30 @@
 
     <table><tr>
         <td><img src="pushover.png"></td>
-        <td style="padding-top: 20px;padding-left: 10px"><h3 class="translate">E-mail adapter settings</h3></td>
+        <td style="padding-top: 20px;padding-left: 10px"><h3 class="translate">Pushover adapter settings</h3></td>
     </tr></table>
 
     <h4 class="translate">Pushover settings</h4>
     <table>
         <tr>
-            <td class="translate">User:</td>
-            <td><input id="user" type="text" size="50"/></td>
+            <td class="translate">Group Key:</td>
+            <td><input id="user" type="text" size="50" class="value"/></td>
             <td class="translate">Group Key of Delivery Group</td>
         </tr>
         <tr>
             <td class="translate">Token:</td>
-            <td><input id="token" type="text" size="50"/></td>
+            <td><input id="token" type="text" size="50" class="value"/></td>
             <td class="translate">API Token/Key of Application</td>
         </tr>
-        <tr><td colspan="3"><h4 class="translate">Notification settings</h4></td></tr>
+        <tr><td colspan="3"><br><h4 class="translate">Notification settings</h4></td></tr>
         <tr>
             <td class="translate">Title:</td>
-            <td><input id="title" type="text" size="50"/></td>
+            <td><input id="title" type="text" size="50" class="value"/></td>
             <td></td>
         </tr>
         <tr>
             <td class="translate">Sound:</td>
-            <td><select id="sound">
+            <td><select id="sound" class="value">
                 <option value="">              default </option>
                 <option value="pushover">      pushover </option>
                 <option value="bike">          bike </option>
@@ -287,10 +204,10 @@
         </tr>
         <tr>
             <td class="translate">Priority:</td>
-            <td><select id="priority">
+            <td><select id="priority" class="value">
                 <option value="-1" class="translate">quiet</option>
-                <option value="0">default</option>
-                <option value="1">high-priority</option>
+                <option value="0"  class="translate">default</option>
+                <option value="1"  class="translate">high-priority</option>
                 <!--option value="2">require confirmation</option-->
             </select></td>
             <td></td>

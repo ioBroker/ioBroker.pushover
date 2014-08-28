@@ -14,7 +14,9 @@
         "messagebox":               true,
         "subscribe":                "system.adapter.pushover.<INSTANCE>.messagebox",
         "wakeup":                   true,
-        "icon":                     "pushover.png"
+        "enabled":                  true,
+        "icon":                     "pushover.png",
+        "keywords":                 ["notification", "pushover", "message"]
     },
     "native": {
         "user":     "xxxxx",

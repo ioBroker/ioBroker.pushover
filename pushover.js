@@ -112,7 +112,9 @@ function sendNotification(message, callback) {
     message.url_title = message.url_title || adapter.config.url_title;
     message.device    = message.device    || adapter.config.device;
 
-    pushover.send(msg, function(err, result) {
+    adapter.log.info("Send pushover notification: " + JSON.stringify(message));
+
+    pushover.send(message, function(err, result) {
         if (err) {
             adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
             if (callback) callback(err);
