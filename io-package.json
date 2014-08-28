@@ -1,0 +1,29 @@
+{
+    "common": {
+        "name":                     "pushover",
+        "version":                  "0.0.1",
+        "title":                    "Pushover Adapter",
+        "desc":                     "This adapter allows to send pushover notifications from ioBroker",
+        "authors": [
+            "bluefox <bluefox@ccu.io>"
+        ],
+        "license":                  "MIT",
+        "platform":                 "Javascript/Node.js",
+        "mode":                     "subscribe",
+        "loglevel":                 "info",
+        "messagebox":               true,
+        "subscribe":                "system.adapter.pushover.<INSTANCE>.messagebox",
+        "wakeup":                   true,
+        "icon":                     "pushover.png"
+    },
+    "native": {
+        "user":     "xxxxx",
+        "token":    "xxxxx",
+        "title":    "ioBroker",
+        "sound":    "",
+        "priority": 0
+    },
+    "objects": [
+
+    ]
+}
