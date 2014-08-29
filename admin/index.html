@@ -8,19 +8,9 @@
 
 <!-- these two file always have to be included -->
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+<script type="text/javascript" src="../../js/translate.js"></script>
 <script type="text/javascript" src="../../js/adapter-settings.js"></script>
 
-<style>
-    h4 {
-        font-size: 16px;
-        width: 370px;
-        padding-left:5px;
-        padding-right: 5px;
-        padding-top: 2px;
-        padding-bottom: 2px;
-        background-color: lightblue;
-    }
-</style>
 <!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
     var rooms =       [];
@@ -30,7 +20,7 @@
     var isStarted =   null;
     var changed =     false;
 
-    var adapterWords = {
+    systemDictionary = {
         "Pushover adapter settings":    {"de": "Pushover-Adapter Einstellungen", "ru": "Настройки Pushover драйвера"},
         "Pushover settings":            {"de": "Pushover Einstellungen:",        "ru": "Настройки Pushover сервера"},
         "Group Key:":                   {"de": "Group Key:",                     "ru": "Group Key:"},
