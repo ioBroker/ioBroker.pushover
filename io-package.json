@@ -16,7 +16,8 @@
         "wakeup":                   true,
         "enabled":                  true,
         "icon":                     "pushover.png",
-        "keywords":                 ["notification", "pushover", "message"]
+        "keywords":                 ["notification", "pushover", "message"],
+        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png"
     },
     "native": {
         "user":     "xxxxx",
