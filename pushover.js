@@ -52,10 +52,14 @@ function stop() {
     if (stopTimer) {
         clearTimeout(stopTimer);
     }
-    stopTimer = setTimeout(function() { 
-        stopTimer = null;
-        adapter.stop(); 
-    }, 30000);
+
+    // Stop only if subscribe mode
+    if (adapter.common && adapter.common.mode == 'subscribe') {
+        stopTimer = setTimeout(function () {
+            stopTimer = null;
+            adapter.stop();
+        }, 30000);
+    }
 }
 
 function processMessage(message) {
@@ -114,7 +118,7 @@ function sendNotification(message, callback) {
 
     adapter.log.info("Send pushover notification: " + JSON.stringify(message));
 
-    pushover.send(message, function(err, result) {
+    pushover.send(message, function (err, result) {
         if (err) {
             adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
             if (callback) callback(err);

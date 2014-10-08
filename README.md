@@ -4,6 +4,10 @@ ioBroker pushover Adapter
 
 Send pushover notifications from ioBroker. 
 
+## Changelog
+# 0.0.3 (2014-10-08)
+* (bluefox) add "daemon" mode to "subscribe"
+
 ## Install
 
 ```node iobroker.js add pushover```

@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "pushover",
-        "version":                  "0.0.2",
+        "version":                  "0.0.3",
         "title":                    "Pushover Adapter",
         "desc":                     "This adapter allows to send pushover notifications from ioBroker",
         "authors": [
@@ -9,7 +9,8 @@
         ],
         "license":                  "MIT",
         "platform":                 "Javascript/Node.js",
-        "mode":                     "subscribe",
+        "mode":                     "daemon",
+        "availableModes":           ["daemon", "subscribe"],
         "loglevel":                 "info",
         "messagebox":               true,
         "subscribe":                "system.adapter.pushover.<INSTANCE>.messagebox",
