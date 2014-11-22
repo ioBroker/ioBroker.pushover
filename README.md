@@ -5,6 +5,9 @@ ioBroker pushover Adapter
 Send pushover notifications from ioBroker. 
 
 ## Changelog
+### 0.0.4 (2014-11-22)
+* (bluefox) support of new naming concept
+
 ### 0.0.3 (2014-10-08)
 * (bluefox) add "daemon" mode to "subscribe"
 

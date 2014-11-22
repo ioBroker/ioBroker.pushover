@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "pushover",
-        "version":                  "0.0.3",
+        "version":                  "0.0.4",
         "title":                    "Pushover Adapter",
         "desc":                     "This adapter allows to send pushover notifications from ioBroker",
         "authors": [
@@ -13,7 +13,7 @@
         "availableModes":           ["daemon", "subscribe"],
         "loglevel":                 "info",
         "messagebox":               true,
-        "subscribe":                "system.adapter.pushover.<INSTANCE>.messagebox",
+        "subscribe":                "messagebox",
         "wakeup":                   true,
         "enabled":                  true,
         "icon":                     "pushover.png",
