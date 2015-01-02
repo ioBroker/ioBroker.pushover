@@ -8,9 +8,13 @@
  *
  */
 
+/* jshint -W097 */// jshint strict:false
+/*jslint node: true */
+"use strict";
+var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 var po_notif = require('pushover-notifications');
 
-var adapter = require(__dirname + '/../../lib/adapter.js')('pushover');
+var adapter = utils.adapter('pushover');
 
 adapter.on('message', function (obj) {
     if (obj && obj.command == "send") processMessage(obj.message);

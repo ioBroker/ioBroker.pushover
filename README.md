@@ -5,6 +5,9 @@ ioBroker pushover Adapter
 Send pushover notifications from ioBroker. 
 
 ## Changelog
+### 0.1.0 (2015-01-03)
+* (bluefox) enable npm install
+
 ### 0.0.4 (2014-11-22)
 * (bluefox) support of new naming concept
 

@@ -11,6 +11,7 @@ module.exports = function (grunt) {
     var dstDir    = srcDir + '.build/';
     var pkg       = grunt.file.readJSON('package.json');
     var iopackage = grunt.file.readJSON('io-package.json');
+    var version   = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
 
     // Project configuration.
     grunt.initConfig({
@@ -24,12 +25,12 @@ module.exports = function (grunt) {
                 options: {
                     patterns: [
                         {
-                            match: /var version = '[\.0-9]*';/g,
-                            replacement: "var version = '" + iopackage.common.version + "';"
+                            match: /var version = *'[\.0-9]*';/g,
+                            replacement: "var version = '" + version + "';"
                         },
                         {
-                            match: /"version"\: "[\.0-9]*",/g,
-                            replacement: '"version": "' + iopackage.common.version + '",'
+                            match: /"version"\: *"[\.0-9]*",/g,
+                            replacement: '"version": "' + version + '",'
                         }
                     ]
                 },
@@ -39,7 +40,8 @@ module.exports = function (grunt) {
                         flatten: true,
                         src:     [
                                 srcDir + 'controller.js',
-                                srcDir + 'package.json'
+                                srcDir + 'package.json',
+                                srcDir + 'io-package.json'
                         ],
                         dest:    srcDir
                     }
@@ -53,26 +55,38 @@ module.exports = function (grunt) {
         http: {
             get_hjscs: {
                 options: {
-                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.nodejs/master/tasks/jscs.js'
+                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/tasks/jscs.js'
                 },
                 dest: 'tasks/jscs.js'
             },
             get_jshint: {
                 options: {
-                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.nodejs/master/tasks/jshint.js'
+                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/tasks/jshint.js'
                 },
                 dest: 'tasks/jshint.js'
             },
+            get_gruntfile: {
+                options: {
+                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.build/master/adapters/Gruntfile.js'
+                },
+                dest: 'Gruntfile.js'
+            },
+            get_utilsfile: {
+                options: {
+                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.build/master/adapters/utils.js'
+                },
+                dest: 'lib/utils.js'
+            },
             get_jscsRules: {
                 options: {
-                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.nodejs/master/tasks/jscsRules.js'
+                    url: 'https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/tasks/jscsRules.js'
                 },
                 dest: 'tasks/jscsRules.js'
             },
             get_iconOnline: {
                 options: {
                     encoding: null,
-                    url: iopackage.common.extIcon || 'https://raw.githubusercontent.com/ioBroker/ioBroker.nodejs/master/adapter/example/admin/example.png'
+                    url: iopackage.common.extIcon || 'https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/adapter/example/admin/example.png'
                 },
                 dest: dstDir + 'ioBroker.adapter.' + iopackage.common.name + '.png'
 
@@ -80,7 +94,7 @@ module.exports = function (grunt) {
             get_iconOffline: {
                 options: {
                     encoding: null,
-                    url: iopackage.common.extIcon || 'https://raw.githubusercontent.com/ioBroker/ioBroker.nodejs/master/adapter/example/admin/example.png'
+                    url: iopackage.common.extIcon || 'https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/adapter/example/admin/example.png'
                 },
                 dest: dstDir + 'ioBroker.adapter.offline.' + iopackage.common.name + '.png'
 
