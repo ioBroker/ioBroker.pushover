@@ -1,7 +1,7 @@
 {
   "name": "iobroker.pushover",
   "description": "This adapter allows to send pushover notifications from ioBroker",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "bluefox <bluefox@ccu.io>",
   "contributors": [
     "bluefox <bluefox@ccu.io>"
@@ -18,7 +18,7 @@
     "url": "https://github.com/ioBroker/ioBroker.pushover"
   },
   "dependencies": {
-    "pushover-notifications": "~0.2.0"
+    "pushover-notifications": "~0.2.2"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

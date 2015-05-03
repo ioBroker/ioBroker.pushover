@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "pushover",
-        "version":                  "0.1.0",
+        "version":                  "0.1.1",
         "title":                    "Pushover Adapter",
         "desc":                     "This adapter allows to send pushover notifications from ioBroker",
         "authors": [
@@ -14,11 +14,13 @@
         "loglevel":                 "info",
         "messagebox":               true,
         "subscribe":                "messagebox",
+        "readme":                   "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
         "wakeup":                   true,
         "enabled":                  true,
         "icon":                     "pushover.png",
         "keywords":                 ["notification", "pushover", "message"],
-        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png"
+        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
+		"type":                     "communication"
     },
     "native": {
         "user":     "xxxxx",
