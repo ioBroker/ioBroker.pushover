@@ -1,11 +1,18 @@
 {
     "common": {
         "name":                     "pushover",
-        "version":                  "0.1.1",
+        "version":                  "1.0.0",
+        "news": {
+            "1.0.0": {
+                "en": "fix timestamp\nupdate grunt packages",
+                "de": "fix timestamp\nupdate grunt packages",
+                "ru": "fix timestamp\nupdate grunt packages"
+            }
+        },
         "title":                    "Pushover Adapter",
         "desc":                     "This adapter allows to send pushover notifications from ioBroker",
         "authors": [
-            "bluefox <bluefox@ccu.io>"
+            "bluefox <dogafox@gmail.com>"
         ],
         "license":                  "MIT",
         "platform":                 "Javascript/Node.js",

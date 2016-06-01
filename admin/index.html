@@ -35,43 +35,35 @@
         "default":                      {"de": "Voreinstellung",                 "ru": "по умолчанию"},
         "high-priority":                {"de": "Hoch-Prior",                     "ru": "приоритет"}
     };
-    
-    function init() {
-        $('#test').button().click(test);
-        $('#save').button("disable");
-    }
 
     // the function loadSettings has to exist ...
-    function load(settings) {
+    function load(settings, onChange) {
         for (var key in settings) {
-            // example: select elements with id=key and class=value and insert value
             if ($('#' + key + '.value').attr('type') == 'checkbox') {
                 $('#' + key + '.value').prop('checked', settings[key]).change(function() {
-                    changed = true;
-                    $('#save').button("enable");
+                    onChange();
                 });
             } else {
                 $('#' + key + '.value').val(settings[key]).change(function() {
                     changed = true;
                     $('#save').button("enable");
                 }).keyup(function() {
-                    changed = true;
-                    $('#save').button("enable");
+                    onChange();
                 });
             }
         }
-
-        init ();
+        onChange(false);
+        $('#test').button().click(test);
     }
 
     function test() {
-        var newValue = JSON.stringify(getSettings());
+        //var newValue = JSON.stringify(getSettings());
         if (!common.enabled) {
-            showMessage("Enable first the adapter to test notification.");
+            showMessage('Enable first the adapter to test notification.');
             return;
         }
         if (changed) {
-            showMessage("First save the settings");
+            showMessage('First save the settings');
             return;
         }
         sendTo('pushover.' + instance, 'send', 'This is test notification!');
@@ -112,13 +104,8 @@
         return obj;
     }
 
-    // ... and the function save has to exist.
-    // you have to make sure the callback is called with the settings object as first param!
     function save(callback) {
-        // example: select elements with class=value and build settings object
-        changed = false;
         callback(getSettings());
-        $('#save').button("disable");
     }
 </script>
 

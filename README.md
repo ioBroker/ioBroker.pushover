@@ -2,9 +2,19 @@
 ioBroker pushover Adapter
 ==============
 
+[![NPM version](http://img.shields.io/npm/v/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
+
+[![NPM](https://nodei.co/npm/iobroker.pushover.png?downloads=true)](https://nodei.co/npm/iobroker.pushover/)
+
+
 Send pushover notifications from ioBroker. 
 
 ## Changelog
+### 1.0.0 (2016-06-01)
+* (bluefox) fix timestamp
+* (bluefox) update grunt packages
+
 ### 0.1.1 (2015-05-03)
 * (bluefox) add readme link
 
@@ -22,7 +32,12 @@ Send pushover notifications from ioBroker.
 ```node iobroker.js add pushover```
 
 ## Configuration
+First of all it is required an account on pushover.
+![Pushover configuration](img/Screen0.png)
 
+![API Token](img/Screen1.png)
+
+![Group Token](img/Screen3.png)
 
 ## Usage
 
@@ -60,7 +75,7 @@ sendTo("pushover", {
 
 The MIT License (MIT)
 
-Copyright (c) 2014 bluefox
+Copyright (c) 2014-2016 bluefox
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

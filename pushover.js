@@ -2,7 +2,7 @@
  *
  *      ioBroker pushover Adapter
  *
- *      (c) 2014 bluefox
+ *      (c) 2014-2016 bluefox
  *
  *      MIT License
  *
@@ -12,12 +12,12 @@
 /*jslint node: true */
 "use strict";
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
-var po_notif = require('pushover-notifications');
+var Pushover = require('pushover-notifications');
 
 var adapter = utils.adapter('pushover');
 
 adapter.on('message', function (obj) {
-    if (obj && obj.command == "send") processMessage(obj.message);
+    if (obj && obj.command === 'send') processMessage(obj.message);
     processMessages();
 });
 
@@ -35,7 +35,7 @@ function stop() {
     }
 
     // Stop only if subscribe mode
-    if (adapter.common && adapter.common.mode == 'subscribe') {
+    if (adapter.common && adapter.common.mode === 'subscribe') {
         stopTimer = setTimeout(function () {
             stopTimer = null;
             adapter.stop();
@@ -75,18 +75,18 @@ function sendNotification(message, callback) {
     
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
-            pushover = new po_notif({
+            pushover = new Pushover({
                 user:  adapter.config.user,
                 token: adapter.config.token
             });
         } else {
-            adapter.log.error("Cannot send notification while not configured");
+            adapter.log.error('Cannot send notification while not configured');
         }
     }
 
     if (!pushover) return;
 
-    if (typeof message != "object") {
+    if (typeof message !== 'object') {
         message = {message: message};
     }
 
@@ -97,7 +97,12 @@ function sendNotification(message, callback) {
     message.url_title = message.url_title || adapter.config.url_title;
     message.device    = message.device    || adapter.config.device;
 
-    adapter.log.info("Send pushover notification: " + JSON.stringify(message));
+    // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
+    if (message.timestamp && message.timestamp > 946681200000) {
+        message.timestamp = Math.round(message.timestamp / 1000);
+    }
+
+    adapter.log.info('Send pushover notification: ' + JSON.stringify(message));
 
     pushover.send(message, function (err, result) {
         if (err) {
