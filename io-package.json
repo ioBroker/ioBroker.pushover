@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "pushover",
-        "version":                  "1.0.0",
+        "version":                  "1.0.1",
         "news": {
+            "1.0.1": {
+                "en": "filter out double messages",
+                "de": "Ausfiltern doppelte Meldungen",
+                "ru": "Отфильтровывать двойные сообщения"
+            },
             "1.0.0": {
                 "en": "fix timestamp\nupdate grunt packages",
                 "de": "fix timestamp\nupdate grunt packages",

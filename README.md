@@ -11,6 +11,9 @@ ioBroker pushover Adapter
 Send pushover notifications from ioBroker. 
 
 ## Changelog
+### 1.0.1 (2016-08-28)
+* (bluefox) filter out double messages
+
 ### 1.0.0 (2016-06-01)
 * (bluefox) fix timestamp
 * (bluefox) update grunt packages

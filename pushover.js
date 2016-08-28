@@ -10,7 +10,7 @@
 
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
-"use strict";
+'use strict';
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 var Pushover = require('pushover-notifications');
 
@@ -25,8 +25,10 @@ adapter.on('ready', function () {
     main();
 });
 
-var stopTimer = null;
+var stopTimer       = null;
 var pushover;
+var lastMessageTime = 0;
+var lastMessageText = '';
 
 // Terminate adapter after 30 seconds idle
 function stop() {
@@ -44,9 +46,18 @@ function stop() {
 }
 
 function processMessage(message) {
-    if (stopTimer) {
-        clearTimeout(stopTimer);
+    if (!message) return;
+
+    // filter out double messages
+    var json = JSON.stringify(message);
+    if (lastMessageTime && lastMessageText === JSON.stringify(message) && new Date().getTime() - lastMessageTime < 1000) {
+        adapter.log.debug('Filter out double message [first was for ' + (new Date().getTime() - lastMessageTime) + 'ms]: ' + json);
+        return;
     }
+    lastMessageTime = new Date().getTime();
+    lastMessageText = json;
+
+    if (stopTimer) clearTimeout(stopTimer);
 
     sendNotification(message);
 
@@ -69,9 +80,7 @@ function main() {
 }
 
 function sendNotification(message, callback) {
-    if (!message) {
-        message = {};
-    }
+    if (!message) message = {};
     
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
