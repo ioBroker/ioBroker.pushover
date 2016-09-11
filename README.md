@@ -10,30 +10,6 @@ ioBroker pushover Adapter
 
 Send pushover notifications from ioBroker. 
 
-## Changelog
-### 1.0.1 (2016-08-28)
-* (bluefox) filter out double messages
-
-### 1.0.0 (2016-06-01)
-* (bluefox) fix timestamp
-* (bluefox) update grunt packages
-
-### 0.1.1 (2015-05-03)
-* (bluefox) add readme link
-
-### 0.1.0 (2015-01-03)
-* (bluefox) enable npm install
-
-### 0.0.4 (2014-11-22)
-* (bluefox) support of new naming concept
-
-### 0.0.3 (2014-10-08)
-* (bluefox) add "daemon" mode to "subscribe"
-
-## Install
-
-```node iobroker.js add pushover```
-
 ## Configuration
 First of all it is required an account on pushover.
 ![Pushover configuration](img/Screen0.png)
@@ -73,6 +49,25 @@ sendTo("pushover", {
 
 ```
 
+## Changelog
+### 1.0.1 (2016-08-28)
+* (bluefox) filter out double messages
+
+### 1.0.0 (2016-06-01)
+* (bluefox) fix timestamp
+* (bluefox) update grunt packages
+
+### 0.1.1 (2015-05-03)
+* (bluefox) add readme link
+
+### 0.1.0 (2015-01-03)
+* (bluefox) enable npm install
+
+### 0.0.4 (2014-11-22)
+* (bluefox) support of new naming concept
+
+### 0.0.3 (2014-10-08)
+* (bluefox) add "daemon" mode to "subscribe"
 
 ## License
 
