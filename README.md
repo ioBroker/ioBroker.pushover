@@ -50,6 +50,9 @@ sendTo("pushover", {
 ```
 
 ## Changelog
+### 1.0.2 (2016-10-12)
+* (bluefox) support of blockly
+
 ### 1.0.1 (2016-08-28)
 * (bluefox) filter out double messages
 

@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "pushover",
-        "version":                  "1.0.1",
+        "version":                  "1.0.2",
         "news": {
+            "1.0.2": {
+                "en": "support of blockly",
+                "de": "Blockly-Unterstützung",
+                "ru": "Поддержка blockly"
+            },
             "1.0.1": {
                 "en": "filter out double messages",
                 "de": "Ausfiltern doppelte Meldungen",
@@ -32,7 +37,8 @@
         "icon":                     "pushover.png",
         "keywords":                 ["notification", "pushover", "message"],
         "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
-		"type":                     "communication"
+		"type":                     "communication",
+		"blockly":                  true
     },
     "native": {
         "user":     "xxxxx",
