@@ -43,9 +43,15 @@ Blockly.Words['pushover_sound_echo']        = {'en': 'echo',                    
 Blockly.Words['pushover_sound_updown']      = {'en': 'updown',                  'de': 'updown',                             'ru': 'updown'};
 Blockly.Words['pushover_sound_none']        = {'en': 'none',                    'de': 'keins',                              'ru': 'без звука'};
 
+Blockly.Words['pushover_log']           = {'en': 'log level',                   'de': 'Loglevel',                           'ru': 'Протокол'};
+Blockly.Words['pushover_log_none']      = {'en': 'none',                        'de': 'keins',                              'ru': 'нет'};
+Blockly.Words['pushover_log_info']      = {'en': 'info',                        'de': 'info',                               'ru': 'инфо'};
+Blockly.Words['pushover_log_debug']     = {'en': 'debug',                       'de': 'debug',                              'ru': 'debug'};
+Blockly.Words['pushover_log_warn']      = {'en': 'warning',                     'de': 'warning',                            'ru': 'warning'};
+Blockly.Words['pushover_log_error']     = {'en': 'error',                       'de': 'error',                              'ru': 'ошибка'};
 
 Blockly.Words['pushover_anyInstance']   = {'en': 'all instances',               'de': 'Alle Instanzen',                     'ru': 'На все драйвера'};
-Blockly.Words['pushover_tooltip']       = {'en': 'Send message to telegram',    'de': 'Sende eine Meldung über Telegram',   'ru': 'Послать сообщение через Pushover'};
+Blockly.Words['pushover_tooltip']       = {'en': 'Send message to pushover',    'de': 'Sende eine Meldung über Telegram',   'ru': 'Послать сообщение через Pushover'};
 Blockly.Words['pushover_help']          = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'de': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'ru': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md'};
 
 Blockly.Sendto.blocks['pushover'] =
@@ -77,14 +83,14 @@ Blockly.Sendto.blocks['pushover'] =
 
 Blockly.Blocks['pushover'] = {
     init: function() {
-        this.appendDummyInput("INSTANCE")
+        this.appendDummyInput('INSTANCE')
             .appendField(Blockly.Words['pushover'][systemLang])
             .appendField(new Blockly.FieldDropdown([[Blockly.Words['pushover_anyInstance'][systemLang], ""], ["pushover.0", ".0"], ["pushover.1", ".1"], ["pushover.2", ".2"], ["pushover.3", ".3"], ["pushover.4", ".4"]]), "INSTANCE");
 
-        this.appendValueInput("MESSAGE")
+        this.appendValueInput('MESSAGE')
             .appendField(Blockly.Words['pushover_message'][systemLang]);
 
-        this.appendDummyInput("SOUND")
+        this.appendDummyInput('SOUND')
             .appendField(Blockly.Words['pushover_sound'][systemLang])
             .appendField(new Blockly.FieldDropdown([
                 [Blockly.Words['pushover_sound_default'][systemLang], ""],
@@ -110,18 +116,18 @@ Blockly.Blocks['pushover'] = {
                 [Blockly.Words['pushover_sound_echo'][systemLang], "echo"],
                 [Blockly.Words['pushover_sound_updown'][systemLang], "updown"],
                 [Blockly.Words['pushover_sound_none'][systemLang], "none"]
-            ]), "SOUND");
+            ]), 'SOUND');
 
-        this.appendDummyInput("PRIORITY")
+        this.appendDummyInput('PRIORITY')
             .appendField(Blockly.Words['pushover_priority'][systemLang])
             .appendField(new Blockly.FieldDropdown([
                 [Blockly.Words['pushover_normal'][systemLang],       "0"],
                 [Blockly.Words['pushover_high'][systemLang],         "-1"],
                 [Blockly.Words['pushover_quiet'][systemLang],        "1"],
                 [Blockly.Words['pushover_confirmation'][systemLang], "2"]
-            ]), "PRIORITY");
+            ]), 'PRIORITY');
 
-        var input = this.appendValueInput("TITLE")
+        var input = this.appendValueInput('TITLE')
             .setCheck('String')
             .appendField(Blockly.Words['pushover_title'][systemLang]);
         if (input.connection) input.connection._optional = true;
@@ -132,29 +138,29 @@ Blockly.Blocks['pushover'] = {
             .appendField(Blockly.Words['pushover_url'][systemLang]);
         if (input.connection) input.connection._optional = true;
 
-        input = this.appendValueInput("URL_TITLE")
+        input = this.appendValueInput('URL_TITLE')
             .setCheck('String')
             .appendField(Blockly.Words['pushover_url_title'][systemLang]);
         if (input.connection) input.connection._optional = true;
 
-        input = this.appendValueInput("DEVICE")
+        input = this.appendValueInput('DEVICE')
             .setCheck('String')
             .appendField(Blockly.Words['pushover_device'][systemLang]);
         if (input.connection) input.connection._optional = true;
 
-        input = this.appendValueInput("TIMESTAMP")
-            .setCheck("Date")
+        input = this.appendValueInput('TIMESTAMP')
+            .setCheck('Date')
             .appendField(Blockly.Words['pushover_timestamp'][systemLang]);
         if (input.connection) input.connection._optional = true;
 
         this.appendDummyInput('LOG')
-            .appendField(Blockly.Words['telegram_log'][systemLang])
+            .appendField(Blockly.Words['pushover_log'][systemLang])
             .appendField(new Blockly.FieldDropdown([
-                [Blockly.Words['telegram_log_none'][systemLang],  ''],
-                [Blockly.Words['telegram_log_info'][systemLang],  'log'],
-                [Blockly.Words['telegram_log_debug'][systemLang], 'debug'],
-                [Blockly.Words['telegram_log_warn'][systemLang],  'warn'],
-                [Blockly.Words['telegram_log_error'][systemLang], 'error']
+                [Blockly.Words['pushover_log_none'][systemLang],  ''],
+                [Blockly.Words['pushover_log_info'][systemLang],  'log'],
+                [Blockly.Words['pushover_log_debug'][systemLang], 'debug'],
+                [Blockly.Words['pushover_log_warn'][systemLang],  'warn'],
+                [Blockly.Words['pushover_log_error'][systemLang], 'error']
             ]), 'LOG');
 
         this.setInputsInline(false);
