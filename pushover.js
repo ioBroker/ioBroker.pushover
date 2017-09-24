@@ -111,6 +111,14 @@ function sendNotification(message, callback) {
         message.timestamp = Math.round(message.timestamp / 1000);
     }
 
+    // mandatory parameters if priority is high (2)
+    if (message.priority && message.priority === 2) {
+        if (!message.expire || !message.retry) {
+            message.retry = 60;
+            message.expire = 3600;
+        }
+    }
+	 
     adapter.log.info('Send pushover notification: ' + JSON.stringify(message));
 
     pushover.send(message, function (err, result) {
