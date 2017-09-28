@@ -14,10 +14,10 @@ Blockly.Words['pushover_url']           = {'en': 'URL (optional)',              
 Blockly.Words['pushover_url_title']     = {'en': 'URL title (optional)',        'de': 'URL Betreff (optional)',             'ru': 'заголовок для URL (не обяз.)'};
 Blockly.Words['pushover_device']        = {'en': 'device ID (optional)',        'de': 'Gerät ID (optional)',                'ru': 'ID устройства (не обяз.)'};
 Blockly.Words['pushover_timestamp']     = {'en': 'time in ms (optional)',       'de': 'Zeit in ms (optional)',              'ru': 'время в мс (не обяз.)'};
-Blockly.Words['pushover_normal']        = {'en': 'default',                     'de': 'normal',                             'ru': 'по умолчанию'};
-Blockly.Words['pushover_high']          = {'en': 'high priority',               'de': 'höhe Priorität',                     'ru': 'приоритетное'};
-Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'still',                              'ru': 'тихое'};
-Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'mit Bestätigung ',                   'ru': 'с подтверждением'};
+Blockly.Words['pushover_normal']        = {'en': 'default',                     'de': 'Normal',                             'ru': 'по умолчанию'};
+Blockly.Words['pushover_high']          = {'en': 'high priority',               'de': 'Hohe Priorität',                     'ru': 'приоритетное'};
+Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'Leise',                              'ru': 'тихое'};
+Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'Mit Bestätigung',                    'ru': 'с подтверждением'};
 
 Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
 Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
@@ -122,8 +122,8 @@ Blockly.Blocks['pushover'] = {
             .appendField(Blockly.Words['pushover_priority'][systemLang])
             .appendField(new Blockly.FieldDropdown([
                 [Blockly.Words['pushover_normal'][systemLang],       "0"],
-                [Blockly.Words['pushover_high'][systemLang],         "-1"],
-                [Blockly.Words['pushover_quiet'][systemLang],        "1"],
+                [Blockly.Words['pushover_high'][systemLang],         "1"],
+                [Blockly.Words['pushover_quiet'][systemLang],        "-1"],
                 [Blockly.Words['pushover_confirmation'][systemLang], "2"]
             ]), 'PRIORITY');
 
@@ -182,6 +182,10 @@ Blockly.JavaScript['pushover'] = function(block) {
     text += '   sound: "' + block.getFieldValue('SOUND') + '",\n';
     var value = parseInt(block.getFieldValue('PRIORITY'), 10);
     if (value)     text += '   priority: ' + value + ',\n';
+	 if (value === 2) {
+		 text += '   retry: 60,\n';
+		 text += '   expire: 3600,\n';
+	 }
 
     value = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC);
     if (value)     text += '   url: ' + value + ',\n';
