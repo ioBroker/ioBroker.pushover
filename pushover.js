@@ -81,7 +81,7 @@ function main() {
 
 function sendNotification(message, callback) {
     if (!message) message = {};
-    
+
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
             pushover = new Pushover({
@@ -112,11 +112,11 @@ function sendNotification(message, callback) {
     }
 
     // mandatory parameters if priority is high (2)
-    if message.priority === 2) {
+    if (message.priority === 2) {
 		message.retry = parseInt(message.retry)   || 60;
 		message.expire = parseInt(message.expire) || 3600;
     }
-	 
+
     adapter.log.info('Send pushover notification: ' + JSON.stringify(message));
 
     pushover.send(message, function (err, result) {
