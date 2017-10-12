@@ -17,7 +17,7 @@ var Pushover = require('pushover-notifications');
 var adapter = utils.adapter('pushover');
 
 adapter.on('message', function (obj) {
-    if (obj && obj.command === 'send') processMessage(obj.message);
+    if (obj && obj.command === 'send') processMessage(obj);
     processMessages();
 });
 
@@ -45,12 +45,12 @@ function stop() {
     }
 }
 
-function processMessage(message) {
-    if (!message) return;
+function processMessage(obj) {
+    if (!obj.message) return;
 
     // filter out double messages
-    var json = JSON.stringify(message);
-    if (lastMessageTime && lastMessageText === JSON.stringify(message) && new Date().getTime() - lastMessageTime < 1000) {
+    var json = JSON.stringify(obj.message);
+    if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && new Date().getTime() - lastMessageTime < 1000) {
         adapter.log.debug('Filter out double message [first was for ' + (new Date().getTime() - lastMessageTime) + 'ms]: ' + json);
         return;
     }
@@ -59,7 +59,9 @@ function processMessage(message) {
 
     if (stopTimer) clearTimeout(stopTimer);
 
-    sendNotification(message);
+    sendNotification(obj.message, function(err, response) {
+        if (obj.callback) adapter.sendTo(obj.from, 'send', { error: err, response: response}, obj.callback);
+    });
 
     stop();
 }
@@ -67,7 +69,7 @@ function processMessage(message) {
 function processMessages() {
     adapter.getMessage(function (err, obj) {
         if (obj) {
-            processMessage(obj.message);
+            processMessage(obj);
             processMessages();
         }
     });
@@ -81,7 +83,7 @@ function main() {
 
 function sendNotification(message, callback) {
     if (!message) message = {};
-
+    
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
             pushover = new Pushover({
@@ -111,12 +113,6 @@ function sendNotification(message, callback) {
         message.timestamp = Math.round(message.timestamp / 1000);
     }
 
-    // mandatory parameters if priority is high (2)
-    if (message.priority === 2) {
-		message.retry = parseInt(message.retry)   || 60;
-		message.expire = parseInt(message.expire) || 3600;
-    }
-
     adapter.log.info('Send pushover notification: ' + JSON.stringify(message));
 
     pushover.send(message, function (err, result) {
@@ -125,7 +121,7 @@ function sendNotification(message, callback) {
             if (callback) callback(err);
             return false;
         } else {
-            if (callback) callback();
+            if (callback) callback(null, result);
             return true;
         }
     });
