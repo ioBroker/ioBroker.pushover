@@ -1,7 +1,7 @@
 {
     "common": {
-        "name":                     "pushover",
-        "version":                  "1.0.2",
+        "name": "pushover",
+        "version": "1.0.2",
         "news": {
             "1.0.2": {
                 "en": "support of blockly",
@@ -19,35 +19,40 @@
                 "ru": "fix timestamp\nupdate grunt packages"
             }
         },
-        "title":                    "Pushover Adapter",
-        "desc":                     "This adapter allows to send pushover notifications from ioBroker",
+        "title": "Pushover Adapter",
+        "desc": "This adapter allows to send pushover notifications from ioBroker",
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
-        "license":                  "MIT",
-        "platform":                 "Javascript/Node.js",
-        "mode":                     "daemon",
-        "availableModes":           ["daemon", "subscribe"],
-        "loglevel":                 "info",
-        "messagebox":               true,
-        "subscribe":                "messagebox",
-        "readme":                   "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
-        "wakeup":                   true,
-        "enabled":                  true,
-        "icon":                     "pushover.png",
-        "keywords":                 ["notification", "pushover", "message"],
-        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
-		"type":                     "communication",
-		"blockly":                  true
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "availableModes": [
+            "daemon",
+            "subscribe"
+        ],
+        "loglevel": "info",
+        "messagebox": true,
+        "subscribe": "messagebox",
+        "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
+        "wakeup": true,
+        "enabled": true,
+        "icon": "pushover.png",
+        "keywords": [
+            "notification",
+            "pushover",
+            "message"
+        ],
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
+        "type": "messaging",
+        "blockly": true
     },
     "native": {
-        "user":     "xxxxx",
-        "token":    "xxxxx",
-        "title":    "ioBroker",
-        "sound":    "",
+        "user": "xxxxx",
+        "token": "xxxxx",
+        "title": "ioBroker",
+        "sound": "",
         "priority": 0
     },
-    "objects": [
-
-    ]
+    "objects": []
 }
