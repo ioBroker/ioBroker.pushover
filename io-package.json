@@ -1,8 +1,13 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "news": {
+			"1.0.3": {
+                "en": "Change priorities in blockly",
+                "de": "Ändere Prioritäten in Blockly",
+                "ru": "Изменены значения приоритетов в blockly"
+            },
             "1.0.2": {
                 "en": "support of blockly",
                 "de": "Blockly-Unterstützung",

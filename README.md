@@ -1,5 +1,5 @@
 ![Logo](admin/pushover.png)
-ioBroker pushover Adapter
+# ioBroker pushover Adapter
 ==============
 
 [![NPM version](http://img.shields.io/npm/v/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
@@ -50,6 +50,9 @@ sendTo("pushover", {
 ```
 
 ## Changelog
+### 1.0.3 (2017-10-21)
+* (Tan-DE) Change priorities in blockly
+
 ### 1.0.2 (2016-10-12)
 * (bluefox) support of blockly
 
@@ -76,7 +79,7 @@ sendTo("pushover", {
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 bluefox
+Copyright (c) 2014-2017 bluefox
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
