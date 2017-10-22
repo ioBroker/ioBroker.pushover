@@ -1,14 +1,18 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.0.3",
+        "version": "1.0.4",
         "news": {
+			"1.0.4": {
+                "en": "callback is now possible (to receive the receipt from pushover if you use priority = 2)",
+                "de": "Callback ist jetzt möglich (um den Beleg von pushover zu erhalten, wenn Sie Priorität = 2 verwenden)",
+                "ru": "теперь возможен обратный вызов (чтобы получить результат от pushover, если вы используете приоритет = 2)"
+            },
 			"1.0.3": {
                 "en": "Change priorities in blockly",
                 "de": "Ändere Prioritäten in Blockly",
                 "ru": "Изменены значения приоритетов в blockly"
-            },
-            "1.0.2": {
+            },            "1.0.2": {
                 "en": "support of blockly",
                 "de": "Blockly-Unterstützung",
                 "ru": "Поддержка blockly"

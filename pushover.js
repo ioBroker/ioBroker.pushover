@@ -17,7 +17,9 @@ var Pushover = require('pushover-notifications');
 var adapter = utils.adapter('pushover');
 
 adapter.on('message', function (obj) {
-    if (obj && obj.command === 'send') processMessage(obj);
+    if (obj && obj.command === 'send') {
+        processMessage(obj);
+    }
     processMessages();
 });
 
@@ -46,7 +48,7 @@ function stop() {
 }
 
 function processMessage(obj) {
-    if (!obj.message) return;
+    if (!obj || !obj.message) return;
 
     // filter out double messages
     var json = JSON.stringify(obj.message);
@@ -83,7 +85,7 @@ function main() {
 
 function sendNotification(message, callback) {
     if (!message) message = {};
-    
+
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
             pushover = new Pushover({
@@ -111,6 +113,12 @@ function sendNotification(message, callback) {
     // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
     if (message.timestamp && message.timestamp > 946681200000) {
         message.timestamp = Math.round(message.timestamp / 1000);
+    }
+
+    // mandatory parameters if priority is high (2)
+    if (message.priority === 2) {
+        message.retry  = parseInt(message.retry, 10)  || 60;
+        message.expire = parseInt(message.expire, 10) || 3600;
     }
 
     adapter.log.info('Send pushover notification: ' + JSON.stringify(message));

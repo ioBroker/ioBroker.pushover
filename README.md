@@ -50,6 +50,9 @@ sendTo("pushover", {
 ```
 
 ## Changelog
+### 1.0.4 (2017-10-22)
+* (janhuddel) callback is now possible (to receive the receipt from pushover if you use priority = 2)
+
 ### 1.0.3 (2017-10-21)
 * (Tan-DE) Change priorities in blockly
 
