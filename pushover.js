@@ -14,7 +14,7 @@
 var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
 var Pushover = require('pushover-notifications');
 
-var adapter = utils.adapter('pushover');
+var adapter = utils.Adapter('pushover');
 
 adapter.on('message', function (obj) {
     if (obj && obj.command === 'send') {
