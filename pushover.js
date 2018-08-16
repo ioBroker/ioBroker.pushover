@@ -102,7 +102,9 @@ function sendNotification(message, callback) {
     if (typeof message !== 'object') {
         message = {message: message};
     }
-
+    if (message.hasOwnProperty('token')) {
+        pushover.token  =  message.token
+    };
     message.title     = message.title     || adapter.config.title;
     message.sound     = message.sound     || (adapter.config.sound ? adapter.config.sound : undefined);
     message.priority  = message.priority  || adapter.config.priority;
