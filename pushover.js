@@ -104,6 +104,8 @@ function sendNotification(message, callback) {
     }
     if (message.hasOwnProperty('token')) {
         pushover.token  =  message.token
+    } else {
+        pushover.token  = adapter.config.token
     };
     message.title     = message.title     || adapter.config.title;
     message.sound     = message.sound     || (adapter.config.sound ? adapter.config.sound : undefined);
