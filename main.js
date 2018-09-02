@@ -11,26 +11,24 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
-var utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
-var Pushover = require('pushover-notifications');
+const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
+const Main = require('pushover-notifications');
 
-var adapter = utils.Adapter('pushover');
+const adapter = utils.Adapter('pushover');
 
-adapter.on('message', function (obj) {
+adapter.on('message', obj => {
     if (obj && obj.command === 'send') {
         processMessage(obj);
     }
     processMessages();
 });
 
-adapter.on('ready', function () {
-    main();
-});
+adapter.on('ready', main);
 
-var stopTimer       = null;
-var pushover;
-var lastMessageTime = 0;
-var lastMessageText = '';
+let stopTimer       = null;
+let pushover;
+let lastMessageTime = 0;
+let lastMessageText = '';
 
 // Terminate adapter after 30 seconds idle
 function stop() {
@@ -40,7 +38,7 @@ function stop() {
 
     // Stop only if subscribe mode
     if (adapter.common && adapter.common.mode === 'subscribe') {
-        stopTimer = setTimeout(function () {
+        stopTimer = setTimeout(() => {
             stopTimer = null;
             adapter.stop();
         }, 30000);
@@ -51,7 +49,7 @@ function processMessage(obj) {
     if (!obj || !obj.message) return;
 
     // filter out double messages
-    var json = JSON.stringify(obj.message);
+    const json = JSON.stringify(obj.message);
     if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && new Date().getTime() - lastMessageTime < 1000) {
         adapter.log.debug('Filter out double message [first was for ' + (new Date().getTime() - lastMessageTime) + 'ms]: ' + json);
         return;
@@ -61,7 +59,7 @@ function processMessage(obj) {
 
     if (stopTimer) clearTimeout(stopTimer);
 
-    sendNotification(obj.message, function(err, response) {
+    sendNotification(obj.message, (err, response) => {
         if (obj.callback) adapter.sendTo(obj.from, 'send', { error: err, response: response}, obj.callback);
     });
 
@@ -69,7 +67,7 @@ function processMessage(obj) {
 }
 
 function processMessages() {
-    adapter.getMessage(function (err, obj) {
+    adapter.getMessage((err, obj) => {
         if (obj) {
             processMessage(obj);
             processMessages();
@@ -88,7 +86,7 @@ function sendNotification(message, callback) {
 
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
-            pushover = new Pushover({
+            pushover = new Main({
                 user:  adapter.config.user,
                 token: adapter.config.token
             });
@@ -106,13 +104,14 @@ function sendNotification(message, callback) {
         pushover.token  =  message.token
     } else {
         pushover.token  = adapter.config.token
-    };
+    }
     message.title     = message.title     || adapter.config.title;
     message.sound     = message.sound     || (adapter.config.sound ? adapter.config.sound : undefined);
     message.priority  = message.priority  || adapter.config.priority;
     message.url       = message.url       || adapter.config.url;
     message.url_title = message.url_title || adapter.config.url_title;
     message.device    = message.device    || adapter.config.device;
+    message.message   = message.message   || '';
 
     // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
     if (message.timestamp && message.timestamp > 946681200000) {
@@ -127,7 +126,7 @@ function sendNotification(message, callback) {
 
     adapter.log.info('Send pushover notification: ' + JSON.stringify(message));
 
-    pushover.send(message, function (err, result) {
+    pushover.send(message, (err, result) => {
         if (err) {
             adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
             if (callback) callback(err);

@@ -1,5 +1,5 @@
 <html>
-
+<head>
 <!-- these 4 files always have to be included -->
 <link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
 <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
 <script type="text/javascript" src="../../js/translate.js"></script>
 <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+<script src="words.js"></script>
 
 <!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
@@ -19,35 +20,19 @@
     var processed =   1000;
     var isStarted =   null;
 
-    systemDictionary = {
-        "Pushover adapter settings":    {"de": "Pushover-Adapter Einstellungen", "ru": "Настройки Pushover драйвера"},
-        "Pushover settings":            {"de": "Pushover Einstellungen:",        "ru": "Настройки Pushover сервера"},
-        "Group Key:":                   {"de": "Group Key:",                     "ru": "Group Key:"},
-        "Token:":                       {"de": "Token:",                         "ru": "Token:"},
-        "Title:":                       {"de": "Titel:",                         "ru": "Заголовок:"},
-        "Sound:":                       {"de": "Klang:",                         "ru": "Звук:"},
-        "Priority:":                    {"de": "Vorrang:",                       "ru": "Приоритет:"},
-        "Test":                         {"de": "Test",                           "ru": "Тест"},
-        "Notification settings":        {"de": "Mitteilung Einstellungen",       "ru": "Настройки сообщения"},
-        "Group Key of Delivery Group":  {"de": "Group Key von Delivery Group",   "ru": "Group Key of Delivery Group"},
-        "API Token/Key of Application": {"de": "API Token/Key von Application",  "ru": "API Token/Key of Application"},
-        "quiet":                        {"de": "still",                          "ru": "без звука"},
-        "default":                      {"de": "Voreinstellung",                 "ru": "по умолчанию"},
-        "high-priority":                {"de": "Hoch-Prior",                     "ru": "приоритет"}
-    };
 
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
         for (var key in settings) {
-            if ($('#' + key + '.value').attr('type') == 'checkbox') {
-                $('#' + key + '.value').prop('checked', settings[key]).change(function() {
+            if ($('#' + key + '.value').attr('type') === 'checkbox') {
+                $('#' + key + '.value').prop('checked', settings[key]).on('change', function() {
                     onChange();
                 });
             } else {
-                $('#' + key + '.value').val(settings[key]).change(function() {
+                $('#' + key + '.value').val(settings[key]).on('change', function() {
                     changed = true;
                     $('#save').button("enable");
-                }).keyup(function() {
+                }).on('keyup', function() {
                     onChange();
                 });
             }
@@ -95,7 +80,7 @@
             var $this = $(this);
             var id = $this.attr('id');
 
-            if ($this.attr('type') == 'checkbox') {
+            if ($this.attr('type') === 'checkbox') {
                 obj = saveHelper(obj, id, $this.prop('checked'))
             } else {
                 obj = saveHelper(obj, id, $this.val())
@@ -108,7 +93,8 @@
         callback(getSettings());
     }
 </script>
-
+</head>
+<body>
 <!-- you have to put your config page in a div with id adapter-container -->
 <div id="adapter-container">
 
@@ -178,4 +164,5 @@
     <button id="test" class="translate">Test</button>
 
 </div>
+</body>
 </html>

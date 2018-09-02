@@ -1,8 +1,19 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.0.4",
+        "version": "1.1.0",
         "news": {
+            "1.1.0": {
+                "en": "Admin3 is supported now",
+                "de": "Admin3 wird jetzt unterstützt",
+                "ru": "Admin3 теперь поддерживается",
+                "pt": "Admin3 é suportado agora",
+                "nl": "Admin3 wordt nu ondersteund",
+                "fr": "Admin3 est pris en charge maintenant",
+                "it": "Admin3 è supportato ora",
+                "es": "Admin3 es compatible ahora",
+                "pl": "Admin3 jest teraz obsługiwany"
+            },
 			"1.0.4": {
                 "en": "callback is now possible (to receive the receipt from pushover if you use priority = 2)",
                 "de": "Callback ist jetzt möglich (um den Beleg von pushover zu erhalten, wenn Sie Priorität = 2 verwenden)",
@@ -12,7 +23,8 @@
                 "en": "Change priorities in blockly",
                 "de": "Ändere Prioritäten in Blockly",
                 "ru": "Изменены значения приоритетов в blockly"
-            },            "1.0.2": {
+            },
+            "1.0.2": {
                 "en": "support of blockly",
                 "de": "Blockly-Unterstützung",
                 "ru": "Поддержка blockly"
@@ -28,8 +40,18 @@
                 "ru": "fix timestamp\nupdate grunt packages"
             }
         },
-        "title": "Pushover Adapter",
-        "desc": "This adapter allows to send pushover notifications from ioBroker",
+        "title": "Pushover",
+        "desc": {
+            "en": "This adapter allows to send pushover notifications from ioBroker",
+            "de": "Dieser Adapter ermöglicht das Senden von Pushover-Benachrichtigungen von ioBroker",
+            "ru": "Этот адаптер позволяет отправлять pushover-уведомления от ioBroker",
+            "pt": "Este adaptador permite enviar notificações pushover do ioBroker",
+            "nl": "Met deze adapter kunt u pushover-meldingen van ioBroker verzenden",
+            "fr": "Cet adaptateur permet d'envoyer des notifications de transfert depuis ioBroker",
+            "it": "Questo adattatore consente di inviare notifiche pushover da ioBroker",
+            "es": "Este adaptador permite enviar notificaciones fáciles de ioBroker",
+            "pl": "Ten adapter umożliwia wysyłanie powiadomień push z programu ioBroker"
+        },
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
@@ -42,6 +64,7 @@
         ],
         "loglevel": "info",
         "messagebox": true,
+        "materialize": true,
         "subscribe": "messagebox",
         "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
         "wakeup": true,
