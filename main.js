@@ -2,7 +2,7 @@
  *
  *      ioBroker pushover Adapter
  *
- *      (c) 2014-2016 bluefox
+ *      (c) 2014-2018 bluefox
  *
  *      MIT License
  *
@@ -14,7 +14,7 @@
 const utils    = require(__dirname + '/lib/utils'); // Get common adapter utils
 const Pushover = require('pushover-notifications');
 
-const adapter = utils.Adapter('pushover');
+const adapter  = new utils.Adapter('pushover');
 
 adapter.on('message', obj => {
     if (obj && obj.command === 'send') {
