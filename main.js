@@ -11,8 +11,8 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
-const utils =    require(__dirname + '/lib/utils'); // Get common adapter utils
-const Main = require('pushover-notifications');
+const utils    = require(__dirname + '/lib/utils'); // Get common adapter utils
+const Pushover = require('pushover-notifications');
 
 const adapter = utils.Adapter('pushover');
 
@@ -86,7 +86,7 @@ function sendNotification(message, callback) {
 
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
-            pushover = new Main({
+            pushover = new Pushover({
                 user:  adapter.config.user,
                 token: adapter.config.token
             });
