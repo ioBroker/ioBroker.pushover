@@ -11,7 +11,7 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
 'use strict';
-const utils    = require(__dirname + '/lib/utils'); // Get common adapter utils
+const utils = require('@iobroker/adapter-core'); // Get common adapter utils
 const Pushover = require('pushover-notifications');
 
 const adapter  = new utils.Adapter('pushover');
