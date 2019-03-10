@@ -2,7 +2,7 @@
 # ioBroker pushover Adapter
 ==============
 
-[![NPM version](http://img.shields.io/npm/v/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
+![Number of Installations](http://iobroker.live/badges/pushover-installed.svg) ![Number of Installations](http://iobroker.live/badges/pushover-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
 
 [![NPM](https://nodei.co/npm/iobroker.pushover.png?downloads=true)](https://nodei.co/npm/iobroker.pushover/)
