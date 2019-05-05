@@ -67,6 +67,7 @@ function processMessage(obj) {
 }
 
 function processMessages() {
+    if (!adapter.getMessage) return;
     adapter.getMessage((err, obj) => {
         if (obj) {
             processMessage(obj);
