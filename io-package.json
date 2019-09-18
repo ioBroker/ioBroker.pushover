@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.1.0",
+        "version": "1.1.1",
         "news": {
+            "1.1.1": {
+                "en": "js-controller 2.0 compatibility, dependency updates",
+                "de": "Kompatibilität mit js-controller 2.0, Abhängigkeitsaktualisierungen",
+                "ru": "Совместимость с js-controller 2.0, обновления зависимостей",
+                "pt": "Compatibilidade com js-controller 2.0, atualizações de dependência",
+                "nl": "js-controller 2.0 compatibiliteit, afhankelijkheid updates",
+                "fr": "Compatibilité js-controller 2.0, mises à jour de dépendance",
+                "it": "Compatibilità js-controller 2.0, aggiornamenti delle dipendenze",
+                "es": "Compatibilidad con js-controller 2.0, actualizaciones de dependencia",
+                "pl": "Zgodność z js-kontrolerem 2.0, aktualizacje zależności",
+                "zh-cn": "js-controller 2.0兼容性，依赖性更新"
+            },
             "1.1.0": {
                 "en": "Admin3 is supported now",
                 "de": "Admin3 wird jetzt unterstützt",
