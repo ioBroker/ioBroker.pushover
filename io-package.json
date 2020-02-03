@@ -70,16 +70,13 @@
         "license": "MIT",
         "platform": "Javascript/Node.js",
         "mode": "daemon",
-        "availableModes": [
-            "daemon",
-            "subscribe"
-        ],
         "loglevel": "info",
         "messagebox": true,
         "materialize": true,
         "subscribe": "messagebox",
         "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
         "wakeup": true,
+        "compact": true,
         "enabled": true,
         "icon": "pushover.png",
         "keywords": [

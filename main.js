@@ -2,88 +2,61 @@
  *
  *      ioBroker pushover Adapter
  *
- *      (c) 2014-2018 bluefox
+ *      (c) 2014-2020 bluefox <dogafox@gmail.com>
  *
  *      MIT License
  *
  */
 
-/* jshint -W097 */// jshint strict:false
-/*jslint node: true */
+/* jshint -W097 */
+/* jshint strict: false */
+/* jslint node: true */
 'use strict';
-const utils = require('@iobroker/adapter-core'); // Get common adapter utils
-const Pushover = require('pushover-notifications');
+const utils        = require('@iobroker/adapter-core'); // Get common adapter utils
+const Pushover    = require('pushover-notifications');
+const adapterName = require('./package.json').name.split('.').pop();
 
-const adapter  = new utils.Adapter('pushover');
+let adapter;
 
-adapter.on('message', obj => {
-    if (obj && obj.command === 'send') {
-        processMessage(obj);
-    }
-    processMessages();
-});
+function startAdapter(options) {
+    options = options || {};
+    Object.assign(options, {name: adapterName});
+    adapter = new utils.Adapter(options);
 
-adapter.on('ready', main);
+    adapter.on('message', obj => obj && obj.command === 'send' && obj.message && processMessage(adapter, obj));
 
-let stopTimer       = null;
+    adapter.on('ready', () => main(adapter));
+
+    return adapter;
+}
+
 let pushover;
 let lastMessageTime = 0;
 let lastMessageText = '';
 
-// Terminate adapter after 30 seconds idle
-function stop() {
-    if (stopTimer) {
-        clearTimeout(stopTimer);
-    }
-
-    // Stop only if subscribe mode
-    if (adapter.common && adapter.common.mode === 'subscribe') {
-        stopTimer = setTimeout(() => {
-            stopTimer = null;
-            adapter.stop();
-        }, 30000);
-    }
-}
-
-function processMessage(obj) {
-    if (!obj || !obj.message) return;
-
+function processMessage(adapter, obj) {
     // filter out double messages
     const json = JSON.stringify(obj.message);
     if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && new Date().getTime() - lastMessageTime < 1000) {
-        adapter.log.debug('Filter out double message [first was for ' + (new Date().getTime() - lastMessageTime) + 'ms]: ' + json);
-        return;
+        return adapter.log.debug('Filter out double message [first was for ' + (new Date().getTime() - lastMessageTime) + 'ms]: ' + json);
     }
+
     lastMessageTime = new Date().getTime();
     lastMessageText = json;
 
-    if (stopTimer) clearTimeout(stopTimer);
-
-    sendNotification(obj.message, (err, response) => {
-        if (obj.callback) adapter.sendTo(obj.from, 'send', { error: err, response: response}, obj.callback);
-    });
-
-    stop();
+    sendNotification(adapter, obj.message, (err, response) =>
+        obj.callback && adapter.sendTo(obj.from, 'send', { error: err, response: response}, obj.callback));
 }
 
-function processMessages() {
-    if (!adapter.getMessage) return;
-    adapter.getMessage((err, obj) => {
-        if (obj) {
-            processMessage(obj);
-            processMessages();
-        }
-    });
+function main(adapter) {
+    // do nothing. Only answer on messages.
+    if (!adapter.config.user || !adapter.config.token) {
+        adapter.log.error('Cannot send notification while not configured');
+    }
 }
 
-function main() {
-    // Adapter is started only if some one writes into "system.adapter.pushover.X.messagebox" new value
-    processMessages();
-    stop();
-}
-
-function sendNotification(message, callback) {
-    if (!message) message = {};
+function sendNotification(adapter, message, callback) {
+    message = message || {};
 
     if (!pushover) {
         if (adapter.config.user && adapter.config.token) {
@@ -99,7 +72,7 @@ function sendNotification(message, callback) {
     if (!pushover) return;
 
     if (typeof message !== 'object') {
-        message = {message: message};
+        message = {message};
     }
     if (message.hasOwnProperty('token')) {
         pushover.token  =  message.token
@@ -137,4 +110,12 @@ function sendNotification(message, callback) {
             return true;
         }
     });
+}
+
+// If started as allInOne/compact mode => return function to create instance
+if (module && module.parent) {
+    module.exports = startAdapter;
+} else {
+    // or start the instance directly
+    startAdapter();
 }
