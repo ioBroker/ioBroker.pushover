@@ -1,19 +1,19 @@
 {
     "common": {
         "name": "pushover",
-        "version": "2.0.0",
+        "version": "1.2.1",
         "news": {
-            "2.0.0": {
-                "en": "Breaking changes: token will be encrypted now and must be entered anew",
-                "de": "Breaking Changes: Token wird jetzt verschlüsselt und muss neu eingegeben werden",
-                "ru": "Breaking changes: токен будет зашифрован и должен быть введен заново",
-                "pt": "Alterações recentes: o token será criptografado agora e deve ser inserido novamente",
-                "nl": "Wijzigingen doorbreken: token wordt nu gecodeerd en moet opnieuw worden ingevoerd",
-                "fr": "Dernières modifications: le jeton sera crypté maintenant et doit être entré à nouveau",
-                "it": "Ultime modifiche: il token verrà ora crittografato e dovrà essere inserito nuovamente",
-                "es": "Cambios de última hora: el token se cifrará ahora y debe ingresarse nuevamente",
-                "pl": "Przełamywanie zmian: token zostanie teraz zaszyfrowany i należy go wprowadzić od nowa",
-                "zh-cn": "重大更改：令牌将立即加密，并且必须重新输入"
+            "1.2.1": {
+                "en": "Token will be encrypted now",
+                "de": "Das Token wird jetzt verschlüsselt",
+                "ru": "Теперь токен будет зашифрован",
+                "pt": "O token será criptografado agora",
+                "nl": "Token wordt nu gecodeerd",
+                "fr": "Le jeton sera crypté maintenant",
+                "it": "Il token verrà crittografato ora",
+                "es": "El token se cifrará ahora",
+                "pl": "Token zostanie teraz zaszyfrowany",
+                "zh-cn": "令牌现在将被加密"
             },
             "1.1.1": {
                 "en": "js-controller 2.0 compatibility, dependency updates",
@@ -96,13 +96,18 @@
             "pushover",
             "message"
         ],
+        "dependencies": [
+            {
+                "admin": ">=3.0.0"
+            }
+        ],
         "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
         "type": "messaging",
         "blockly": true
     },
     "native": {
-        "user": "xxxxx",
-        "token": "xxxxx",
+        "user": "",
+        "enc_token": "",
         "title": "ioBroker",
         "sound": "",
         "priority": 0

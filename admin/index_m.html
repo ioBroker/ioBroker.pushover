@@ -19,14 +19,17 @@
 
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
-        if (typeof systemSecret !== 'undefined') {
-            _secret = systemSecret;
-        } else {
-            _secret = (systemConfig && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM';
+        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_ENCODE')) {
+            if (typeof systemSecret !== 'undefined') {
+                _secret = systemSecret;
+            } else {
+                _secret = (systemConfig && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM';
+            }
+            if (settings.enc_token) {
+                settings.enc_token = decrypt(_secret, settings.enc_token);
+            }
         }
-        if (settings.token) {
-            settings.token = decrypt(_secret, settings.token);
-        }
+
         for (var key in settings) {
             if (!settings.hasOwnProperty(key)) continue;
             var $value = $('#' + key + '.value');
@@ -36,8 +39,7 @@
                 });
             } else {
                 $value.val(settings[key]).on('change', function() {
-                    changed = true;
-                    $('#save').button("enable");
+                    onChange();
                 }).on('keyup', function() {
                     onChange();
                 });
@@ -61,25 +63,6 @@
         showMessage('Check the log or your pushover app!');
     }
 
-    function saveHelper(obj, id, value) {
-        var ids = id.split('_');
-        if (ids.length === 1) {
-            obj[id] = value;
-        } else if (ids.length === 2) {
-            if (!obj[ids[0]]) obj[ids[0]] = {};
-            obj[ids[0]][ids[1]] = value;
-        } else if (ids.length === 3) {
-            if (ids[2] === 'pass') {
-                value = encrypt(_secret, value);
-            }
-
-            if (!obj[ids[0]]) obj[ids[0]] = {};
-            if (!obj[ids[0]][ids[1]]) obj[ids[0]][ids[1]] = {};
-            obj[ids[0]][ids[1]][ids[2]] = value;
-        }
-        return obj;
-    }
-
     function getSettings() {
         var obj = {};
 
@@ -88,14 +71,16 @@
             var id = $this.attr('id');
 
             if ($this.attr('type') === 'checkbox') {
-                obj = saveHelper(obj, id, $this.prop('checked'))
+                obj[id] = $this.prop('checked');
             } else {
-                obj = saveHelper(obj, id, $this.val())
+                obj[id] = $this.val();
             }
         });
 
-        if (obj.token) {
-            obj.token = encrypt(_secret, obj.token);
+        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_ENCODE')) {
+            if (obj.enc_token) {
+                obj.enc_token = encrypt(_secret, obj.enc_token);
+            }
         }
 
         return obj;
@@ -120,7 +105,7 @@
             <div id="tab-main" class="col s12 page">
                 <div class="row">
                     <div class="col s6 m4 l2">
-                        <img src="pushover.png" class="logo">
+                        <img src="pushover.png" alt="logo" class="logo"/>
                     </div>
                 </div>
                 <div class="row">
@@ -132,8 +117,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4 xl3">
-                        <input id="token" type="text" size="50" class="value"/>
-                        <label for="token" class="translate">Token:</label>
+                        <input id="enc_token" type="text" size="50" class="value"/>
+                        <label for="enc_token" class="translate">Token:</label>
                         <span class="translate">API Token/Key of Application</span>
                     </div>
                 </div>

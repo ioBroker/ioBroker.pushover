@@ -12,10 +12,10 @@
 /* jshint strict: false */
 /* jslint node: true */
 'use strict';
-const utils        = require('@iobroker/adapter-core'); // Get common adapter utils
+const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
 const Pushover    = require('pushover-notifications');
 const adapterName = require('./package.json').name.split('.').pop();
-
+let tools;
 let adapter;
 
 function startAdapter(options) {
@@ -23,9 +23,25 @@ function startAdapter(options) {
     Object.assign(options, {name: adapterName});
     adapter = new utils.Adapter(options);
 
+    adapter.tools = adapter.tools || require(utils.controllerDir + '/lib/tools');
+    adapter.tools.migrateEncodedAttributes = adapter.tools.migrateEncodedAttributes || migrateEncodedAttributes;
+
     adapter.on('message', obj => obj && obj.command === 'send' && obj.message && processMessage(adapter, obj));
 
-    adapter.on('ready', () => main(adapter));
+    adapter.on('ready', () => {
+        // automatic migration of token
+        adapter.tools.migrateEncodedAttributes(adapter, 'token')
+            .then(migrated => {
+                if (!migrated) {
+                    if (!adapter.supportsFeature('ADAPTER_AUTO_ENCODE')) {
+                        adapter.getEncryptedConfig('enc_token')
+                            .then(value => adapter.config.enc_token = value);
+                    }
+
+                    main(adapter);
+                }
+            });
+    });
 
     return adapter;
 }
@@ -48,9 +64,72 @@ function processMessage(adapter, obj) {
         obj.callback && adapter.sendTo(obj.from, 'send', { error: err, response: response}, obj.callback));
 }
 
+// This function migrates encrypted attributes to "enc_",
+// that will be automatically encrypted and decrypted in admin and in adapter.js
+//
+// Usage:
+// migrateEncodedAttributes(adapter, ['pass', 'token'], true).then(migrated => {
+//    if (migrated) {
+//       // do nothing and wait for adapter restart
+//       return;
+//    }
+// });
+function migrateEncodedAttributes(adapter, attrs, onlyRename) {
+    if (typeof attrs === 'string') {
+        attrs = [attrs];
+    }
+    const toMigrate = [];
+    attrs.forEach(attr =>
+        adapter.config[attr] !== undefined && adapter.config['enc_' + attr] === undefined && toMigrate.push(attr));
+
+    if (toMigrate.length) {
+        return new Promise((resolve, reject) => {
+            // read system secret
+            adapter.getForeignObject('system.config', null, (err, data) => {
+                let systemSecret;
+                if (data && data.native) {
+                    systemSecret = data.native.secret;
+                }
+                if (systemSecret) {
+                    // read instance configuration
+                    adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj) => {
+                        if (obj && obj.native) {
+                            toMigrate.forEach(attr => {
+                                if (obj.native[attr]) {
+                                    if (onlyRename) {
+                                        obj.native['enc_' + attr] = obj.native[attr];
+                                    } else {
+                                        obj.native['enc_' + attr] = adapter.tools.encrypt(systemSecret, obj.native[attr]);
+                                    }
+                                } else {
+                                    obj.native['enc_' + attr] = '';
+                                }
+                                delete obj.native[attr];
+                            });
+                            adapter.setForeignObject('system.adapter.' + adapter.namespace, obj, err => {
+                                err && adapter.log.error(`Cannot write system.adapter.${adapter.namespace}: ${err}`);
+                                !err && adapter.log.info('Attributes are migrated and adapter will be restarted');
+                                err ? reject(err) : resolve(true);
+                            });
+                        } else {
+                            adapter.log.error(`system.adapter.${adapter.namespace} not found!`);
+                            reject(`system.adapter.${adapter.namespace} not found!`);
+                        }
+                    });
+                } else {
+                    adapter.log.error('No system secret found!');
+                    reject('No system secret found!');
+                }
+            });
+        })
+    } else {
+        return Promise.resolve(false);
+    }
+}
+
 function main(adapter) {
     // do nothing. Only answer on messages.
-    if (!adapter.config.user || !adapter.config.token) {
+    if (!adapter.config.user || !adapter.config.enc_token) {
         adapter.log.error('Cannot send notification while not configured');
     }
 }
@@ -59,25 +138,27 @@ function sendNotification(adapter, message, callback) {
     message = message || {};
 
     if (!pushover) {
-        if (adapter.config.user && adapter.config.token) {
+        if (adapter.config.user && adapter.config.enc_token) {
             pushover = new Pushover({
                 user:  adapter.config.user,
-                token: adapter.config.token
+                token: adapter.config.enc_token
             });
         } else {
             adapter.log.error('Cannot send notification while not configured');
         }
     }
 
-    if (!pushover) return;
+    if (!pushover) {
+        return;
+    }
 
     if (typeof message !== 'object') {
         message = {message};
     }
     if (message.hasOwnProperty('token')) {
-        pushover.token  =  message.token
+        pushover.token = message.token;
     } else {
-        pushover.token  = adapter.config.token
+        pushover.token = adapter.config.enc_token;
     }
     message.title     = message.title     || adapter.config.title;
     message.sound     = message.sound     || (adapter.config.sound ? adapter.config.sound : undefined);

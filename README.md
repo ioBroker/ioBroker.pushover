@@ -52,8 +52,8 @@ sendTo("pushover", {
 ```
 
 ## Changelog
-### 2.0.0 (2020-02-09)
-* (bluefox) Breaking changes: token will be encrypted now and must be entered anew.
+### 1.2.1 (2020-02-09)
+* (bluefox) Token will be encrypted now.
 
 ### 1.2.0 (2020-02-03)
 * (bluefox) Removed the getMessages call.
