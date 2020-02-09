@@ -23,24 +23,39 @@ function startAdapter(options) {
     Object.assign(options, {name: adapterName});
     adapter = new utils.Adapter(options);
 
-    adapter.tools = adapter.tools || require(utils.controllerDir + '/lib/tools');
-    adapter.tools.migrateEncodedAttributes = adapter.tools.migrateEncodedAttributes || migrateEncodedAttributes;
+    adapter.getEncryptedConfig = adapter.getEncryptedConfig || getEncryptedConfig;
+
+    try {
+        adapter.tools = adapter.tools || require(utils.controllerDir + '/lib/tools');
+        adapter.tools.migrateEncodedAttributes = adapter.tools.migrateEncodedAttributes || migrateEncodedAttributes;
+    } catch (e) {
+        adapter.tools = {decrypt, migrateEncodedAttributes};
+    }
 
     adapter.on('message', obj => obj && obj.command === 'send' && obj.message && processMessage(adapter, obj));
 
     adapter.on('ready', () => {
         // automatic migration of token
-        adapter.tools.migrateEncodedAttributes(adapter, 'token')
-            .then(migrated => {
-                if (!migrated) {
-                    if (!adapter.supportsFeature('ADAPTER_AUTO_ENCODE')) {
-                        adapter.getEncryptedConfig('enc_token')
-                            .then(value => adapter.config.enc_token = value);
-                    }
+        if (adapter.tools && adapter.tools.migrateEncodedAttributes) {
+            adapter.tools.migrateEncodedAttributes(adapter, 'token')
+                .then(migrated => {
+                    if (!migrated) {
+                        if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_ENCODE')) {
+                            adapter.getEncryptedConfig('enc_token')
+                                .then(value => adapter.config.enc_token = value);
+                        }
 
-                    main(adapter);
-                }
-            });
+                        main(adapter);
+                    }
+                });
+        } else {
+            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_ENCODE')) {
+                adapter.getEncryptedConfig('enc_token')
+                    .then(value => adapter.config.enc_token = value);
+            }
+
+            main(adapter);
+        }
     });
 
     return adapter;
@@ -125,6 +140,50 @@ function migrateEncodedAttributes(adapter, attrs, onlyRename) {
     } else {
         return Promise.resolve(false);
     }
+}
+
+function getEncryptedConfig(attribute, callback) {
+    if (adapter.config.hasOwnProperty(attribute)) {
+        if (typeof callback !== 'function') {
+            return new Promise((resolve, reject) => {
+                getEncryptedConfig(attribute, (err, encrypted) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(encrypted);
+                    }
+                });
+            });
+        } else {
+            adapter.getForeignObject('system.config', null, (err, data) => {
+                let systemSecret;
+                if (data && data.native) {
+                    systemSecret = data.native.secret;
+                }
+                callback(null, adapter.tools.decrypt(systemSecret, adapter.config[attribute]));
+            });
+        }
+    } else {
+        if (typeof callback === 'function') {
+            callback('Attribute not found');
+        } else {
+            return Promise.reject('Attribute not found');
+        }
+    }
+}
+
+/**
+ * Decrypt the password/value with given key
+ * @param {string} key - Secret key
+ * @param {string} value - value to decript
+ * @returns {string}
+ */
+function decrypt(key, value) {
+    let result = '';
+    for(let i = 0; i < value.length; i++) {
+        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
+    }
+    return result;
 }
 
 function main(adapter) {
