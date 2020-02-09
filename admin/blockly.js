@@ -51,7 +51,7 @@ Blockly.Words['pushover_log_warn']          = {'en': 'warning',                 
 Blockly.Words['pushover_log_error']         = {'en': 'error',                       'de': 'error',                              'ru': 'ошибка'};
 
 Blockly.Words['pushover_anyInstance']       = {'en': 'all instances',               'de': 'Alle Instanzen',                     'ru': 'На все драйвера'};
-Blockly.Words['pushover_tooltip']           = {'en': 'Send message to pushover',    'de': 'Sende eine Meldung über Telegram',   'ru': 'Послать сообщение через Pushover'};
+Blockly.Words['pushover_tooltip']           = {'en': 'Send message to pushover',    'de': 'Sende eine Meldung über Pushover',   'ru': 'Послать сообщение через Pushover'};
 Blockly.Words['pushover_help']              = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'de': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'ru': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md'};
 
 Blockly.Sendto.blocks['pushover'] =
