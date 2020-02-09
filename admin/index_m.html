@@ -15,8 +15,18 @@
 
 <!-- you have to define 2 functions in the global scope: -->
 <script type="text/javascript">
+    var _secret;
+
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
+        if (typeof systemSecret !== 'undefined') {
+            _secret = systemSecret;
+        } else {
+            _secret = (systemConfig && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM';
+        }
+        if (settings.token) {
+            settings.token = decrypt(_secret, settings.token);
+        }
         for (var key in settings) {
             if (!settings.hasOwnProperty(key)) continue;
             var $value = $('#' + key + '.value');
@@ -60,7 +70,7 @@
             obj[ids[0]][ids[1]] = value;
         } else if (ids.length === 3) {
             if (ids[2] === 'pass') {
-                value = encrypt("Zgfr56gFe87jJOM", value);
+                value = encrypt(_secret, value);
             }
 
             if (!obj[ids[0]]) obj[ids[0]] = {};
@@ -72,6 +82,7 @@
 
     function getSettings() {
         var obj = {};
+
         $('.value').each(function () {
             var $this = $(this);
             var id = $this.attr('id');
@@ -82,6 +93,11 @@
                 obj = saveHelper(obj, id, $this.val())
             }
         });
+
+        if (obj.token) {
+            obj.token = encrypt(_secret, obj.token);
+        }
+
         return obj;
     }
 
