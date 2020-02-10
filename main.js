@@ -40,7 +40,7 @@ function startAdapter(options) {
             adapter.tools.migrateEncodedAttributes(adapter, 'token')
                 .then(migrated => {
                     if (!migrated) {
-                        if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_ENCODE')) {
+                        if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
                             adapter.getEncryptedConfig('enc_token')
                                 .then(value => adapter.config.enc_token = value);
                         }
@@ -49,7 +49,7 @@ function startAdapter(options) {
                     }
                 });
         } else {
-            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_ENCODE')) {
+            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
                 adapter.getEncryptedConfig('enc_token')
                     .then(value => adapter.config.enc_token = value);
             }

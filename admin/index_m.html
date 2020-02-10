@@ -19,7 +19,7 @@
 
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
-        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_ENCODE')) {
+        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT')) {
             if (typeof systemSecret !== 'undefined') {
                 _secret = systemSecret;
             } else {
@@ -77,7 +77,7 @@
             }
         });
 
-        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_ENCODE')) {
+        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT')) {
             if (obj.enc_token) {
                 obj.enc_token = encrypt(_secret, obj.enc_token);
             }
