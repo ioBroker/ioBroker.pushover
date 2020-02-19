@@ -15,7 +15,6 @@
 const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
 const Pushover    = require('pushover-notifications');
 const adapterName = require('./package.json').name.split('.').pop();
-let tools;
 let adapter;
 
 function startAdapter(options) {
@@ -42,19 +41,25 @@ function startAdapter(options) {
                     if (!migrated) {
                         if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
                             adapter.getEncryptedConfig('enc_token')
-                                .then(value => adapter.config.enc_token = value);
+                                .then(value => {
+                                    adapter.config.enc_token = value;
+                                    main(adapter);
+                                });
+                        } else {
+                            main(adapter);
                         }
-
-                        main(adapter);
                     }
                 });
         } else {
             if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
                 adapter.getEncryptedConfig('enc_token')
-                    .then(value => adapter.config.enc_token = value);
+                    .then(value => {
+                        adapter.config.enc_token = value;
+                        main(adapter);
+                    });
+            } else {
+                main(adapter);
             }
-
-            main(adapter);
         }
     });
 

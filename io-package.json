@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.2.2",
+        "version": "1.2.3",
         "news": {
-            "1.2.2": {
+            "1.2.3": {
                 "en": "Token will be encrypted now",
                 "de": "Das Token wird jetzt verschlüsselt",
                 "ru": "Теперь токен будет зашифрован",
