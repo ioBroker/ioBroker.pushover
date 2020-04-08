@@ -192,6 +192,7 @@ function decrypt(key, value) {
 }
 
 function main(adapter) {
+    adapter.config.enc_token = adapter.config.enc_token || adapter.config.token;
     // do nothing. Only answer on messages.
     if (!adapter.config.user || !adapter.config.enc_token) {
         adapter.log.error('Cannot send notification while not configured');

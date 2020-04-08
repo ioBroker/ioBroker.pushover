@@ -1,7 +1,7 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.2.3",
+        "version": "1.2.4",
         "news": {
             "1.2.3": {
                 "en": "Token will be encrypted now",
@@ -100,6 +100,10 @@
             {
                 "admin": ">=3.0.0"
             }
+        ],
+        "encryptedNative": [
+            "token",
+            "enc_token"
         ],
         "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
         "type": "messaging",
