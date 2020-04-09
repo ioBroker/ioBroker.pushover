@@ -101,14 +101,14 @@
                 "admin": ">=3.0.0"
             }
         ],
-        "encryptedNative": [
-            "token",
-            "enc_token"
-        ],
         "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
         "type": "messaging",
         "blockly": true
     },
+    "encryptedNative": [
+        "token",
+        "enc_token"
+    ],
     "native": {
         "user": "",
         "enc_token": "",
