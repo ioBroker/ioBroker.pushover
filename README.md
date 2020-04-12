@@ -11,6 +11,8 @@
 
 Send pushover notifications from ioBroker. 
 
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to me as the developer.** More details see below!
+
 ## Configuration
 First of all it is required an account on pushover.
 ![Pushover configuration](img/Screen0.png)
@@ -51,7 +53,16 @@ sendTo("pushover", {
 });
 ```
 
+## What is Sentry and what is reported to the servers?
+Sentry.io is a way for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
+
+When the adapter crashes or an other Code error happens, this error message that also appears in the ioBroker log is submitted to our own Sentry server hosted in germany. When you allowed iobroker GmbH to collect diagnostic data then also your installation ID (this is just a unique ID **without** any additional infos about you, email, name or such) is included. This allows Sentry to group errors and show how many unique users are affected by such an error. All of this helps me to provide error free adapters that basically never crashs.  
+
 ## Changelog
+### 1.3.0 (2020-04-12)
+* (Apollon77) Fix token decryption and add compatibility to js-controller 3.0
+* (Apollon77) Add Sentry (used in js-controller 3.0)
+
 ### 1.2.3 (2020-02-19)
 * (bluefox) Token will be encrypted now.
 
