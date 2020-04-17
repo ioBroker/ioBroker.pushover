@@ -210,7 +210,7 @@ function sendNotification(adapter, message, callback) {
         if (adapter.config.user && adapter.config.enc_token) {
             pushover = new Pushover({
                 user:  adapter.config.user,
-                token: adapter.config.enc_tokenn
+                token: adapter.config.enc_tokenn,
                 onerror: onError
             });
         } else {

@@ -60,7 +60,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### 1.3.1 (2020-04-17)
+### 1.3.2 (2020-04-17)
 * (Apollon77) add Error handler to not crash adapter (fixes Sentry IOBROKER-PUSHOVER-1)
 
 ### 1.3.0 (2020-04-12)
