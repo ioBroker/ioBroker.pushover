@@ -199,6 +199,10 @@ function main(adapter) {
     }
 }
 
+function onError(error, _res) {
+    adapter.log.error('Error from Pushover: ' + error);
+}
+
 function sendNotification(adapter, message, callback) {
     message = message || {};
 
@@ -206,7 +210,8 @@ function sendNotification(adapter, message, callback) {
         if (adapter.config.user && adapter.config.enc_token) {
             pushover = new Pushover({
                 user:  adapter.config.user,
-                token: adapter.config.enc_token
+                token: adapter.config.enc_tokenn
+                onerror: onError
             });
         } else {
             adapter.log.error('Cannot send notification while not configured');

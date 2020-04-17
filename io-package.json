@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.3.0",
+        "version": "1.3.1",
         "news": {
+            "1.3.1": {
+                "en": "Adapter crash prevented in certain error cases, but log error",
+                "de": "Adapterabsturz in bestimmten Fehlerfällen verhindert, aber Fehler protokollieren",
+                "ru": "Сбой адаптера предотвращен в некоторых случаях ошибки, но ошибка журнала",
+                "pt": "Falha no adaptador impedida em certos casos de erro, mas erro de log",
+                "nl": "Adaptercrash voorkomen in bepaalde foutgevallen, maar logboekfout",
+                "fr": "Blocage de l'adaptateur évité dans certains cas d'erreur, mais erreur de journal",
+                "it": "Arresto anomalo dell'adattatore impedito in alcuni casi di errore, ma errore di registro",
+                "es": "El bloqueo del adaptador se evitó en ciertos casos de error, pero el error de registro",
+                "pl": "W niektórych przypadkach błędów udało się uniknąć awarii adaptera, ale błąd dziennika",
+                "zh-cn": "在某些错误情况下防止适配器崩溃，但记录错误"
+            },
             "1.3.0": {
                 "en": "Fix token decryption and add compatibility to js-controller 3.0",
                 "de": "Korrigieren Sie die Token-Entschlüsselung und fügen Sie die Kompatibilität zu js-controller 3.0 hinzu",
