@@ -1,8 +1,44 @@
 {
     "common": {
         "name": "pushover",
-        "version": "1.2.3",
+        "version": "2.0.0",
         "news": {
+            "2.0.0": {
+                "en": "Fixed error in the blockly if language was not \"ru/en/de\"\nBreaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.\n",
+                "de": "Fehler im Block behoben, wenn die Sprache nicht \"ru / en / de\" war\nBreaking Change: Die Verschlüsselung des Passworts wurde geändert, daher muss das Token erneut eingegeben werden. Speichern Sie Ihr Token vor dem Update.\n",
+                "ru": "Исправлена ошибка в блоке, если язык не был \"ru / en / de\"\nСрочная смена: шифрование пароля было изменено, поэтому токен необходимо вводить заново. Сохраните свой токен перед обновлением.\n",
+                "pt": "Corrigido erro no bloco se o idioma não fosse \"ru / en / de\"\nAlteração de última hora: a criptografia da senha foi alterada, portanto, o token deve ser inserido novamente. Armazene seu token antes da atualização.\n",
+                "nl": "Fout opgelost in de blokkering als de taal niet \"ru / en / de\" was\nBrekende wijziging: de codering van het wachtwoord is gewijzigd, dus het token moet opnieuw worden ingevoerd. Sla uw token op vóór de update.\n",
+                "fr": "Correction d'une erreur dans le bloc si la langue n'était pas \"ru / en / de\"\nChangement de rupture: le cryptage du mot de passe a été modifié, le jeton doit donc être entré à nouveau. Stockez votre jeton avant la mise à jour.\n",
+                "it": "Risolto errore nel blocco se la lingua non era \"ru / en / de\"\nRottura del cambiamento: la crittografia della password è stata modificata, quindi il token deve essere inserito di nuovo. Conserva il token prima dell'aggiornamento.\n",
+                "es": "Se corrigió el error en el bloque si el idioma no era \"ru / en / de\"\nCambio de última hora: se modificó el cifrado de la contraseña, por lo que el token debe ingresarse nuevamente. Almacene su token antes de la actualización.\n",
+                "pl": "Naprawiono błąd w bloku, jeśli język nie był „ru / en / de”\nPrzełomowa zmiana: szyfrowanie hasła zostało zmienione, więc token należy wprowadzić od nowa. Przechowuj swój token przed aktualizacją.\n",
+                "zh-cn": "修复了如果语言不是“ ru / en / de”时出现的块错误\n重大更改：密码的加密已更改，因此必须重新输入令牌。在更新之前存储您的令牌。\n"
+            },
+            "1.3.2": {
+                "en": "Adapter crash prevented in certain error cases, but log error",
+                "de": "Adapterabsturz in bestimmten Fehlerfällen verhindert, aber Fehler protokollieren",
+                "ru": "Сбой адаптера предотвращен в некоторых случаях ошибки, но ошибка журнала",
+                "pt": "Falha no adaptador impedida em certos casos de erro, mas erro de log",
+                "nl": "Adaptercrash voorkomen in bepaalde foutgevallen, maar logboekfout",
+                "fr": "Blocage de l'adaptateur évité dans certains cas d'erreur, mais erreur de journal",
+                "it": "Arresto anomalo dell'adattatore impedito in alcuni casi di errore, ma errore di registro",
+                "es": "El bloqueo del adaptador se evitó en ciertos casos de error, pero el error de registro",
+                "pl": "W niektórych przypadkach błędów udało się uniknąć awarii adaptera, ale błąd dziennika",
+                "zh-cn": "在某些错误情况下防止适配器崩溃，但记录错误"
+            },
+            "1.3.0": {
+                "en": "Fix token decryption and add compatibility to js-controller 3.0",
+                "de": "Korrigieren Sie die Token-Entschlüsselung und fügen Sie die Kompatibilität zu js-controller 3.0 hinzu",
+                "ru": "Исправьте расшифровку токена и добавьте совместимость с js-controller 3.0",
+                "pt": "Corrija a descriptografia do token e adicione compatibilidade ao js-controller 3.0",
+                "nl": "Fix token-decodering en voeg compatibiliteit toe aan js-controller 3.0",
+                "fr": "Correction du déchiffrement des jetons et ajout de compatibilité à js-controller 3.0",
+                "it": "Correggi la decrittazione dei token e aggiungi la compatibilità a js-controller 3.0",
+                "es": "Repare el descifrado de tokens y agregue compatibilidad a js-controller 3.0",
+                "pl": "Napraw deszyfrowanie tokenów i dodaj zgodność z js-controller 3.0",
+                "zh-cn": "修复令牌解密并添加对js-controller 3.0的兼容性"
+            },
             "1.2.3": {
                 "en": "Token will be encrypted now",
                 "de": "Das Token wird jetzt verschlüsselt",
@@ -103,11 +139,21 @@
         ],
         "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
         "type": "messaging",
-        "blockly": true
+        "blockly": true,
+        "connectionType": "cloud",
+        "dataSource": "push",
+        "plugins": {
+            "sentry": {
+                "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
+            }
+        }
     },
+    "encryptedNative": [
+        "token"
+    ],
     "native": {
         "user": "",
-        "enc_token": "",
+        "token": "",
         "title": "ioBroker",
         "sound": "",
         "priority": 0

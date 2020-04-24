@@ -34,32 +34,14 @@ function startAdapter(options) {
     adapter.on('message', obj => obj && obj.command === 'send' && obj.message && processMessage(adapter, obj));
 
     adapter.on('ready', () => {
-        // automatic migration of token
-        if (adapter.tools && adapter.tools.migrateEncodedAttributes) {
-            adapter.tools.migrateEncodedAttributes(adapter, 'token')
-                .then(migrated => {
-                    if (!migrated) {
-                        if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
-                            adapter.getEncryptedConfig('enc_token')
-                                .then(value => {
-                                    adapter.config.enc_token = value;
-                                    main(adapter);
-                                });
-                        } else {
-                            main(adapter);
-                        }
-                    }
+        if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
+            adapter.getEncryptedConfig('enc_token')
+                .then(value => {
+                    adapter.config.enc_token = value;
+                    main(adapter);
                 });
         } else {
-            if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT')) {
-                adapter.getEncryptedConfig('enc_token')
-                    .then(value => {
-                        adapter.config.enc_token = value;
-                        main(adapter);
-                    });
-            } else {
-                main(adapter);
-            }
+            main(adapter);
         }
     });
 
@@ -192,10 +174,15 @@ function decrypt(key, value) {
 }
 
 function main(adapter) {
+    adapter.config.enc_token = adapter.config.enc_token || adapter.config.token;
     // do nothing. Only answer on messages.
     if (!adapter.config.user || !adapter.config.enc_token) {
         adapter.log.error('Cannot send notification while not configured');
     }
+}
+
+function onError(error, _res) {
+    adapter.log.error('Error from Pushover: ' + error);
 }
 
 function sendNotification(adapter, message, callback) {
@@ -205,7 +192,8 @@ function sendNotification(adapter, message, callback) {
         if (adapter.config.user && adapter.config.enc_token) {
             pushover = new Pushover({
                 user:  adapter.config.user,
-                token: adapter.config.enc_token
+                token: adapter.config.enc_token,
+                onerror: onError
             });
         } else {
             adapter.log.error('Cannot send notification while not configured');

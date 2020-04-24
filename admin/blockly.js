@@ -1,8 +1,20 @@
 'use strict';
 
-goog.provide('Blockly.JavaScript.Sendto');
+if (typeof goog !== 'undefined') {
+    goog.provide('Blockly.JavaScript.Sendto');
 
-goog.require('Blockly.JavaScript');
+    goog.require('Blockly.JavaScript');
+}
+
+// remove it somewhere, because it defined in javascript=>blocks_words.js from javascript>=4.6.0
+Blockly.Translate = Blockly.Translate || function (word, lang) {
+    lang = lang || systemLang;
+    if (Blockly.Words && Blockly.Words[word]) {
+        return Blockly.Words[word][lang] || Blockly.Words[word].en;
+    } else {
+        return word;
+    }
+};
 
 /// --- SendTo pushover --------------------------------------------------
 Blockly.Words['pushover']               = {'en': 'pushover',                    'de': 'pushover',                           'ru': 'pushover'};
@@ -83,7 +95,7 @@ Blockly.Sendto.blocks['pushover'] =
 
 Blockly.Blocks['pushover'] = {
     init: function() {
-        var options = [[Blockly.Words['pushover_anyInstance'][systemLang], '']];
+        var options = [[Blockly.Translate('pushover_anyInstance'), '']];
         if (typeof main !== 'undefined' && main.instances) {
             for (var i = 0; i < main.instances.length; i++) {
                 var m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
@@ -101,83 +113,93 @@ Blockly.Blocks['pushover'] = {
         }
 
         this.appendDummyInput('INSTANCE')
-            .appendField(Blockly.Words['pushover'][systemLang])
+            .appendField(Blockly.Translate('pushover'))
             .appendField(new Blockly.FieldDropdown(options), "INSTANCE");
 
         this.appendValueInput('MESSAGE')
-            .appendField(Blockly.Words['pushover_message'][systemLang]);
+            .appendField(Blockly.Translate('pushover_message'));
 
         this.appendDummyInput('SOUND')
-            .appendField(Blockly.Words['pushover_sound'][systemLang])
+            .appendField(Blockly.Translate('pushover_sound'))
             .appendField(new Blockly.FieldDropdown([
-                [Blockly.Words['pushover_sound_default'][systemLang], ""],
-                [Blockly.Words['pushover_sound_pushover'][systemLang], "pushover"],
-                [Blockly.Words['pushover_sound_bike'][systemLang], "bike"],
-                [Blockly.Words['pushover_sound_bugle'][systemLang], "bugle"],
-                [Blockly.Words['pushover_sound_cashregister'][systemLang], "cashregister"],
-                [Blockly.Words['pushover_sound_classical'][systemLang], "classical"],
-                [Blockly.Words['pushover_sound_cosmic'][systemLang], "cosmic"],
-                [Blockly.Words['pushover_sound_falling'][systemLang], "falling"],
-                [Blockly.Words['pushover_sound_gamelan'][systemLang], "gamelan"],
-                [Blockly.Words['pushover_sound_incoming'][systemLang], "incoming"],
-                [Blockly.Words['pushover_sound_intermission'][systemLang], "intermission"],
-                [Blockly.Words['pushover_sound_magic'][systemLang], "magic"],
-                [Blockly.Words['pushover_sound_mechanical'][systemLang], "mechanical"],
-                [Blockly.Words['pushover_sound_pianobar'][systemLang], "pianobar"],
-                [Blockly.Words['pushover_sound_siren'][systemLang], "siren"],
-                [Blockly.Words['pushover_sound_spacealarm'][systemLang], "spacealarm"],
-                [Blockly.Words['pushover_sound_tugboat'][systemLang], "tugboat"],
-                [Blockly.Words['pushover_sound_alien'][systemLang], "alien"],
-                [Blockly.Words['pushover_sound_climb'][systemLang], "climb"],
-                [Blockly.Words['pushover_sound_persistent'][systemLang], "persistent"],
-                [Blockly.Words['pushover_sound_echo'][systemLang], "echo"],
-                [Blockly.Words['pushover_sound_updown'][systemLang], "updown"],
-                [Blockly.Words['pushover_sound_none'][systemLang], "none"]
+                [Blockly.Translate('pushover_sound_default'), ""],
+                [Blockly.Translate('pushover_sound_pushover'), "pushover"],
+                [Blockly.Translate('pushover_sound_bike'), "bike"],
+                [Blockly.Translate('pushover_sound_bugle'), "bugle"],
+                [Blockly.Translate('pushover_sound_cashregister'), "cashregister"],
+                [Blockly.Translate('pushover_sound_classical'), "classical"],
+                [Blockly.Translate('pushover_sound_cosmic'), "cosmic"],
+                [Blockly.Translate('pushover_sound_falling'), "falling"],
+                [Blockly.Translate('pushover_sound_gamelan'), "gamelan"],
+                [Blockly.Translate('pushover_sound_incoming'), "incoming"],
+                [Blockly.Translate('pushover_sound_intermission'), "intermission"],
+                [Blockly.Translate('pushover_sound_magic'), "magic"],
+                [Blockly.Translate('pushover_sound_mechanical'), "mechanical"],
+                [Blockly.Translate('pushover_sound_pianobar'), "pianobar"],
+                [Blockly.Translate('pushover_sound_siren'), "siren"],
+                [Blockly.Translate('pushover_sound_spacealarm'), "spacealarm"],
+                [Blockly.Translate('pushover_sound_tugboat'), "tugboat"],
+                [Blockly.Translate('pushover_sound_alien'), "alien"],
+                [Blockly.Translate('pushover_sound_climb'), "climb"],
+                [Blockly.Translate('pushover_sound_persistent'), "persistent"],
+                [Blockly.Translate('pushover_sound_echo'), "echo"],
+                [Blockly.Translate('pushover_sound_updown'), "updown"],
+                [Blockly.Translate('pushover_sound_none'), "none"]
             ]), 'SOUND');
 
         this.appendDummyInput('PRIORITY')
-            .appendField(Blockly.Words['pushover_priority'][systemLang])
+            .appendField(Blockly.Translate('pushover_priority'))
             .appendField(new Blockly.FieldDropdown([
-                [Blockly.Words['pushover_normal'][systemLang],       "0"],
-                [Blockly.Words['pushover_high'][systemLang],         "1"],
-                [Blockly.Words['pushover_quiet'][systemLang],        "-1"],
-                [Blockly.Words['pushover_confirmation'][systemLang], "2"]
+                [Blockly.Translate('pushover_normal'),       "0"],
+                [Blockly.Translate('pushover_high'),         "1"],
+                [Blockly.Translate('pushover_quiet'),        "-1"],
+                [Blockly.Translate('pushover_confirmation'), "2"]
             ]), 'PRIORITY');
 
         var input = this.appendValueInput('TITLE')
             .setCheck('String')
-            .appendField(Blockly.Words['pushover_title'][systemLang]);
-        if (input.connection) input.connection._optional = true;
+            .appendField(Blockly.Translate('pushover_title'));
+
+        if (input.connection) {
+            input.connection._optional = true;
+        }
 
 
         input = this.appendValueInput("URL")
             .setCheck('String')
-            .appendField(Blockly.Words['pushover_url'][systemLang]);
-        if (input.connection) input.connection._optional = true;
+            .appendField(Blockly.Translate('pushover_url'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
 
         input = this.appendValueInput('URL_TITLE')
             .setCheck('String')
-            .appendField(Blockly.Words['pushover_url_title'][systemLang]);
-        if (input.connection) input.connection._optional = true;
+            .appendField(Blockly.Translate('pushover_url_title'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
 
         input = this.appendValueInput('DEVICE')
             .setCheck('String')
-            .appendField(Blockly.Words['pushover_device'][systemLang]);
-        if (input.connection) input.connection._optional = true;
+            .appendField(Blockly.Translate('pushover_device'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
 
         input = this.appendValueInput('TIMESTAMP')
             .setCheck('Date')
-            .appendField(Blockly.Words['pushover_timestamp'][systemLang]);
-        if (input.connection) input.connection._optional = true;
+            .appendField(Blockly.Translate('pushover_timestamp'));
+        if (input.connection)  7
+        input.connection._optional = true;
 
         this.appendDummyInput('LOG')
-            .appendField(Blockly.Words['pushover_log'][systemLang])
+            .appendField(Blockly.Translate('pushover_log'))
             .appendField(new Blockly.FieldDropdown([
-                [Blockly.Words['pushover_log_none'][systemLang],  ''],
-                [Blockly.Words['pushover_log_info'][systemLang],  'log'],
-                [Blockly.Words['pushover_log_debug'][systemLang], 'debug'],
-                [Blockly.Words['pushover_log_warn'][systemLang],  'warn'],
-                [Blockly.Words['pushover_log_error'][systemLang], 'error']
+                [Blockly.Translate('pushover_log_none'),  ''],
+                [Blockly.Translate('pushover_log_info'),  'log'],
+                [Blockly.Translate('pushover_log_debug'), 'debug'],
+                [Blockly.Translate('pushover_log_warn'),  'warn'],
+                [Blockly.Translate('pushover_log_error'), 'error']
             ]), 'LOG');
 
         this.setInputsInline(false);
@@ -185,8 +207,8 @@ Blockly.Blocks['pushover'] = {
         this.setNextStatement(true, null);
 
         this.setColour(Blockly.Sendto.HUE);
-        this.setTooltip(Blockly.Words['pushover_tooltip'][systemLang]);
-        this.setHelpUrl(Blockly.Words['pushover_help'][systemLang]);
+        this.setTooltip(Blockly.Translate('pushover_tooltip'));
+        this.setHelpUrl(Blockly.Translate('pushover_help'));
     }
 };
 

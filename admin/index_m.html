@@ -19,14 +19,14 @@
 
     // the function loadSettings has to exist ...
     function load(settings, onChange) {
-        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT')) {
+        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
             if (typeof systemSecret !== 'undefined') {
                 _secret = systemSecret;
             } else {
                 _secret = (systemConfig && systemConfig.native && systemConfig.native.secret) || 'Zgfr56gFe87jJOM';
             }
-            if (settings.enc_token) {
-                settings.enc_token = decrypt(_secret, settings.enc_token);
+            if (settings.token) {
+                settings.token = decrypt(_secret, settings.token);
             }
         }
 
@@ -77,9 +77,9 @@
             }
         });
 
-        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT')) {
-            if (obj.enc_token) {
-                obj.enc_token = encrypt(_secret, obj.enc_token);
+        if (typeof supportsFeature !== 'function' || !supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
+            if (obj.token) {
+                obj.token = encrypt(_secret, obj.token);
             }
         }
 
@@ -117,8 +117,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12 m6 l4 xl3">
-                        <input id="enc_token" type="text" size="50" class="value"/>
-                        <label for="enc_token" class="translate">Token:</label>
+                        <input id="token" type="text" size="50" class="value"/>
+                        <label for="token" class="translate">Token:</label>
                         <span class="translate">API Token/Key of Application</span>
                     </div>
                 </div>
