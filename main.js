@@ -35,9 +35,9 @@ function startAdapter(options) {
 
     adapter.on('ready', () => {
         if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
-            adapter.getEncryptedConfig('enc_token')
+            adapter.getEncryptedConfig('token')
                 .then(value => {
-                    adapter.config.enc_token = value;
+                    adapter.config.token = value;
                     main(adapter);
                 });
         } else {
@@ -174,9 +174,8 @@ function decrypt(key, value) {
 }
 
 function main(adapter) {
-    adapter.config.enc_token = adapter.config.enc_token || adapter.config.token;
     // do nothing. Only answer on messages.
-    if (!adapter.config.user || !adapter.config.enc_token) {
+    if (!adapter.config.user || !adapter.config.token) {
         adapter.log.error('Cannot send notification while not configured');
     }
 }
@@ -189,10 +188,10 @@ function sendNotification(adapter, message, callback) {
     message = message || {};
 
     if (!pushover) {
-        if (adapter.config.user && adapter.config.enc_token) {
+        if (adapter.config.user && adapter.config.token) {
             pushover = new Pushover({
                 user:  adapter.config.user,
-                token: adapter.config.enc_token,
+                token: adapter.config.token,
                 onerror: onError
             });
         } else {
@@ -210,7 +209,7 @@ function sendNotification(adapter, message, callback) {
     if (message.hasOwnProperty('token')) {
         pushover.token = message.token;
     } else {
-        pushover.token = adapter.config.enc_token;
+        pushover.token = adapter.config.token;
     }
     message.title     = message.title     || adapter.config.title;
     message.sound     = message.sound     || (adapter.config.sound ? adapter.config.sound : undefined);

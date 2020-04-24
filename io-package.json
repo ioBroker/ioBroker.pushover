@@ -1,9 +1,9 @@
 {
     "common": {
         "name": "pushover",
-        "version": "2.0.0",
+        "version": "2.0.1",
         "news": {
-            "2.0.0": {
+            "2.0.1": {
                 "en": "Fixed error in the blockly if language was not \"ru/en/de\"\nBreaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.\n",
                 "de": "Fehler im Block behoben, wenn die Sprache nicht \"ru / en / de\" war\nBreaking Change: Die Verschlüsselung des Passworts wurde geändert, daher muss das Token erneut eingegeben werden. Speichern Sie Ihr Token vor dem Update.\n",
                 "ru": "Исправлена ошибка в блоке, если язык не был \"ru / en / de\"\nСрочная смена: шифрование пароля было изменено, поэтому токен необходимо вводить заново. Сохраните свой токен перед обновлением.\n",
