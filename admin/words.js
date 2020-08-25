@@ -25,19 +25,20 @@ systemDictionary = {
         "pl": "Ustawienia pushover"
     },
     "Group Key": {
-        "en": "Group Key",
-        "de": "Gruppentaste",
-        "ru": "Ключ группы",
-        "pt": "Chave de grupo",
-        "nl": "Groepssleutel",
-        "fr": "Clé de groupe",
-        "it": "Chiave di gruppo",
-        "es": "Clave grupal",
-        "pl": "Klucz grupowy"
+        "en": "Group Key or User Key",
+        "de": "Gruppenschlüssel oder Benutzerschlüssel",
+        "ru": "Групповой ключ или пользовательский ключ",
+        "pt": "Chave de grupo ou chave de usuário",
+        "nl": "Groepssleutel of gebruikerssleutel",
+        "fr": "Clé de groupe ou clé d'utilisateur",
+        "it": "Chiave di gruppo o chiave utente",
+        "es": "Clave de grupo o clave de usuario",
+        "pl": "Klucz grupy lub klucz użytkownika",
+        "zh-cn": "组密钥或用户密钥"
     },
     "Token": {
         "en": "Token",
-        "de": "Zeichen",
+        "de": "Token",
         "ru": "знак",
         "pt": "Símbolo",
         "nl": "blijk",
@@ -59,14 +60,15 @@ systemDictionary = {
     },
     "Sound": {
         "en": "Sound",
-        "de": "Klingen",
-        "ru": "звук",
+        "de": "Klang",
+        "ru": "Звук",
         "pt": "Som",
         "nl": "Geluid",
         "fr": "Du son",
         "it": "Suono",
-        "es": "Sonar",
-        "pl": "Dźwięk"
+        "es": "Sonido",
+        "pl": "Dźwięk",
+        "zh-cn": "声音"
     },
     "Priority": {
         "en": "Priority",
@@ -81,7 +83,7 @@ systemDictionary = {
     },
     "Test": {
         "en": "Test",
-        "de": "Prüfung",
+        "de": "Test",
         "ru": "Тест",
         "pt": "Teste",
         "nl": "Test",
@@ -103,7 +105,7 @@ systemDictionary = {
     },
     "Group Key of Delivery Group": {
         "en": "Group Key of Delivery Group",
-        "de": "Gruppenschlüssel der Liefergruppe",
+        "de": "Gruppenschlüssel der Zustellgruppe",
         "ru": "Групповой ключ группы доставки",
         "pt": "Chave de Grupo do Grupo de Entrega",
         "nl": "Groepssleutel van leveringsgroep",
@@ -180,7 +182,7 @@ systemDictionary = {
     },
     "Check the log or your pushover app!": {
         "en": "Check the log or your pushover app!",
-        "de": "Überprüfen Sie das Protokoll oder Ihre Pushover-App!",
+        "de": "Überprüfen Sie das Log oder Ihre Pushover-App!",
         "ru": "Проверьте журнал или приложение pushover!",
         "pt": "Verifique o log ou o seu aplicativo pushover!",
         "nl": "Controleer het logboek of je pushover-app!",
