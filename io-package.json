@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pushover",
-        "version": "2.0.2",
+        "version": "2.0.3",
         "news": {
+            "2.0.3": {
+                "en": "Removed spaces in the admin config dropdown",
+                "de": "Leerzeichen in der Dropdown-Liste der Administratorkonfiguration wurden entfernt",
+                "ru": "Удалены пробелы в раскрывающемся списке конфигурации администратора",
+                "pt": "Espaços removidos no menu suspenso de configuração do administrador",
+                "nl": "Spaties verwijderd in de vervolgkeuzelijst met admin-configuratie",
+                "fr": "Espaces supprimés dans la liste déroulante de configuration de l'administrateur",
+                "it": "Spazi rimossi nel menu a discesa della configurazione dell'amministratore",
+                "es": "Espacios eliminados en el menú desplegable de configuración de administrador",
+                "pl": "Usunięto spacje z listy rozwijanej konfiguracji administratora",
+                "zh-cn": "在管理员配置下拉列表中删除了空格"
+            },
             "2.0.2": {
                 "en": "fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)",
                 "de": "behebt den Fall, dass das Token nicht definiert / vorhanden ist (Sentry IOBROKER-PUSHOVER-2)",

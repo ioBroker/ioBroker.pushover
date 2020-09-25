@@ -64,7 +64,7 @@ When the adapter crashes or an other Code error happens, this error message that
 -->
 
 ## Changelog
-### __WORK IN PROGRESS__
+### 2.0.3 (2020-09-25)
 * (klein0r) Removed spaces in the admin config dropdown
 
 ### 2.0.2 (2020-04-29)
