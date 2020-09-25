@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "name": "iobroker.pushover",
     "description": "This adapter allows to send pushover notifications from ioBroker",
     "version": "2.0.1",
@@ -39,4 +40,44 @@
         "test:integration": "mocha test/integration --exit",
         "release": "node node_modules/@alcalzone/release-script/bin/release.js"
     }
+=======
+  "name": "iobroker.pushover",
+  "description": "This adapter allows to send pushover notifications from ioBroker",
+  "version": "2.0.2",
+  "author": "bluefox <dogafox@gmail.com>",
+  "contributors": [
+    "bluefox <dogafox@gmail.com>"
+  ],
+  "homepage": "https://github.com/ioBroker/ioBroker.pushover",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "pushover",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ioBroker/ioBroker.pushover"
+  },
+  "dependencies": {
+    "pushover-notifications": "^1.2.2",
+    "@iobroker/adapter-core": "^2.3.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "mocha": "^7.1.1",
+    "chai": "^4.2.0",
+    "@iobroker/testing": "^2.2.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ioBroker/ioBroker.pushover/issues"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "npm run test:package && npm run test:unit",
+    "test:package": "mocha test/package --exit",
+    "test:unit": "mocha test/unit --exit",
+    "test:integration": "mocha test/integration --exit"
+  }
+>>>>>>> c7c2c0f259603ebe5d79cf7d1360e34f62874c77
 }

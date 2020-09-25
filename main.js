@@ -39,6 +39,10 @@ function startAdapter(options) {
                 .then(value => {
                     adapter.config.token = value;
                     main(adapter);
+                })
+                .catch(e => {
+                    adapter.config.token = '';
+                    main(adapter);
                 });
         } else {
             main(adapter);

@@ -67,6 +67,9 @@ When the adapter crashes or an other Code error happens, this error message that
 ### __WORK IN PROGRESS__
 * (klein0r) Removed spaces in the admin config dropdown
 
+### 2.0.2 (2020-04-29)
+* (Apollon77) fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)
+
 ### 2.0.1 (2020-04-24)
 * (bluefox) Fixed error in the blockly if language was not "ru/en/de"
 * (bluefox) Breaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.

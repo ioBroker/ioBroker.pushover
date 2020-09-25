@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pushover",
-        "version": "2.0.1",
+        "version": "2.0.2",
         "news": {
+            "2.0.2": {
+                "en": "fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)",
+                "de": "behebt den Fall, dass das Token nicht definiert / vorhanden ist (Sentry IOBROKER-PUSHOVER-2)",
+                "ru": "исправляет случай, когда токен не определен / не существует (Sentry IOBROKER-PUSHOVER-2)",
+                "pt": "corrige caso o token não esteja definido / existente (Sentry IOBROKER-PUSHOVER-2)",
+                "nl": "lost het geval op dat het token niet is gedefinieerd / bestaat (Sentry IOBROKER-PUSHOVER-2)",
+                "fr": "corrige le cas où le jeton n'est pas défini / existant (Sentry IOBROKER-PUSHOVER-2)",
+                "it": "risolve il caso in cui il token non è definito / esistente (Sentry IOBROKER-PUSHOVER-2)",
+                "es": "corrige el caso de que el token no esté definido / existente (Sentry IOBROKER-PUSHOVER-2)",
+                "pl": "naprawiono przypadek, w którym token nie jest zdefiniowany / istnieje (Sentry IOBROKER-PUSHOVER-2)",
+                "zh-cn": "修复令牌未定义/不存在的情况（Sentry IOBROKER-PUSHOVER-2）"
+            },
             "2.0.1": {
                 "en": "Fixed error in the blockly if language was not \"ru/en/de\"\nBreaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.\n",
                 "de": "Fehler im Block behoben, wenn die Sprache nicht \"ru / en / de\" war\nBreaking Change: Die Verschlüsselung des Passworts wurde geändert, daher muss das Token erneut eingegeben werden. Speichern Sie Ihr Token vor dem Update.\n",
@@ -74,12 +86,12 @@
                 "es": "Admin3 es compatible ahora",
                 "pl": "Admin3 jest teraz obsługiwany"
             },
-			"1.0.4": {
+            "1.0.4": {
                 "en": "callback is now possible (to receive the receipt from pushover if you use priority = 2)",
                 "de": "Callback ist jetzt möglich (um den Beleg von pushover zu erhalten, wenn Sie Priorität = 2 verwenden)",
                 "ru": "теперь возможен обратный вызов (чтобы получить результат от pushover, если вы используете приоритет = 2)"
             },
-			"1.0.3": {
+            "1.0.3": {
                 "en": "Change priorities in blockly",
                 "de": "Ändere Prioritäten in Blockly",
                 "ru": "Изменены значения приоритетов в blockly"
