@@ -99,7 +99,7 @@ When the adapter crashes or an other Code error happens, this error message that
 -->
 
 ## Changelog
-### __WORK IN PROGRESS__
+### 2.0.4 (2021-06-28)
 * (dipts) Blockly input value for attachments
 * (bluefox) implemented the "glances"
 

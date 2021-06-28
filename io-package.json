@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "pushover",
-        "version": "2.0.3",
+        "version": "2.0.4",
         "news": {
+            "2.0.4": {
+                "en": "Blockly input value for attachments\nimplemented the \"glances\"",
+                "de": "Block-Eingabewert für Anhänge\ndie \"Blicke\" umgesetzt",
+                "ru": "Блочно вводимое значение для вложений\nреализованы «взгляды»",
+                "pt": "Valor de entrada em bloco para anexos\nimplementou os \"olhares\"",
+                "nl": "Geblokkeerde invoerwaarde voor bijlagen\nimplementeerde de \"blik\"",
+                "fr": "Valeur d'entrée en bloc pour les pièces jointes\nmis en œuvre les \"coups d'œil\"",
+                "it": "Valore di input a blocchi per gli allegati\nimplementato gli \"sguardi\"",
+                "es": "Valor de entrada en bloque para archivos adjuntos\nimplementó las \"miradas\"",
+                "pl": "Blokowo wprowadzana wartość dla załączników\nwdrożył „spojrzenia”",
+                "zh-cn": "附件的块输入值\n实施“一瞥”"
+            },
             "2.0.3": {
                 "en": "Removed spaces in the admin config dropdown",
                 "de": "Leerzeichen in der Dropdown-Liste der Administratorkonfiguration wurden entfernt",
