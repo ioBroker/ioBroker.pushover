@@ -108,37 +108,82 @@
                 "fr": "Admin3 est pris en charge maintenant",
                 "it": "Admin3 è supportato ora",
                 "es": "Admin3 es compatible ahora",
-                "pl": "Admin3 jest teraz obsługiwany"
+                "pl": "Admin3 jest teraz obsługiwany",
+                "zh-cn": "现在支持 Admin3"
             },
             "1.0.4": {
                 "en": "callback is now possible (to receive the receipt from pushover if you use priority = 2)",
                 "de": "Callback ist jetzt möglich (um den Beleg von pushover zu erhalten, wenn Sie Priorität = 2 verwenden)",
-                "ru": "теперь возможен обратный вызов (чтобы получить результат от pushover, если вы используете приоритет = 2)"
+                "ru": "теперь возможен обратный вызов (чтобы получить результат от pushover, если вы используете приоритет = 2)",
+                "pt": "retorno de chamada agora é possível (para receber o recibo de pushover se você usar prioridade = 2)",
+                "nl": "terugbellen is nu mogelijk (om de bon van pushover te ontvangen als je prioriteit = 2)",
+                "fr": "le rappel est maintenant possible (pour recevoir le reçu de pushover si vous utilisez priorité = 2)",
+                "it": "ora è possibile richiamare (ricevere la ricevuta da pushover se si usa la priorità = 2)",
+                "es": "la devolución de llamada ahora es posible (para recibir el recibo de pushover si usa prioridad = 2)",
+                "pl": "oddzwonienie jest teraz możliwe (aby otrzymać potwierdzenie od pushover, jeśli używasz priorytetu = 2)",
+                "zh-cn": "现在可以回调（如果您使用优先级 = 2，则可以从 pushover 接收收据）"
             },
             "1.0.3": {
                 "en": "Change priorities in blockly",
                 "de": "Ändere Prioritäten in Blockly",
-                "ru": "Изменены значения приоритетов в blockly"
+                "ru": "Изменены значения приоритетов в blockly",
+                "pt": "Mude as prioridades em bloco",
+                "nl": "Wijzig prioriteiten in blockly",
+                "fr": "Changer les priorités dans blockly",
+                "it": "Cambia priorità in blocco block",
+                "es": "Cambiar prioridades en blockly",
+                "pl": "Zmień priorytety blokowo",
+                "zh-cn": "分块地改变优先级"
             },
             "1.0.2": {
                 "en": "support of blockly",
                 "de": "Blockly-Unterstützung",
-                "ru": "Поддержка blockly"
+                "ru": "Поддержка blockly",
+                "pt": "suporte de bloqueio",
+                "nl": "ondersteuning van blockly",
+                "fr": "soutien de blockly",
+                "it": "supporto di blockly",
+                "es": "apoyo de blockly",
+                "pl": "wsparcie blokowe",
+                "zh-cn": "块状的支持"
             },
             "1.0.1": {
                 "en": "filter out double messages",
                 "de": "Ausfiltern doppelte Meldungen",
-                "ru": "Отфильтровывать двойные сообщения"
+                "ru": "Отфильтровывать двойные сообщения",
+                "pt": "filtrar mensagens duplas",
+                "nl": "dubbele berichten eruit filteren",
+                "fr": "filtrer les doubles messages",
+                "it": "filtra i messaggi doppi",
+                "es": "filtrar mensajes dobles",
+                "pl": "odfiltrować podwójne wiadomości",
+                "zh-cn": "过滤掉双重消息"
             },
             "1.0.0": {
                 "en": "fix timestamp\nupdate grunt packages",
                 "de": "fix timestamp\nupdate grunt packages",
-                "ru": "fix timestamp\nupdate grunt packages"
+                "ru": "fix timestamp\nupdate grunt packages",
+                "pt": "fixar carimbo de data / hora\n",
+                "nl": "tijdstempel repareren\n",
+                "fr": "corriger l'horodatage\n",
+                "it": "correggere il timestamp\n",
+                "es": "arreglar marca de tiempo\n",
+                "pl": "napraw znacznik czasu\n",
+                "zh-cn": "修复时间戳\n"
             }
         },
         "title": "Pushover",
         "titleLang": {
-            "en": "Pushover"
+            "en": "Pushover",
+            "de": "Pushover",
+            "ru": "Пустяк",
+            "pt": "Pushover",
+            "nl": "Pushover",
+            "fr": "Poussée",
+            "it": "pushover",
+            "es": "Persona fácil de convencer",
+            "pl": "Łatwizna",
+            "zh-cn": "推倒"
         },
         "desc": {
             "en": "This adapter allows to send pushover notifications from ioBroker",
@@ -149,7 +194,8 @@
             "fr": "Cet adaptateur permet d'envoyer des notifications de transfert depuis ioBroker",
             "it": "Questo adattatore consente di inviare notifiche pushover da ioBroker",
             "es": "Este adaptador permite enviar notificaciones fáciles de ioBroker",
-            "pl": "Ten adapter umożliwia wysyłanie powiadomień push z programu ioBroker"
+            "pl": "Ten adapter umożliwia wysyłanie powiadomień push z programu ioBroker",
+            "zh-cn": "此适配器允许从 ioBroker 发送推送通知"
         },
         "authors": [
             "bluefox <dogafox@gmail.com>"
@@ -184,6 +230,7 @@
         "blockly": true,
         "connectionType": "cloud",
         "dataSource": "push",
+        "tier": 1,
         "plugins": {
             "sentry": {
                 "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"

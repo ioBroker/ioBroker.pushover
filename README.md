@@ -1,17 +1,17 @@
 ![Logo](admin/pushover.png)
 # ioBroker pushover Adapter
 
-![Number of Installations](http://iobroker.live/badges/pushover-installed.svg) 
-![Number of Installations](http://iobroker.live/badges/pushover-stable.svg) 
+![Number of Installations](http://iobroker.live/badges/pushover-installed.svg)
+![Number of Installations](http://iobroker.live/badges/pushover-stable.svg)
 [![NPM version](http://img.shields.io/npm/v/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
+
+![Test and Release](https://github.com/ioBroker/iobroker.pushover/workflows/Test%20and%20Release/badge.svg)
+[![Translation status](https://weblate.iobroker.net/widgets/adapters/-/pushover/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
-
-[![NPM](https://nodei.co/npm/iobroker.pushover.png?downloads=true)](https://nodei.co/npm/iobroker.pushover/)
-
 
 Send pushover notifications from ioBroker. 
 
-**This adapter uses Sentry libraries to automatically report exceptions and code errors to me as the developer.** More details see below!
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
 ## Configuration
 First it is required an account on pushover.
