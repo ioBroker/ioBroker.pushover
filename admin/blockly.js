@@ -24,6 +24,7 @@ Blockly.Words['pushover_sound']         = {'en': 'sound',                       
 Blockly.Words['pushover_priority']      = {'en': 'priority',                    'de': 'Priorität',                          'ru': 'приоритет'};
 Blockly.Words['pushover_url']           = {'en': 'URL (optional)',              'de': 'URL (optional)',                     'ru': 'URL (не обяз.)'};
 Blockly.Words['pushover_url_title']     = {'en': 'URL title (optional)',        'de': 'URL Betreff (optional)',             'ru': 'заголовок для URL (не обяз.)'};
+Blockly.Words['pushover_attachment']    = {'en': 'attachment (optional)',       'de': 'Anhang (optional)',                   'ru': 'вложение (не обяз.)'};
 Blockly.Words['pushover_device']        = {'en': 'device ID (optional)',        'de': 'Gerät ID (optional)',                'ru': 'ID устройства (не обяз.)'};
 Blockly.Words['pushover_timestamp']     = {'en': 'time in ms (optional)',       'de': 'Zeit in ms (optional)',              'ru': 'время в мс (не обяз.)'};
 Blockly.Words['pushover_normal']        = {'en': 'default',                     'de': 'Normal',                             'ru': 'по умолчанию'};
@@ -84,6 +85,8 @@ Blockly.Sendto.blocks['pushover'] =
     + '     <value name="URL">'
     + '     </value>'
     + '     <value name="URL_TITLE">'
+    + '     </value>'
+    + '     <value name="ATTACHMENT">'
     + '     </value>'
     + '     <value name="DEVICE">'
     + '     </value>'
@@ -179,6 +182,13 @@ Blockly.Blocks['pushover'] = {
             input.connection._optional = true;
         }
 
+        input = this.appendValueInput('ATTACHMENT')
+            .setCheck('String')
+            .appendField(Blockly.Translate('pushover_attachment'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
         input = this.appendValueInput('DEVICE')
             .setCheck('String')
             .appendField(Blockly.Translate('pushover_device'));
@@ -231,6 +241,9 @@ Blockly.JavaScript['pushover'] = function(block) {
 
     value = Blockly.JavaScript.valueToCode(block, 'URL_TITLE', Blockly.JavaScript.ORDER_ATOMIC);
     if (value)     text += '   url_title: ' + value + ',\n';
+
+    value = Blockly.JavaScript.valueToCode(block, 'ATTACHMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   file: ' + value + ',\n';
 
     value = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
     if (value)     text += '   title: ' + value + ',\n';
