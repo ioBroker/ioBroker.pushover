@@ -199,8 +199,11 @@ Blockly.Blocks['pushover'] = {
         input = this.appendValueInput('TIMESTAMP')
             .setCheck('Date')
             .appendField(Blockly.Translate('pushover_timestamp'));
-        if (input.connection)  7
-        input.connection._optional = true;
+
+        if (input.connection)  {
+            input.connection._optional = true;
+        }
+
 
         this.appendDummyInput('LOG')
             .appendField(Blockly.Translate('pushover_log'))
@@ -266,4 +269,201 @@ Blockly.JavaScript['pushover'] = function(block) {
     }
 
     return 'sendTo("pushover' + dropdown_instance + '", "send", ' + text + ');\n' + logText;
+};
+
+/// --- SendTo glances --------------------------------------------------
+Blockly.Words['glances']               = {'en': 'glances',                    'de': 'glances',                           'ru': 'glances'};
+
+Blockly.Words['glances_count']      = {
+    "en": "Count",
+    "de": "Anzahl",
+    "ru": "Счётчик",
+    "pt": "Contar",
+    "nl": "Tel",
+    "fr": "Compter",
+    "it": "Contare",
+    "es": "Contar",
+    "pl": "Liczyć",
+    "zh-cn": "数数"
+};
+Blockly.Words['glances_percent']    = {
+    "en": "Percent",
+    "de": "Prozent",
+    "ru": "Проценты",
+    "pt": "Por cento",
+    "nl": "procent",
+    "fr": "Pour cent",
+    "it": "Per cento",
+    "es": "Por ciento",
+    "pl": "Procent",
+    "zh-cn": "百分"
+};
+Blockly.Words['glances_subtext']    =  {
+    "en": "Second line",
+    "de": "Zweite Reihe",
+    "ru": "Вторая строка",
+    "pt": "Segunda linha",
+    "nl": "Tweede lijn",
+    "fr": "Deuxième ligne",
+    "it": "Seconda linea",
+    "es": "Segunda linea",
+    "pl": "Druga linia",
+    "zh-cn": "第二行"
+};
+
+Blockly.Words['glances_tooltip']    =  {
+    "en": "Send short message to pushover (glances)",
+    "de": "Kurze Nachricht (glances) an Pushover senden",
+    "ru": "Отправить короткое сообщение (glances) pushover",
+    "pt": "Envie uma mensagem curta para pushover (glances)",
+    "nl": "Stuur een kort bericht naar pushover (glances)",
+    "fr": "Envoyer un court message à pushover (glances)",
+    "it": "Invia un breve messaggio a pushover (glances)",
+    "es": "Enviar mensaje corto a pushover (glances)",
+    "pl": "Wyślij krótką wiadomość do pushover (glances)",
+    "zh-cn": "发送短消息到pushover (glances)"
+};
+Blockly.Words['glances_help']       = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md#glances'};
+
+Blockly.Sendto.blocks['glances'] =
+    '<block type="glances">'
+    + '     <value name="INSTANCE">'
+    + '     </value>'
+    + '     <value name="MESSAGE">'
+    + '         <shadow type="text">'
+    + '             <field name="TEXT">text</field>'
+    + '         </shadow>'
+    + '     </value>'
+    + '     <value name="TITLE">'
+    + '     </value>'
+    + '     <value name="SUBTEXT">'
+    + '     </value>'
+    + '     <value name="COUNT">'
+    + '     </value>'
+    + '     <value name="PERCENT">'
+    + '     </value>'
+    + '     <value name="DEVICE">'
+    + '     </value>'
+    + '     <value name="LOG">'
+    + '     </value>'
+    + '</block>';
+
+Blockly.Blocks['glances'] = {
+    init: function() {
+        var options = [[Blockly.Translate('pushover_anyInstance'), '']];
+        if (typeof main !== 'undefined' && main.instances) {
+            for (var i = 0; i < main.instances.length; i++) {
+                var m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
+                if (m) {
+                    var n = parseInt(m[1], 10);
+                    options.push(['pushover.' + n, '.' + n]);
+                }
+            }
+        }
+
+        if (!options.length) {
+            for (var u = 0; u <= 4; u++) {
+                options.push(['pushover.' + u, '.' + u]);
+            }
+        }
+
+        this.appendDummyInput('INSTANCE')
+            .appendField(Blockly.Translate('glances'))
+            .appendField(new Blockly.FieldDropdown(options), 'INSTANCE');
+
+        this.appendValueInput('MESSAGE')
+            .appendField(Blockly.Translate('pushover_message'));
+
+        var input = this.appendValueInput('TITLE')
+            .setCheck('String')
+            .appendField(Blockly.Translate('pushover_title'));
+
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
+        input = this.appendValueInput('SUBTEXT')
+            .setCheck('String')
+            .appendField(Blockly.Translate('glances_subtext'));
+
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
+        input = this.appendValueInput('COUNT')
+            .setCheck('Number')
+            .appendField(Blockly.Translate('glances_count'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
+        input = this.appendValueInput('PERCENT')
+            .setCheck('number')
+            .appendField(Blockly.Translate('glances_percent'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
+        input = this.appendValueInput('DEVICE')
+            .setCheck('String')
+            .appendField(Blockly.Translate('pushover_device'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
+        this.appendDummyInput('LOG')
+            .appendField(Blockly.Translate('pushover_log'))
+            .appendField(new Blockly.FieldDropdown([
+                [Blockly.Translate('pushover_log_none'),  ''],
+                [Blockly.Translate('pushover_log_info'),  'log'],
+                [Blockly.Translate('pushover_log_debug'), 'debug'],
+                [Blockly.Translate('pushover_log_warn'),  'warn'],
+                [Blockly.Translate('pushover_log_error'), 'error']
+            ]), 'LOG');
+
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+
+        this.setColour(Blockly.Sendto.HUE);
+        this.setTooltip(Blockly.Translate('pushover_tooltip'));
+        this.setHelpUrl(Blockly.Translate('pushover_help'));
+    }
+};
+
+Blockly.JavaScript['glances'] = function(block) {
+    var dropdown_instance = block.getFieldValue('INSTANCE');
+    var logLevel = block.getFieldValue('LOG');
+    var message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
+    var text = '{\n';
+    text += '   message: ' + message + ',\n';
+
+    var value = Blockly.JavaScript.valueToCode(block, 'COUNT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   count: ' + parseInt(value, 10) + ',\n';
+
+    value = Blockly.JavaScript.valueToCode(block, 'PERCENT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   percent: ' + parseInt(value, 10) + ',\n';
+
+    value = Blockly.JavaScript.valueToCode(block, 'SUBTEXT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   subtext: ' + value + ',\n';
+
+    value = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   title: ' + value + ',\n';
+
+    value = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   device: ' + value + ',\n';
+
+    text = text.substring(0, text.length - 2);
+    text += '\n';
+
+    text += '}';
+    var logText;
+
+    if (logLevel) {
+        logText = 'console.' + logLevel + '("glances: " + ' + message + ');\n'
+    } else {
+        logText = '';
+    }
+
+    return 'sendTo("pushover' + dropdown_instance + '", "glances", ' + text + ');\n' + logText;
 };

@@ -2,7 +2,7 @@
  *
  *      ioBroker pushover Adapter
  *
- *      (c) 2014-2020 bluefox <dogafox@gmail.com>
+ *      (c) 2014-2021 bluefox <dogafox@gmail.com>
  *
  *      MIT License
  *
@@ -15,6 +15,7 @@
 const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
 const Pushover    = require('pushover-notifications');
 const adapterName = require('./package.json').name.split('.').pop();
+const axios       = require('axios')
 let adapter;
 
 function startAdapter(options) {
@@ -31,7 +32,16 @@ function startAdapter(options) {
         adapter.tools = {decrypt, migrateEncodedAttributes};
     }
 
-    adapter.on('message', obj => obj && obj.command === 'send' && obj.message && processMessage(adapter, obj));
+    adapter.on('message', obj => {
+        if (obj && obj.command === 'send' && obj.message) {
+            obj.message && processMessage(adapter, obj);
+        } else
+        if (obj && obj.command === 'glances' && obj.message) {
+            obj.message && sendGlances(adapter, obj);
+        } else {
+            obj.callback && adapter.sendTo(obj.from, 'send', { error: 'Unsupported'}, obj.callback);
+        }
+    });
 
     adapter.on('ready', () => {
         if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
@@ -59,11 +69,11 @@ let lastMessageText = '';
 function processMessage(adapter, obj) {
     // filter out double messages
     const json = JSON.stringify(obj.message);
-    if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && new Date().getTime() - lastMessageTime < 1000) {
-        return adapter.log.debug(`Filter out double message [first was for ${new Date().getTime() - lastMessageTime}ms]: ${json}`);
+    if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && Date.now() - lastMessageTime < 1000) {
+        return adapter.log.debug(`Filter out double message [first was for ${Date.now() - lastMessageTime}ms]: ${json}`);
     }
 
-    lastMessageTime = new Date().getTime();
+    lastMessageTime = Date.now();
     lastMessageText = json;
 
     if (obj.message.user !== adapter.config.user) {
@@ -77,13 +87,13 @@ function processMessage(adapter, obj) {
         delete obj.message.token;
 
         tempPushover.send(obj.message, (error, response) => {
-            error && adapter.log.error('Cannot send test message: ' + err);
-            obj.callback && adapter.sendTo(obj.from, 'send', { error, response}, obj.callback);
+            error && adapter.log.error('Cannot send test message: ' + error);
+            obj.callback && adapter.sendTo(obj.from, 'send', { error, result: response}, obj.callback);
         })
 
     } else {
         sendNotification(adapter, obj.message, (error, response) =>
-            obj.callback && adapter.sendTo(obj.from, 'send', { error, response}, obj.callback));
+            obj.callback && adapter.sendTo(obj.from, 'send', { error, result: response}, obj.callback));
     }
 }
 
@@ -170,6 +180,57 @@ function getEncryptedConfig(attribute, callback) {
     }
 }
 
+function sendGlances(adapter, obj) {
+    const json = JSON.stringify(obj.message);
+    if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && Date.now() - lastMessageTime < 1000) {
+        return adapter.log.debug(`Filter out double message [first was for ${Date.now() - lastMessageTime}ms]: ${json}`);
+    }
+
+    lastMessageTime = Date.now();
+    lastMessageText = json;
+
+    const msg = obj.message;
+
+    let formData = {
+        token:   msg.token   || adapter.config.token,
+        user:    msg.user    || adapter.config.user,
+        title:   msg.title !== undefined ? msg.title : adapter.config.title,
+        text:    msg.message || msg.text,
+        subtext: msg.subtext || undefined,
+        count:   msg.count   || undefined,
+        percent: msg.percent || undefined,
+        device:  msg.device  || undefined
+    };
+    if (formData.title && formData.title.length > 100) {
+        adapter.log.error('Title too long. Max length is 100');
+        return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Title too long. Max length is 100'}, obj.callback);
+    }
+    if (formData.text && formData.text.length > 100) {
+        adapter.log.error('Text too long. Max length is 100');
+        return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Text too long. Max length is 100'}, obj.callback);
+    }
+    if (formData.subtext && formData.subtext.length > 100) {
+        adapter.log.error('Subtext too long. Max length is 100');
+        return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Subtext too long. Max length is 100'}, obj.callback);
+    }
+
+    axios
+        .post('https://api.pushover.net/1/glances.json', formData)
+        .then(body => {
+            if (body.data.status !== 1) {
+                adapter.log.error('Pushover error: ' + JSON.stringify(body.data.errors));
+                return obj.callback && adapter.sendTo(obj.from, 'glances', { error: body.data.errors}, obj.callback);
+            } else {
+                adapter.log.debug('pushover POST succeeded:\n' + JSON.stringify(body.data));
+                return obj.callback && adapter.sendTo(obj.from, 'glances', { result: body.data.status}, obj.callback);
+            }
+        })
+        .catch(error => {
+            adapter.log.error('Pushover error: ' + error);
+            return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Pushover error: ' + error}, obj.callback);
+        });
+}
+
 /**
  * Decrypt the password/value with given key
  * @param {string} key - Secret key
@@ -246,10 +307,10 @@ function sendNotification(adapter, message, callback) {
     pushover.send(message, (err, result) => {
         if (err) {
             adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
-            if (callback) callback(err);
+            callback && callback(err);
             return false;
         } else {
-            if (callback) callback(null, result);
+            callback && callback(null, result);
             return true;
         }
     });
