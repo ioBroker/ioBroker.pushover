@@ -53,6 +53,8 @@ sendTo("pushover", {
    html                   // optional  - 1 to enable parsing of HTML formating for bold, italic, underlined and font color
    monospace              // optional  - 1 to display the message in monospace font
                           //    either html or monospace is allowed
+   file:                  '/opt/picture.png', // optional - attachment 
+   file:                  { name: '/opt/picture.png', data: fs.readFileSync('/opt/picture.png') }, // optional - attachment 
 });
 
 // Example for HTML format in the message
@@ -69,6 +71,13 @@ sendTo("pushover", {
 
 ```
 
+## Attachments
+You can send files via attachments:
+
+
+sendTo("pushover", { message: 'This is a test message', // mandatory - your text message title: 'ioBroker', // optional - your message's title, otherwise your app's name is used sound: 'magic', // optional - the name of one of the sounds supported by device clients to override the user's default sound choice // pushover, bike, bugle, cashregister, classical, cosmic, falling, // gamelan, incoming, intermission, magic, mechanical, pianobar, siren, // spacealarm, tugboat, alien, climb, persistent, echo, updown, none priority: 0, // optional (-2, -1, 0, 1, 2) // -2 to always send as a quiet notification, // 1 to display as high-priority and bypass the user's quiet hours, or // 2 to also require confirmation from the user file: '/opt/iobroker/phantomjs_images/Gasverbrauch.png', // optional - attachment //token: 'API/KEY token', // optional - add other than configurated token to the call //url: , // optional - a supplementary URL to show with your message //url_title: , // optional - a title for your supplementary URL, otherwise just the URL is shown //device: , // optional - your user's device name to send the message directly to that device, rather than all of the user's devices //timestamp // optional - a Unix timestamp of your message's date and time to display to the user, rather than the time your message is received by our API });
+
+
 ## What is Sentry and what is reported to the servers?
 Sentry.io is a way for developers to get an overview about errors from their applications. And exactly this is implemented in this adapter.
 
@@ -80,6 +89,9 @@ When the adapter crashes or an other Code error happens, this error message that
 -->
 
 ## Changelog
+### __WORK IN PROGRESS__
+* (dipts) Blockly input value for attachments
+
 ### 2.0.3 (2020-09-25)
 * (klein0r) Removed spaces in the admin config dropdown
 

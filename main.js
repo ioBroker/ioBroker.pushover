@@ -60,26 +60,33 @@ function processMessage(adapter, obj) {
     // filter out double messages
     const json = JSON.stringify(obj.message);
     if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && new Date().getTime() - lastMessageTime < 1000) {
-        return adapter.log.debug('Filter out double message [first was for ' + (new Date().getTime() - lastMessageTime) + 'ms]: ' + json);
+        return adapter.log.debug(`Filter out double message [first was for ${new Date().getTime() - lastMessageTime}ms]: ${json}`);
     }
 
     lastMessageTime = new Date().getTime();
     lastMessageText = json;
 
-    sendNotification(adapter, obj.message, (err, response) =>
-        obj.callback && adapter.sendTo(obj.from, 'send', { error: err, response: response}, obj.callback));
+    if (obj.message.user !== adapter.config.user) {
+        const tempPushover = new Pushover({
+            user:  obj.message.user,
+            token: obj.message.token,
+            onerror: onError
+        });
+
+        delete obj.message.user;
+        delete obj.message.token;
+
+        tempPushover.send(obj.message, (error, response) => {
+            error && adapter.log.error('Cannot send test message: ' + err);
+            obj.callback && adapter.sendTo(obj.from, 'send', { error, response}, obj.callback);
+        })
+
+    } else {
+        sendNotification(adapter, obj.message, (error, response) =>
+            obj.callback && adapter.sendTo(obj.from, 'send', { error, response}, obj.callback));
+    }
 }
 
-// This function migrates encrypted attributes to "enc_",
-// that will be automatically encrypted and decrypted in admin and in adapter.js
-//
-// Usage:
-// migrateEncodedAttributes(adapter, ['pass', 'token'], true).then(migrated => {
-//    if (migrated) {
-//       // do nothing and wait for adapter restart
-//       return;
-//    }
-// });
 function migrateEncodedAttributes(adapter, attrs, onlyRename) {
     if (typeof attrs === 'string') {
         attrs = [attrs];

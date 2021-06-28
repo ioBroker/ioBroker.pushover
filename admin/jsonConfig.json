@@ -1,0 +1,77 @@
+{
+  "type": "panel",
+  "items": {
+    "user": {
+      "type": "text",
+      "label": "Group Key",
+      "help": "Group Key of Delivery Group",
+      "sm": 12,
+      "md": 6
+    },
+    "token": {
+      "type": "password",
+      "label": "Token",
+      "help": "API Token/Key of Application",
+      "sm": 12,
+      "md": 6
+    },
+    "title": {
+      "newLine": true,
+      "type": "text",
+      "label": "Title",
+      "sm": 12,
+      "md": 6
+    },
+    "sound": {
+      "newLine": true,
+      "type": "select",
+      "label": "Sound",
+      "sm": 12,
+      "md": 6,
+      "options": [
+        {"value": "", label: "default"},
+        {"value": "pushover", label: "pushover"},
+        {"value": "bike", label: "bike"},
+        {"value": "bugle", label: "bugle"},
+        {"value": "cashregister", label: "cashregister"},
+        {"value": "classical", label: "classical"},
+        {"value": "cosmic", label: "cosmic"},
+        {"value": "falling", label: "falling"},
+        {"value": "gamelan", label: "gamelan"},
+        {"value": "incoming", label: "incoming"},
+        {"value": "intermission", label: "intermission"},
+        {"value": "magic", label: "magic"},
+        {"value": "mechanical", label: "mechanical"},
+        {"value": "pianobar", label: "pianobar"},
+        {"value": "siren", label: "siren"},
+        {"value": "spacealarm", label: "spacealarm"},
+        {"value": "tugboat", label: "tugboat"},
+        {"value": "alien", label: "alien"},
+        {"value": "climb", label: "climb"},
+        {"value": "persistent", label: "persistent"},
+        {"value": "echo", label: "echo"},
+        {"value": "updown", label: "updown"},
+        {"value": "none", label: "none"}
+      ],
+      "noTranslation": true
+    },
+    "priority": {
+      "newLine": true,
+      "type": "select",
+      "label": "Priority",
+      "sm": 12,
+      "md": 6,
+      "options": [
+        {"value": "-1", label: "quiet"},
+        {"value": "0", label: "default"},
+        {"value": "1", label: "high-priority"}
+      ],
+      "noTranslation": true
+    },
+    "_test": {
+      "type": "sendTo",
+      "command": "send",
+      "jsonData ": "{\"message\": \"This is test notification!\", \"priority\": \"${data.priority}\", \"sound\": \"${data.sound}\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
+    }
+  }
+}
