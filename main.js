@@ -76,7 +76,7 @@ function processMessage(adapter, obj) {
     lastMessageTime = Date.now();
     lastMessageText = json;
 
-    if (obj.message.user !== adapter.config.user) {
+    if (obj.message.user && obj.message.token && obj.message.user !== adapter.config.user) {
         const tempPushover = new Pushover({
             user:  obj.message.user,
             token: obj.message.token,
