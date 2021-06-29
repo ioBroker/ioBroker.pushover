@@ -487,4 +487,14 @@ gulp.task('copy', done => {
     done();
 });
 
+gulp.task('rename', done => {
+    const dirs = fs.readdirSync(__dirname + '/admin/i18n');
+    dirs.forEach(dir => {
+        if (fs.existsSync(__dirname + '/admin/i18n/' + dir + '/translations.json')) {
+            fs.writeFileSync(__dirname + '/admin/i18n/' + dir + '.json', fs.readFileSync(__dirname + '/admin/i18n/' + dir + '/translations.json'));
+            fs.unlinkSync(__dirname + '/admin/i18n/' + dir + '/translations.json');
+        }
+    });
+})
+
 gulp.task('default', gulp.series('copy'));
