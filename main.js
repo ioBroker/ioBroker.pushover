@@ -15,7 +15,7 @@
 const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
 const Pushover    = require('pushover-notifications');
 const adapterName = require('./package.json').name.split('.').pop();
-const axios       = require('axios')
+const axios       = require('axios');
 let adapter;
 
 function startAdapter(options) {
