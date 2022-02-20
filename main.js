@@ -23,15 +23,6 @@ function startAdapter(options) {
     Object.assign(options, {name: adapterName});
     adapter = new utils.Adapter(options);
 
-    adapter.getEncryptedConfig = adapter.getEncryptedConfig || getEncryptedConfig;
-
-    try {
-        adapter.tools = adapter.tools || require(utils.controllerDir + '/lib/tools');
-        adapter.tools.migrateEncodedAttributes = adapter.tools.migrateEncodedAttributes || migrateEncodedAttributes;
-    } catch (e) {
-        adapter.tools = {decrypt, migrateEncodedAttributes};
-    }
-
     adapter.on('message', obj => {
         if (obj && obj.command === 'send' && obj.message) {
             obj.message && processMessage(adapter, obj);
@@ -44,19 +35,7 @@ function startAdapter(options) {
     });
 
     adapter.on('ready', () => {
-        if (!adapter.supportsFeature || !adapter.supportsFeature('ADAPTER_AUTO_DECRYPT_NATIVE')) {
-            adapter.getEncryptedConfig('token')
-                .then(value => {
-                    adapter.config.token = value;
-                    main(adapter);
-                })
-                .catch(e => {
-                    adapter.config.token = '';
-                    main(adapter);
-                });
-        } else {
-            main(adapter);
-        }
+        main(adapter);
     });
 
     return adapter;
@@ -94,89 +73,6 @@ function processMessage(adapter, obj) {
     } else {
         sendNotification(adapter, obj.message, (error, response) =>
             obj.callback && adapter.sendTo(obj.from, 'send', { error, result: response}, obj.callback));
-    }
-}
-
-function migrateEncodedAttributes(adapter, attrs, onlyRename) {
-    if (typeof attrs === 'string') {
-        attrs = [attrs];
-    }
-    const toMigrate = [];
-    attrs.forEach(attr =>
-        adapter.config[attr] !== undefined && adapter.config['enc_' + attr] === undefined && toMigrate.push(attr));
-
-    if (toMigrate.length) {
-        return new Promise((resolve, reject) => {
-            // read system secret
-            adapter.getForeignObject('system.config', null, (err, data) => {
-                let systemSecret;
-                if (data && data.native) {
-                    systemSecret = data.native.secret;
-                }
-                if (systemSecret) {
-                    // read instance configuration
-                    adapter.getForeignObject('system.adapter.' + adapter.namespace, (err, obj) => {
-                        if (obj && obj.native) {
-                            toMigrate.forEach(attr => {
-                                if (obj.native[attr]) {
-                                    if (onlyRename) {
-                                        obj.native['enc_' + attr] = obj.native[attr];
-                                    } else {
-                                        obj.native['enc_' + attr] = adapter.tools.encrypt(systemSecret, obj.native[attr]);
-                                    }
-                                } else {
-                                    obj.native['enc_' + attr] = '';
-                                }
-                                delete obj.native[attr];
-                            });
-                            adapter.setForeignObject('system.adapter.' + adapter.namespace, obj, err => {
-                                err && adapter.log.error(`Cannot write system.adapter.${adapter.namespace}: ${err}`);
-                                !err && adapter.log.info('Attributes are migrated and adapter will be restarted');
-                                err ? reject(err) : resolve(true);
-                            });
-                        } else {
-                            adapter.log.error(`system.adapter.${adapter.namespace} not found!`);
-                            reject(`system.adapter.${adapter.namespace} not found!`);
-                        }
-                    });
-                } else {
-                    adapter.log.error('No system secret found!');
-                    reject('No system secret found!');
-                }
-            });
-        })
-    } else {
-        return Promise.resolve(false);
-    }
-}
-
-function getEncryptedConfig(attribute, callback) {
-    if (adapter.config.hasOwnProperty(attribute)) {
-        if (typeof callback !== 'function') {
-            return new Promise((resolve, reject) => {
-                getEncryptedConfig(attribute, (err, encrypted) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(encrypted);
-                    }
-                });
-            });
-        } else {
-            adapter.getForeignObject('system.config', null, (err, data) => {
-                let systemSecret;
-                if (data && data.native) {
-                    systemSecret = data.native.secret;
-                }
-                callback(null, adapter.tools.decrypt(systemSecret, adapter.config[attribute]));
-            });
-        }
-    } else {
-        if (typeof callback === 'function') {
-            callback('Attribute not found');
-        } else {
-            return Promise.reject('Attribute not found');
-        }
     }
 }
 
@@ -229,20 +125,6 @@ function sendGlances(adapter, obj) {
             adapter.log.error('Pushover error: ' + error);
             return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Pushover error: ' + error}, obj.callback);
         });
-}
-
-/**
- * Decrypt the password/value with given key
- * @param {string} key - Secret key
- * @param {string} value - value to decript
- * @returns {string}
- */
-function decrypt(key, value) {
-    let result = '';
-    for(let i = 0; i < value.length; i++) {
-        result += String.fromCharCode(key[i % key.length].charCodeAt(0) ^ value.charCodeAt(i));
-    }
-    return result;
 }
 
 function main(adapter) {
@@ -306,7 +188,11 @@ function sendNotification(adapter, message, callback) {
 
     pushover.send(message, (err, result) => {
         if (err) {
-            adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
+            try {
+                adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
+            } catch (err) {
+                adapter.log.error('Cannot send notification: Error');
+            }
             callback && callback(err);
             return false;
         } else {
