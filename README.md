@@ -100,7 +100,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 
-### __WORK IN PROGRESS__
+### 2.1.0 (2022-02-20)
 * Important: js-controller 3.0+ required! 
 * (Apollon77) Remove some legacy code
 * (Apollon77) Prevent potential crash case when error occurs
