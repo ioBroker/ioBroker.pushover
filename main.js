@@ -74,10 +74,6 @@ class Pushover extends utils.Adapter {
                     } catch (err) {
                         this.log.error('Cannot send notification: Error');
                     }
-                } else {
-                    this.setStateChanged('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
-                    this.setStateChanged('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
-                    this.setStateChanged('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
                 }
 
                 obj.callback && this.sendTo(obj.from, 'send', { err, result: result }, obj.callback);
