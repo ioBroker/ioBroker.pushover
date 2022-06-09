@@ -210,16 +210,16 @@
             "zh-cn": "推倒"
         },
         "desc": {
-            "en": "This adapter allows to send pushover notifications from ioBroker",
-            "de": "Dieser Adapter ermöglicht das Senden von Pushover-Benachrichtigungen von ioBroker",
-            "ru": "Этот адаптер позволяет отправлять pushover-уведомления от ioBroker",
-            "pt": "Este adaptador permite enviar notificações pushover do ioBroker",
-            "nl": "Met deze adapter kunt u pushover-meldingen van ioBroker verzenden",
-            "fr": "Cet adaptateur permet d'envoyer des notifications de transfert depuis ioBroker",
-            "it": "Questo adattatore consente di inviare notifiche pushover da ioBroker",
-            "es": "Este adaptador permite enviar notificaciones fáciles de ioBroker",
-            "pl": "Ten adapter umożliwia wysyłanie powiadomień push z programu ioBroker",
-            "zh-cn": "此适配器允许从 ioBroker 发送推送通知"
+            "en": "Sends pushover notifications",
+            "de": "Sendet Pushover-Benachrichtigungen",
+            "ru": "Отправляет уведомления pushover",
+            "pt": "Envia notificações pushover",
+            "nl": "Stuurt een persverklaring",
+            "fr": "Envoyez des notifications pushover",
+            "it": "Invia notifiche pushover",
+            "es": "Enviar notificaciones de empuje",
+            "pl": "Powiadomienia",
+            "zh-cn": "发布通知"
         },
         "authors": [
             "bluefox <dogafox@gmail.com>"
