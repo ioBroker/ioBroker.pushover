@@ -1,5 +1,5 @@
 ![Logo](admin/pushover.png)
-# ioBroker pushover Adapter
+# ioBroker.pushover
 
 ![Number of Installations](http://iobroker.live/badges/pushover-installed.svg)
 ![Number of Installations](http://iobroker.live/badges/pushover-stable.svg)
@@ -25,15 +25,15 @@ First it is required an account on pushover.
 
 To send notification from ScriptEngine just write: 
 
-```
+```javascript
 // send notification to all instances of pushover adapter
-sendTo("pushover", "message body");
+sendTo('pushover', 'message body');
 
 // send notification to specific instance of pushover adapter
-sendTo("pushover.1", "message body");
+sendTo('pushover.1', 'message body');
 
 // To specify subject or other options
-sendTo("pushover", {
+sendTo('pushover', {
    message:  'Test text', // mandatory - your text message
    title:    'SweetHome', // optional  - your message's title, otherwise your app's name is used
    sound:    'magic',     // optional  - the name of one of the sounds supported by device clients to override the user's default sound choice
@@ -58,24 +58,24 @@ sendTo("pushover", {
 });
 
 // Example for HTML format in the message
-sendTo("pushover", {
+sendTo('pushover', {
     message: 'This message includes <b>bold</b>, <i>italic</i> and <u>underlined</u> text <font color=green>in</font> <font color=#ffa500>different</font> <font color=red>colors</font>.',
-    html:    1
+    html: 1
 });
 
 // Example for monospace font in the message
-sendTo("pushover", {
-    message:   'This message is in monospace font.',
+sendTo('pushover', {
+    message: 'This message is in monospace font.',
     monospace: 1
 });
-
 ```
 
 ## Glances
 With Pushover's Glances, you can push small bits of data directly to a constantly-updated screen, 
 referred to as a widget, such as a complication on your smartwatch or a widget on your phone's lock screen.
-```
-sendTo("pushover", "glances", {
+
+```javascript
+sendTo('pushover', 'glances', {
    message:  'Test text',    // mandatory - (100 characters) - the main line of data, used on most screens
    title:    'SweetHome',    // optional  - (100 characters) - a description of the data being shown, such as "Widgets Sold"
    token:    'API/KEY token' // optional  - add other than configured token to the call  
@@ -99,6 +99,10 @@ When the adapter crashes or an other Code error happens, this error message that
 -->
 
 ## Changelog
+### __WORK IN PROGRESS__
+* (klein0r) Changed to class definition
+* (klein0r) Updated logo
+* (klein0r) Updated testing
 
 ### 2.1.0 (2022-02-20)
 * Important: js-controller 3.0+ required! 
