@@ -65,14 +65,27 @@ class Pushover extends utils.Adapter {
             delete obj.message.user;
             delete obj.message.token;
 
-            tempPushover.send(obj.message, (error, response) => {
-                error && this.log.error(`Cannot send test message: ${error}`);
-                obj.callback && this.sendTo(obj.from, 'send', { error, result: response }, obj.callback);
+            tempPushover.send(obj.message, (err, result, response) => {
+                this.log.debug(`Pushover response: ${JSON.stringify(response.headers)}`);
+
+                if (err) {
+                    try {
+                        this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
+                    } catch (err) {
+                        this.log.error('Cannot send notification: Error');
+                    }
+                } else {
+                    this.setStateChanged('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
+                    this.setStateChanged('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
+                    this.setStateChanged('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
+                }
+
+                obj.callback && this.sendTo(obj.from, 'send', { err, result: result }, obj.callback);
             });
 
         } else {
-            this.sendNotification(obj.message, (error, response) =>
-                obj.callback && this.sendTo(obj.from, 'send', { error, result: response }, obj.callback));
+            this.sendNotification(obj.message, (error, result) =>
+                obj.callback && this.sendTo(obj.from, 'send', { error, result: result }, obj.callback));
         }
     }
 
@@ -120,6 +133,10 @@ class Pushover extends utils.Adapter {
             .then(response => {
 
                 this.log.debug(`Pushover glances response: ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`);
+
+                this.setStateChanged('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
+                this.setStateChanged('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
+                this.setStateChanged('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
 
                 if (response.data.status !== 1) {
                     this.log.error(`Pushover glances error: ${JSON.stringify(response.data.errors)}`);
@@ -171,9 +188,6 @@ class Pushover extends utils.Adapter {
         message.title     = message.title     || this.config.title;
         message.sound     = message.sound     || (this.config.sound ? this.config.sound : undefined);
         message.priority  = message.priority  || this.config.priority;
-        message.url       = message.url       || this.config.url;
-        message.url_title = message.url_title || this.config.url_title;
-        message.device    = message.device    || this.config.device;
         message.message   = message.message   || '';
 
         // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
@@ -189,16 +203,23 @@ class Pushover extends utils.Adapter {
 
         this.log.debug(`Sending pushover notification: ${JSON.stringify(message)}`);
 
-        this.pushover.send(message, (err, result) => {
+        this.pushover.send(message, (err, result, response) => {
+            this.log.debug(`Pushover response: ${JSON.stringify(response.headers)}`);
+
             if (err) {
                 try {
                     this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                 } catch (err) {
                     this.log.error('Cannot send notification: Error');
                 }
+
                 callback && callback(err);
                 return false;
             } else {
+                this.setStateChanged('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
+                this.setStateChanged('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
+                this.setStateChanged('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
+
                 callback && callback(null, result);
                 return true;
             }

@@ -13,7 +13,7 @@
     "startMode": "daemon",
     "connectionType": "cloud",
     "dataSource": "push",
-    "connectionIndicator": "yes",
+    "connectionIndicator": "no",
     "language": "JavaScript",
     "adminReact": "no",
     "tools": [

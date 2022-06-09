@@ -100,6 +100,7 @@ When the adapter crashes or an other Code error happens, this error message that
 
 ## Changelog
 ### __WORK IN PROGRESS__
+* (klein0r) Added app limits as states
 * (klein0r) Changed to class definition
 * (klein0r) Updated logo
 * (klein0r) Updated testing
