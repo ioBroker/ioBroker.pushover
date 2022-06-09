@@ -66,7 +66,7 @@ class Pushover extends utils.Adapter {
             delete obj.message.token;
 
             tempPushover.send(obj.message, (error, response) => {
-                error && this.log.error('Cannot send test message: ' + error);
+                error && this.log.error(`Cannot send test message: ${error}`);
                 obj.callback && this.sendTo(obj.from, 'send', { error, result: response}, obj.callback);
             });
 
@@ -87,7 +87,7 @@ class Pushover extends utils.Adapter {
 
         const msg = obj.message;
 
-        let formData = {
+        const formData = {
             token:   msg.token   || this.config.token,
             user:    msg.user    || this.config.user,
             title:   msg.title !== undefined ? msg.title : this.config.title,
@@ -97,14 +97,17 @@ class Pushover extends utils.Adapter {
             percent: msg.percent || undefined,
             device:  msg.device  || undefined
         };
+
         if (formData.title && formData.title.length > 100) {
             this.log.error('Title too long. Max length is 100');
             return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Title too long. Max length is 100'}, obj.callback);
         }
+
         if (formData.text && formData.text.length > 100) {
             this.log.error('Text too long. Max length is 100');
             return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Text too long. Max length is 100'}, obj.callback);
         }
+
         if (formData.subtext && formData.subtext.length > 100) {
             this.log.error('Subtext too long. Max length is 100');
             return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Subtext too long. Max length is 100'}, obj.callback);
@@ -114,21 +117,21 @@ class Pushover extends utils.Adapter {
             .post('https://api.pushover.net/1/glances.json', formData)
             .then(body => {
                 if (body.data.status !== 1) {
-                    this.log.error('Pushover error: ' + JSON.stringify(body.data.errors));
+                    this.log.error(`Pushover error: ${JSON.stringify(body.data.errors)}`);
                     return obj.callback && this.sendTo(obj.from, 'glances', { error: body.data.errors}, obj.callback);
                 } else {
-                    this.log.debug('pushover POST succeeded:\n' + JSON.stringify(body.data));
+                    this.log.debug(`pushover POST succeeded: ${JSON.stringify(body.data)}`);
                     return obj.callback && this.sendTo(obj.from, 'glances', { result: body.data.status}, obj.callback);
                 }
             })
             .catch(error => {
-                this.log.error('Pushover error: ' + error);
-                return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Pushover error: ' + error}, obj.callback);
+                this.log.error(`Pushover error: ${error}`);
+                return obj.callback && this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}`}, obj.callback);
             });
     }
 
-    onError(error, _res) {
-        this.log.error('Error from Pushover: ' + error);
+    onError(error) {
+        this.log.error(`Error from Pushover: ${error}`);
     }
 
     sendNotification(message, callback) {
@@ -151,8 +154,9 @@ class Pushover extends utils.Adapter {
         }
 
         if (typeof message !== 'object') {
-            message = {message};
+            message = { message };
         }
+
         if (message.hasOwnProperty('token')) {
             this.pushover.token = message.token;
         } else {
@@ -178,12 +182,12 @@ class Pushover extends utils.Adapter {
             message.expire = parseInt(message.expire, 10) || 3600;
         }
 
-        this.log.info('Send pushover notification: ' + JSON.stringify(message));
+        this.log.info(`Sending pushover notification: ${JSON.stringify(message)}`);
 
         this.pushover.send(message, (err, result) => {
             if (err) {
                 try {
-                    this.log.error('Cannot send notification: ' + JSON.stringify(err));
+                    this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                 } catch (err) {
                     this.log.error('Cannot send notification: Error');
                 }
