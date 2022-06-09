@@ -2,7 +2,7 @@
 
 const utils = require('@iobroker/adapter-core');
 const axios = require('axios').default;
-const Pushover = require('pushover-notifications');
+const PushoverNotifications = require('pushover-notifications');
 
 class Pushover extends utils.Adapter {
 
@@ -56,7 +56,7 @@ class Pushover extends utils.Adapter {
         this.lastMessageText = json;
 
         if (obj.message.user && obj.message.token && obj.message.user !== this.config.user) {
-            const tempPushover = new Pushover({
+            const tempPushover = new PushoverNotifications({
                 user: obj.message.user,
                 token: obj.message.token,
                 onerror: this.onError
@@ -136,7 +136,7 @@ class Pushover extends utils.Adapter {
 
         if (!this.pushover) {
             if (this.config.user && this.config.token) {
-                this.pushover = new Pushover({
+                this.pushover = new PushoverNotifications({
                     user: this.config.user,
                     token: this.config.token,
                     onerror: this.onError
