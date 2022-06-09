@@ -12,7 +12,7 @@
     "type": "protocols",
     "startMode": "daemon",
     "connectionType": "cloud",
-    "dataSource": "poll",
+    "dataSource": "push",
     "connectionIndicator": "yes",
     "language": "JavaScript",
     "adminReact": "no",
