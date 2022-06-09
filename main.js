@@ -1,211 +1,221 @@
-/**
- *
- *      ioBroker pushover Adapter
- *
- *      (c) 2014-2021 bluefox <dogafox@gmail.com>
- *
- *      MIT License
- *
- */
-
-/* jshint -W097 */
-/* jshint strict: false */
-/* jslint node: true */
 'use strict';
-const utils       = require('@iobroker/adapter-core'); // Get common adapter utils
-const Pushover    = require('pushover-notifications');
-const adapterName = require('./package.json').name.split('.').pop();
-const axios       = require('axios');
-let adapter;
 
-function startAdapter(options) {
-    options = options || {};
-    Object.assign(options, {name: adapterName});
-    adapter = new utils.Adapter(options);
+const utils = require('@iobroker/adapter-core');
+const axios = require('axios').default;
+const Pushover = require('pushover-notifications');
 
-    adapter.on('message', obj => {
+class Pushover extends utils.Adapter {
+
+    /**
+     * @param {Partial<utils.AdapterOptions>} [options={}]
+     */
+    constructor(options) {
+        super({
+            ...options,
+            name: 'pushover',
+        });
+
+        this.pushover = undefined;
+        this.lastMessageTime = 0;
+        this.lastMessageText = '';
+
+        this.on('ready', this.onReady.bind(this));
+        this.on('message', this.onMessage.bind(this));
+        this.on('unload', this.onUnload.bind(this));
+    }
+
+    async onReady() {
+        // do nothing. Only answer on messages.
+        if (!this.config.user || !this.config.token) {
+            this.log.error('Cannot send notification while not configured');
+        }
+    }
+
+    /**
+     * @param {ioBroker.Message} obj
+     */
+    onMessage(obj) {
         if (obj && obj.command === 'send' && obj.message) {
-            obj.message && processMessage(adapter, obj);
+            obj.message && this.processMessage(obj);
         } else
         if (obj && obj.command === 'glances' && obj.message) {
-            obj.message && sendGlances(adapter, obj);
+            obj.message && this.sendGlances(obj);
         } else {
-            obj.callback && adapter.sendTo(obj.from, 'send', { error: 'Unsupported'}, obj.callback);
+            obj.callback && this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
         }
-    });
-
-    adapter.on('ready', () => {
-        main(adapter);
-    });
-
-    return adapter;
-}
-
-let pushover;
-let lastMessageTime = 0;
-let lastMessageText = '';
-
-function processMessage(adapter, obj) {
-    // filter out double messages
-    const json = JSON.stringify(obj.message);
-    if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && Date.now() - lastMessageTime < 1000) {
-        return adapter.log.debug(`Filter out double message [first was for ${Date.now() - lastMessageTime}ms]: ${json}`);
     }
 
-    lastMessageTime = Date.now();
-    lastMessageText = json;
+    processMessage(obj) {
+        // filter out double messages
+        const json = JSON.stringify(obj.message);
+        if (this.lastMessageTime && this.lastMessageText === JSON.stringify(obj.message) && Date.now() - this.lastMessageTime < 1000) {
+            return this.log.debug(`Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`);
+        }
 
-    if (obj.message.user && obj.message.token && obj.message.user !== adapter.config.user) {
-        const tempPushover = new Pushover({
-            user:  obj.message.user,
-            token: obj.message.token,
-            onerror: onError
-        });
+        this.lastMessageTime = Date.now();
+        this.lastMessageText = json;
 
-        delete obj.message.user;
-        delete obj.message.token;
-
-        tempPushover.send(obj.message, (error, response) => {
-            error && adapter.log.error('Cannot send test message: ' + error);
-            obj.callback && adapter.sendTo(obj.from, 'send', { error, result: response}, obj.callback);
-        })
-
-    } else {
-        sendNotification(adapter, obj.message, (error, response) =>
-            obj.callback && adapter.sendTo(obj.from, 'send', { error, result: response}, obj.callback));
-    }
-}
-
-function sendGlances(adapter, obj) {
-    const json = JSON.stringify(obj.message);
-    if (lastMessageTime && lastMessageText === JSON.stringify(obj.message) && Date.now() - lastMessageTime < 1000) {
-        return adapter.log.debug(`Filter out double message [first was for ${Date.now() - lastMessageTime}ms]: ${json}`);
-    }
-
-    lastMessageTime = Date.now();
-    lastMessageText = json;
-
-    const msg = obj.message;
-
-    let formData = {
-        token:   msg.token   || adapter.config.token,
-        user:    msg.user    || adapter.config.user,
-        title:   msg.title !== undefined ? msg.title : adapter.config.title,
-        text:    msg.message || msg.text,
-        subtext: msg.subtext || undefined,
-        count:   msg.count   || undefined,
-        percent: msg.percent || undefined,
-        device:  msg.device  || undefined
-    };
-    if (formData.title && formData.title.length > 100) {
-        adapter.log.error('Title too long. Max length is 100');
-        return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Title too long. Max length is 100'}, obj.callback);
-    }
-    if (formData.text && formData.text.length > 100) {
-        adapter.log.error('Text too long. Max length is 100');
-        return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Text too long. Max length is 100'}, obj.callback);
-    }
-    if (formData.subtext && formData.subtext.length > 100) {
-        adapter.log.error('Subtext too long. Max length is 100');
-        return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Subtext too long. Max length is 100'}, obj.callback);
-    }
-
-    axios
-        .post('https://api.pushover.net/1/glances.json', formData)
-        .then(body => {
-            if (body.data.status !== 1) {
-                adapter.log.error('Pushover error: ' + JSON.stringify(body.data.errors));
-                return obj.callback && adapter.sendTo(obj.from, 'glances', { error: body.data.errors}, obj.callback);
-            } else {
-                adapter.log.debug('pushover POST succeeded:\n' + JSON.stringify(body.data));
-                return obj.callback && adapter.sendTo(obj.from, 'glances', { result: body.data.status}, obj.callback);
-            }
-        })
-        .catch(error => {
-            adapter.log.error('Pushover error: ' + error);
-            return obj.callback && adapter.sendTo(obj.from, 'glances', { error: 'Pushover error: ' + error}, obj.callback);
-        });
-}
-
-function main(adapter) {
-    // do nothing. Only answer on messages.
-    if (!adapter.config.user || !adapter.config.token) {
-        adapter.log.error('Cannot send notification while not configured');
-    }
-}
-
-function onError(error, _res) {
-    adapter.log.error('Error from Pushover: ' + error);
-}
-
-function sendNotification(adapter, message, callback) {
-    message = message || {};
-
-    if (!pushover) {
-        if (adapter.config.user && adapter.config.token) {
-            pushover = new Pushover({
-                user:  adapter.config.user,
-                token: adapter.config.token,
-                onerror: onError
+        if (obj.message.user && obj.message.token && obj.message.user !== this.config.user) {
+            const tempPushover = new Pushover({
+                user: obj.message.user,
+                token: obj.message.token,
+                onerror: this.onError
             });
+
+            delete obj.message.user;
+            delete obj.message.token;
+
+            tempPushover.send(obj.message, (error, response) => {
+                error && this.log.error('Cannot send test message: ' + error);
+                obj.callback && this.sendTo(obj.from, 'send', { error, result: response}, obj.callback);
+            });
+
         } else {
-            adapter.log.error('Cannot send notification while not configured');
+            this.sendNotification(obj.message, (error, response) =>
+                obj.callback && this.sendTo(obj.from, 'send', { error, result: response}, obj.callback));
         }
     }
 
-    if (!pushover) {
-        return;
+    sendGlances(obj) {
+        const json = JSON.stringify(obj.message);
+        if (this.lastMessageTime && this.lastMessageText === JSON.stringify(obj.message) && Date.now() - this.lastMessageTime < 1000) {
+            return this.log.debug(`Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`);
+        }
+
+        this.lastMessageTime = Date.now();
+        this.lastMessageText = json;
+
+        const msg = obj.message;
+
+        let formData = {
+            token:   msg.token   || this.config.token,
+            user:    msg.user    || this.config.user,
+            title:   msg.title !== undefined ? msg.title : this.config.title,
+            text:    msg.message || msg.text,
+            subtext: msg.subtext || undefined,
+            count:   msg.count   || undefined,
+            percent: msg.percent || undefined,
+            device:  msg.device  || undefined
+        };
+        if (formData.title && formData.title.length > 100) {
+            this.log.error('Title too long. Max length is 100');
+            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Title too long. Max length is 100'}, obj.callback);
+        }
+        if (formData.text && formData.text.length > 100) {
+            this.log.error('Text too long. Max length is 100');
+            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Text too long. Max length is 100'}, obj.callback);
+        }
+        if (formData.subtext && formData.subtext.length > 100) {
+            this.log.error('Subtext too long. Max length is 100');
+            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Subtext too long. Max length is 100'}, obj.callback);
+        }
+
+        axios
+            .post('https://api.pushover.net/1/glances.json', formData)
+            .then(body => {
+                if (body.data.status !== 1) {
+                    this.log.error('Pushover error: ' + JSON.stringify(body.data.errors));
+                    return obj.callback && this.sendTo(obj.from, 'glances', { error: body.data.errors}, obj.callback);
+                } else {
+                    this.log.debug('pushover POST succeeded:\n' + JSON.stringify(body.data));
+                    return obj.callback && this.sendTo(obj.from, 'glances', { result: body.data.status}, obj.callback);
+                }
+            })
+            .catch(error => {
+                this.log.error('Pushover error: ' + error);
+                return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Pushover error: ' + error}, obj.callback);
+            });
     }
 
-    if (typeof message !== 'object') {
-        message = {message};
-    }
-    if (message.hasOwnProperty('token')) {
-        pushover.token = message.token;
-    } else {
-        pushover.token = adapter.config.token;
-    }
-    message.title     = message.title     || adapter.config.title;
-    message.sound     = message.sound     || (adapter.config.sound ? adapter.config.sound : undefined);
-    message.priority  = message.priority  || adapter.config.priority;
-    message.url       = message.url       || adapter.config.url;
-    message.url_title = message.url_title || adapter.config.url_title;
-    message.device    = message.device    || adapter.config.device;
-    message.message   = message.message   || '';
-
-    // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
-    if (message.timestamp && message.timestamp > 946681200000) {
-        message.timestamp = Math.round(message.timestamp / 1000);
+    onError(error, _res) {
+        this.log.error('Error from Pushover: ' + error);
     }
 
-    // mandatory parameters if priority is high (2)
-    if (message.priority === 2) {
-        message.retry  = parseInt(message.retry, 10)  || 60;
-        message.expire = parseInt(message.expire, 10) || 3600;
-    }
+    sendNotification(message, callback) {
+        message = message || {};
 
-    adapter.log.info('Send pushover notification: ' + JSON.stringify(message));
-
-    pushover.send(message, (err, result) => {
-        if (err) {
-            try {
-                adapter.log.error('Cannot send notification: ' + JSON.stringify(err));
-            } catch (err) {
-                adapter.log.error('Cannot send notification: Error');
+        if (!this.pushover) {
+            if (this.config.user && this.config.token) {
+                this.pushover = new Pushover({
+                    user: this.config.user,
+                    token: this.config.token,
+                    onerror: this.onError
+                });
+            } else {
+                this.log.error('Cannot send notification while not configured');
             }
-            callback && callback(err);
-            return false;
-        } else {
-            callback && callback(null, result);
-            return true;
         }
-    });
+
+        if (!this.pushover) {
+            return;
+        }
+
+        if (typeof message !== 'object') {
+            message = {message};
+        }
+        if (message.hasOwnProperty('token')) {
+            this.pushover.token = message.token;
+        } else {
+            this.pushover.token = this.config.token;
+        }
+
+        message.title     = message.title     || this.config.title;
+        message.sound     = message.sound     || (this.config.sound ? this.config.sound : undefined);
+        message.priority  = message.priority  || this.config.priority;
+        message.url       = message.url       || this.config.url;
+        message.url_title = message.url_title || this.config.url_title;
+        message.device    = message.device    || this.config.device;
+        message.message   = message.message   || '';
+
+        // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
+        if (message.timestamp && message.timestamp > 946681200000) {
+            message.timestamp = Math.round(message.timestamp / 1000);
+        }
+
+        // mandatory parameters if priority is high (2)
+        if (message.priority === 2) {
+            message.retry  = parseInt(message.retry, 10)  || 60;
+            message.expire = parseInt(message.expire, 10) || 3600;
+        }
+
+        this.log.info('Send pushover notification: ' + JSON.stringify(message));
+
+        this.pushover.send(message, (err, result) => {
+            if (err) {
+                try {
+                    this.log.error('Cannot send notification: ' + JSON.stringify(err));
+                } catch (err) {
+                    this.log.error('Cannot send notification: Error');
+                }
+                callback && callback(err);
+                return false;
+            } else {
+                callback && callback(null, result);
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * @param {() => void} callback
+     */
+    onUnload(callback) {
+        try {
+            callback();
+        } catch (e) {
+            callback();
+        }
+    }
 }
 
-// If started as allInOne/compact mode => return function to create instance
-if (module && module.parent) {
-    module.exports = startAdapter;
+if (require.main !== module) {
+    // Export the constructor in compact mode
+    /**
+     * @param {Partial<utils.AdapterOptions>} [options={}]
+     */
+    module.exports = (options) => new Pushover(options);
 } else {
-    // or start the instance directly
-    startAdapter();
+    // otherwise start the instance directly
+    new Pushover();
 }
