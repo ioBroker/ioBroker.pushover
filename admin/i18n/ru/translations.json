@@ -1,0 +1,19 @@
+{
+    "API Token/Key of Application": "API-токен / ключ приложения",
+    "Check the log or your pushover app!": "Проверьте журнал или приложение pushover!",
+    "Enable first the adapter to test notification.": "Включите сначала адаптер для проверки уведомления.",
+    "First save the settings": "Сначала сохраните настройки",
+    "Group Key": "Групповой ключ или пользовательский ключ",
+    "Group Key of Delivery Group": "Групповой ключ группы доставки",
+    "Notification settings": "Настройки уведомлений",
+    "Priority": "приоритет",
+    "Pushover adapter settings": "Настройки адаптера Pushover",
+    "Pushover settings": "Настройки Pushover",
+    "Sound": "Звук",
+    "Test": "Тест",
+    "Title": "заглавие",
+    "Token": "знак",
+    "default": "по умолчанию",
+    "high-priority": "высокий приоритет",
+    "quiet": "тихо"
+}

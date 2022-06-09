@@ -1,0 +1,19 @@
+{
+    "API Token/Key of Application": "API Token / clé d'application",
+    "Check the log or your pushover app!": "Consultez le journal ou votre application pushover!",
+    "Enable first the adapter to test notification.": "Activez d'abord l'adaptateur pour tester la notification.",
+    "First save the settings": "Commencez par enregistrer les paramètres",
+    "Group Key": "Clé de groupe ou clé d'utilisateur",
+    "Group Key of Delivery Group": "Group Key of Delivery Group",
+    "Notification settings": "Paramètres de notification",
+    "Priority": "Priorité",
+    "Pushover adapter settings": "Paramètres de l'adaptateur de pushover",
+    "Pushover settings": "Paramètres de pushover",
+    "Sound": "Du son",
+    "Test": "Tester",
+    "Title": "Titre",
+    "Token": "Jeton",
+    "default": "défaut",
+    "high-priority": "haute priorité",
+    "quiet": "silencieux"
+}
