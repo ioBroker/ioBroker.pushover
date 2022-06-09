@@ -67,12 +67,12 @@ class Pushover extends utils.Adapter {
 
             tempPushover.send(obj.message, (error, response) => {
                 error && this.log.error(`Cannot send test message: ${error}`);
-                obj.callback && this.sendTo(obj.from, 'send', { error, result: response}, obj.callback);
+                obj.callback && this.sendTo(obj.from, 'send', { error, result: response }, obj.callback);
             });
 
         } else {
             this.sendNotification(obj.message, (error, response) =>
-                obj.callback && this.sendTo(obj.from, 'send', { error, result: response}, obj.callback));
+                obj.callback && this.sendTo(obj.from, 'send', { error, result: response }, obj.callback));
         }
     }
 
@@ -100,28 +100,33 @@ class Pushover extends utils.Adapter {
 
         if (formData.title && formData.title.length > 100) {
             this.log.error('Title too long. Max length is 100');
-            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Title too long. Max length is 100'}, obj.callback);
+            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Title too long. Max length is 100' }, obj.callback);
         }
 
         if (formData.text && formData.text.length > 100) {
             this.log.error('Text too long. Max length is 100');
-            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Text too long. Max length is 100'}, obj.callback);
+            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Text too long. Max length is 100' }, obj.callback);
         }
 
         if (formData.subtext && formData.subtext.length > 100) {
             this.log.error('Subtext too long. Max length is 100');
-            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Subtext too long. Max length is 100'}, obj.callback);
+            return obj.callback && this.sendTo(obj.from, 'glances', { error: 'Subtext too long. Max length is 100' }, obj.callback);
         }
+
+        this.log.debug(`Sending pushover glances: ${JSON.stringify(formData)}`);
 
         axios
             .post('https://api.pushover.net/1/glances.json', formData)
-            .then(body => {
-                if (body.data.status !== 1) {
-                    this.log.error(`Pushover error: ${JSON.stringify(body.data.errors)}`);
-                    return obj.callback && this.sendTo(obj.from, 'glances', { error: body.data.errors}, obj.callback);
+            .then(response => {
+
+                this.log.debug(`Pushover glances response: ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`);
+
+                if (response.data.status !== 1) {
+                    this.log.error(`Pushover glances error: ${JSON.stringify(response.data.errors)}`);
+                    return obj.callback && this.sendTo(obj.from, 'glances', { error: response.data.errors }, obj.callback);
                 } else {
-                    this.log.debug(`pushover POST succeeded: ${JSON.stringify(body.data)}`);
-                    return obj.callback && this.sendTo(obj.from, 'glances', { result: body.data.status}, obj.callback);
+                    this.log.debug(`Pushover glances POST succeeded: ${JSON.stringify(response.data)}`);
+                    return obj.callback && this.sendTo(obj.from, 'glances', { error: null, result: response.data }, obj.callback);
                 }
             })
             .catch(error => {
@@ -182,7 +187,7 @@ class Pushover extends utils.Adapter {
             message.expire = parseInt(message.expire, 10) || 3600;
         }
 
-        this.log.info(`Sending pushover notification: ${JSON.stringify(message)}`);
+        this.log.debug(`Sending pushover notification: ${JSON.stringify(message)}`);
 
         this.pushover.send(message, (err, result) => {
             if (err) {
