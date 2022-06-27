@@ -175,7 +175,7 @@ class Pushover extends utils.Adapter {
             message = { message };
         }
 
-        if (message.hasOwnProperty('token')) {
+        if (Object.prototype.hasOwnProperty.call(message, 'token')) {
             this.pushover.token = message.token;
         } else {
             this.pushover.token = this.config.token;
