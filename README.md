@@ -9,7 +9,7 @@
 [![Translation status](https://weblate.iobroker.net/widgets/adapters/-/pushover/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
 
-Send pushover notifications from ioBroker. 
+[Pushover](https://pushover.net) is a service of Pushover, LLC (formerly Superblock, LLC), a private, independently-financed software development company based out of Chicago, Illinois. **This ioBroker adapter is not written or supported by Pushover, LLC**.
 
 ## Installation
 
