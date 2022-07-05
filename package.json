@@ -1,6 +1,6 @@
 {
   "name": "iobroker.pushover",
-  "description": "ioBroker Adapter to send pushover notifications",
+  "description": "ioBroker Adapter to send Pushover notifications",
   "version": "2.1.0",
   "author": "bluefox <dogafox@gmail.com>",
   "contributors": [
