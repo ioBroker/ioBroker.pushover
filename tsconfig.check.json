@@ -1,5 +1,5 @@
-// Specialized tsconfig for type-checking js files
 {
+    "_comment": "Specialized tsconfig for type-checking js files"
     "extends": "./tsconfig.json",
     "compilerOptions": {},
     "include": [
