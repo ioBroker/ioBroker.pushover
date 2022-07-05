@@ -5,7 +5,6 @@ const axios = require('axios').default;
 const PushoverNotifications = require('pushover-notifications');
 
 class Pushover extends utils.Adapter {
-
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
      */
@@ -21,7 +20,6 @@ class Pushover extends utils.Adapter {
 
         this.on('ready', this.onReady.bind(this));
         this.on('message', this.onMessage.bind(this));
-        this.on('unload', this.onUnload.bind(this));
     }
 
     async onReady() {
@@ -46,9 +44,12 @@ class Pushover extends utils.Adapter {
     }
 
     processMessage(obj) {
-        // filter out double messages
+        // filter out the double messages
         const json = JSON.stringify(obj.message);
-        if (this.lastMessageTime && this.lastMessageText === JSON.stringify(obj.message) && Date.now() - this.lastMessageTime < 1000) {
+        if (this.lastMessageTime &&
+            this.lastMessageText === JSON.stringify(obj.message) &&
+            Date.now() - this.lastMessageTime < 1000
+        ) {
             return this.log.debug(`Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`);
         }
 
@@ -78,7 +79,6 @@ class Pushover extends utils.Adapter {
 
                 obj.callback && this.sendTo(obj.from, 'send', { err, result: result }, obj.callback);
             });
-
         } else {
             this.sendNotification(obj.message, (error, result) =>
                 obj.callback && this.sendTo(obj.from, 'send', { error, result: result }, obj.callback));
@@ -87,7 +87,10 @@ class Pushover extends utils.Adapter {
 
     sendGlances(obj) {
         const json = JSON.stringify(obj.message);
-        if (this.lastMessageTime && this.lastMessageText === JSON.stringify(obj.message) && Date.now() - this.lastMessageTime < 1000) {
+        if (this.lastMessageTime &&
+            this.lastMessageText === JSON.stringify(obj.message) &&
+            Date.now() - this.lastMessageTime < 1000
+        ) {
             return this.log.debug(`Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`);
         }
 
@@ -126,25 +129,24 @@ class Pushover extends utils.Adapter {
 
         axios
             .post('https://api.pushover.net/1/glances.json', formData)
-            .then(response => {
-
+            .then(async response => {
                 this.log.debug(`Pushover glances response: ${JSON.stringify(response.status)} ${JSON.stringify(response.data)}`);
 
-                this.setStateChanged('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
-                this.setStateChanged('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
-                this.setStateChanged('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
+                await this.setStateChangedAsync('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
+                await this.setStateChangedAsync('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
+                await this.setStateChangedAsync('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
 
                 if (response.data.status !== 1) {
                     this.log.error(`Pushover glances error: ${JSON.stringify(response.data.errors)}`);
-                    return obj.callback && this.sendTo(obj.from, 'glances', { error: response.data.errors }, obj.callback);
+                    obj.callback && this.sendTo(obj.from, 'glances', { error: response.data.errors }, obj.callback);
                 } else {
                     this.log.debug(`Pushover glances POST succeeded: ${JSON.stringify(response.data)}`);
-                    return obj.callback && this.sendTo(obj.from, 'glances', { error: null, result: response.data }, obj.callback);
+                    obj.callback && this.sendTo(obj.from, 'glances', { error: null, result: response.data }, obj.callback);
                 }
             })
             .catch(error => {
                 this.log.error(`Pushover error: ${error}`);
-                return obj.callback && this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}`}, obj.callback);
+                obj.callback && this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}`}, obj.callback);
             });
     }
 
@@ -181,10 +183,10 @@ class Pushover extends utils.Adapter {
             this.pushover.token = this.config.token;
         }
 
-        message.title     = message.title     || this.config.title;
-        message.sound     = message.sound     || (this.config.sound ? this.config.sound : undefined);
-        message.priority  = message.priority  || this.config.priority;
-        message.message   = message.message   || '';
+        message.title    = message.title    || this.config.title;
+        message.sound    = message.sound    || (this.config.sound ? this.config.sound : undefined);
+        message.priority = message.priority || this.config.priority;
+        message.message  = message.message  || '';
 
         // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
         if (message.timestamp && message.timestamp > 946681200000) {
@@ -199,7 +201,7 @@ class Pushover extends utils.Adapter {
 
         this.log.debug(`Sending pushover notification: ${JSON.stringify(message)}`);
 
-        this.pushover.send(message, (err, result, response) => {
+        this.pushover.send(message, async (err, result, response) => {
             this.log.debug(`Pushover response: ${JSON.stringify(response.headers)}`);
 
             if (err) {
@@ -212,26 +214,14 @@ class Pushover extends utils.Adapter {
                 callback && callback(err);
                 return false;
             } else {
-                this.setStateChanged('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
-                this.setStateChanged('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
-                this.setStateChanged('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
+                await this.setStateChangedAsync('app.totalLimit', { val: Number(response.headers['x-limit-app-limit']), ack: true });
+                await this.setStateChangedAsync('app.remainingLimit', { val: Number(response.headers['x-limit-app-remaining']), ack: true });
+                await this.setStateChangedAsync('app.limitRest', { val: Number(response.headers['x-limit-app-reset']) * 1000, ack: true });
 
                 callback && callback(null, result);
                 return true;
             }
         });
-    }
-
-    /**
-     * Is called when adapter shuts down - callback has to be called under any circumstances!
-     * @param {() => void} callback
-     */
-    onUnload(callback) {
-        try {
-            callback();
-        } catch (e) {
-            callback();
-        }
     }
 }
 
@@ -240,7 +230,7 @@ if (require.main !== module) {
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
      */
-    module.exports = (options) => new Pushover(options);
+    module.exports = options => new Pushover(options);
 } else {
     // otherwise start the instance directly
     new Pushover();
