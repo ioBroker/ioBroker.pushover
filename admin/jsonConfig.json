@@ -76,7 +76,7 @@
       "label": "Test",
       "tooltip": "Enable first the adapter to test notification.",
       "result": {"1": "Check the log or your pushover app!" },
-      "jsonData": "{\"message\": \"This is test notification!\", \"priority\": \"${data.priority}\", \"sound\": \"${data.sound}\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
+      "jsonData": "{\"message\": \"This is your test notification!\", \"priority\": \"${data.priority}\", \"sound\": \"${data.sound}\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
     },
     "_testGlances": {
       "variant": "contained",
@@ -86,7 +86,7 @@
       "label": "Test glances",
       "result": {"1": "Check the log or your pushover app!" },
       "tooltip": "Enable first the adapter to test notification.",
-      "jsonData": "{\"message\": \"Glances notification!\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
+      "jsonData": "{\"message\": \"Glances test notification!\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
     }
   }
 }

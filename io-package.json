@@ -1,283 +1,383 @@
 {
-    "common": {
-        "name": "pushover",
-        "version": "2.1.0",
-        "news": {
-            "2.1.0": {
-                "en": "Important: js-controller 3.0+ required! \nRemove some legacy code\nPrevent potential crash case when error occurs",
-                "de": "Wichtig: js-controller 3.0+ erforderlich!\nEntfernen Sie Legacy-Code\nVerhindern Sie einen potenziellen Absturzfall, wenn ein Fehler auftritt",
-                "ru": "Важно: требуется js-контроллер 3.0+!\nУдалите часть устаревшего кода\nПредотвращение потенциального сбоя при возникновении ошибки",
-                "pt": "Importante: js-controller 3.0+ necessário!\nRemover algum código legado\nPrevenir um possível caso de falha quando ocorrer um erro",
-                "nl": "Belangrijk: js-controller 3.0+ vereist!\nEen oude code verwijderen\nVoorkom een mogelijke crash wanneer er een fout optreedt",
-                "fr": "Important : js-controller 3.0+ requis !\nSupprimer du code hérité\nPrévenir les cas de plantage potentiels lorsqu'une erreur se produit",
-                "it": "Importante: è richiesto js-controller 3.0+!\nRimuovi del codice legacy\nPrevenire potenziali casi di arresto anomalo quando si verifica un errore",
-                "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
-                "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
-                "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况"
-            },
-            "2.0.5": {
-                "en": "Corrected error with token",
-                "de": "Fehler mit Token behoben",
-                "ru": "Исправлена ошибка токена",
-                "pt": "Erro corrigido com token",
-                "nl": "Fout gecorrigeerd met token",
-                "fr": "Erreur corrigée avec le jeton",
-                "it": "Errore corretto con token",
-                "es": "Error corregido con token",
-                "pl": "Poprawiony błąd z tokenem",
-                "zh-cn": "更正了令牌错误"
-            },
-            "2.0.4": {
-                "en": "Blockly input value for attachments\nimplemented the \"glances\"",
-                "de": "Block-Eingabewert für Anhänge\ndie \"Blicke\" umgesetzt",
-                "ru": "Блочно вводимое значение для вложений\nреализованы «взгляды»",
-                "pt": "Valor de entrada em bloco para anexos\nimplementou os \"olhares\"",
-                "nl": "Geblokkeerde invoerwaarde voor bijlagen\nimplementeerde de \"blik\"",
-                "fr": "Valeur d'entrée en bloc pour les pièces jointes\nmis en œuvre les \"coups d'œil\"",
-                "it": "Valore di input a blocchi per gli allegati\nimplementato gli \"sguardi\"",
-                "es": "Valor de entrada en bloque para archivos adjuntos\nimplementó las \"miradas\"",
-                "pl": "Blokowo wprowadzana wartość dla załączników\nwdrożył „spojrzenia”",
-                "zh-cn": "附件的块输入值\n实施“一瞥”"
-            },
-            "2.0.3": {
-                "en": "Removed spaces in the admin config dropdown",
-                "de": "Leerzeichen in der Dropdown-Liste der Administratorkonfiguration wurden entfernt",
-                "ru": "Удалены пробелы в раскрывающемся списке конфигурации администратора",
-                "pt": "Espaços removidos no menu suspenso de configuração do administrador",
-                "nl": "Spaties verwijderd in de vervolgkeuzelijst met admin-configuratie",
-                "fr": "Espaces supprimés dans la liste déroulante de configuration de l'administrateur",
-                "it": "Spazi rimossi nel menu a discesa della configurazione dell'amministratore",
-                "es": "Espacios eliminados en el menú desplegable de configuración de administrador",
-                "pl": "Usunięto spacje z listy rozwijanej konfiguracji administratora",
-                "zh-cn": "在管理员配置下拉列表中删除了空格"
-            },
-            "2.0.2": {
-                "en": "fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)",
-                "de": "behebt den Fall, dass das Token nicht definiert / vorhanden ist (Sentry IOBROKER-PUSHOVER-2)",
-                "ru": "исправляет случай, когда токен не определен / не существует (Sentry IOBROKER-PUSHOVER-2)",
-                "pt": "corrige caso o token não esteja definido / existente (Sentry IOBROKER-PUSHOVER-2)",
-                "nl": "lost het geval op dat het token niet is gedefinieerd / bestaat (Sentry IOBROKER-PUSHOVER-2)",
-                "fr": "corrige le cas où le jeton n'est pas défini / existant (Sentry IOBROKER-PUSHOVER-2)",
-                "it": "risolve il caso in cui il token non è definito / esistente (Sentry IOBROKER-PUSHOVER-2)",
-                "es": "corrige el caso de que el token no esté definido / existente (Sentry IOBROKER-PUSHOVER-2)",
-                "pl": "naprawiono przypadek, w którym token nie jest zdefiniowany / istnieje (Sentry IOBROKER-PUSHOVER-2)",
-                "zh-cn": "修复令牌未定义/不存在的情况（Sentry IOBROKER-PUSHOVER-2）"
-            },
-            "2.0.1": {
-                "en": "Fixed error in the blockly if language was not \"ru/en/de\"\nBreaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.\n",
-                "de": "Fehler im Block behoben, wenn die Sprache nicht \"ru / en / de\" war\nBreaking Change: Die Verschlüsselung des Passworts wurde geändert, daher muss das Token erneut eingegeben werden. Speichern Sie Ihr Token vor dem Update.\n",
-                "ru": "Исправлена ошибка в блоке, если язык не был \"ru / en / de\"\nСрочная смена: шифрование пароля было изменено, поэтому токен необходимо вводить заново. Сохраните свой токен перед обновлением.\n",
-                "pt": "Corrigido erro no bloco se o idioma não fosse \"ru / en / de\"\nAlteração de última hora: a criptografia da senha foi alterada, portanto, o token deve ser inserido novamente. Armazene seu token antes da atualização.\n",
-                "nl": "Fout opgelost in de blokkering als de taal niet \"ru / en / de\" was\nBrekende wijziging: de codering van het wachtwoord is gewijzigd, dus het token moet opnieuw worden ingevoerd. Sla uw token op vóór de update.\n",
-                "fr": "Correction d'une erreur dans le bloc si la langue n'était pas \"ru / en / de\"\nChangement de rupture: le cryptage du mot de passe a été modifié, le jeton doit donc être entré à nouveau. Stockez votre jeton avant la mise à jour.\n",
-                "it": "Risolto errore nel blocco se la lingua non era \"ru / en / de\"\nRottura del cambiamento: la crittografia della password è stata modificata, quindi il token deve essere inserito di nuovo. Conserva il token prima dell'aggiornamento.\n",
-                "es": "Se corrigió el error en el bloque si el idioma no era \"ru / en / de\"\nCambio de última hora: se modificó el cifrado de la contraseña, por lo que el token debe ingresarse nuevamente. Almacene su token antes de la actualización.\n",
-                "pl": "Naprawiono błąd w bloku, jeśli język nie był „ru / en / de”\nPrzełomowa zmiana: szyfrowanie hasła zostało zmienione, więc token należy wprowadzić od nowa. Przechowuj swój token przed aktualizacją.\n",
-                "zh-cn": "修复了如果语言不是“ ru / en / de”时出现的块错误\n重大更改：密码的加密已更改，因此必须重新输入令牌。在更新之前存储您的令牌。\n"
-            },
-            "1.3.2": {
-                "en": "Adapter crash prevented in certain error cases, but log error",
-                "de": "Adapterabsturz in bestimmten Fehlerfällen verhindert, aber Fehler protokollieren",
-                "ru": "Сбой адаптера предотвращен в некоторых случаях ошибки, но ошибка журнала",
-                "pt": "Falha no adaptador impedida em certos casos de erro, mas erro de log",
-                "nl": "Adaptercrash voorkomen in bepaalde foutgevallen, maar logboekfout",
-                "fr": "Blocage de l'adaptateur évité dans certains cas d'erreur, mais erreur de journal",
-                "it": "Arresto anomalo dell'adattatore impedito in alcuni casi di errore, ma errore di registro",
-                "es": "El bloqueo del adaptador se evitó en ciertos casos de error, pero el error de registro",
-                "pl": "W niektórych przypadkach błędów udało się uniknąć awarii adaptera, ale błąd dziennika",
-                "zh-cn": "在某些错误情况下防止适配器崩溃，但记录错误"
-            },
-            "1.3.0": {
-                "en": "Fix token decryption and add compatibility to js-controller 3.0",
-                "de": "Korrigieren Sie die Token-Entschlüsselung und fügen Sie die Kompatibilität zu js-controller 3.0 hinzu",
-                "ru": "Исправьте расшифровку токена и добавьте совместимость с js-controller 3.0",
-                "pt": "Corrija a descriptografia do token e adicione compatibilidade ao js-controller 3.0",
-                "nl": "Fix token-decodering en voeg compatibiliteit toe aan js-controller 3.0",
-                "fr": "Correction du déchiffrement des jetons et ajout de compatibilité à js-controller 3.0",
-                "it": "Correggi la decrittazione dei token e aggiungi la compatibilità a js-controller 3.0",
-                "es": "Repare el descifrado de tokens y agregue compatibilidad a js-controller 3.0",
-                "pl": "Napraw deszyfrowanie tokenów i dodaj zgodność z js-controller 3.0",
-                "zh-cn": "修复令牌解密并添加对js-controller 3.0的兼容性"
-            },
-            "1.2.3": {
-                "en": "Token will be encrypted now",
-                "de": "Das Token wird jetzt verschlüsselt",
-                "ru": "Теперь токен будет зашифрован",
-                "pt": "O token será criptografado agora",
-                "nl": "Token wordt nu gecodeerd",
-                "fr": "Le jeton sera crypté maintenant",
-                "it": "Il token verrà crittografato ora",
-                "es": "El token se cifrará ahora",
-                "pl": "Token zostanie teraz zaszyfrowany",
-                "zh-cn": "令牌现在将被加密"
-            },
-            "1.1.1": {
-                "en": "js-controller 2.0 compatibility, dependency updates",
-                "de": "Kompatibilität mit js-controller 2.0, Abhängigkeitsaktualisierungen",
-                "ru": "Совместимость с js-controller 2.0, обновления зависимостей",
-                "pt": "Compatibilidade com js-controller 2.0, atualizações de dependência",
-                "nl": "js-controller 2.0 compatibiliteit, afhankelijkheid updates",
-                "fr": "Compatibilité js-controller 2.0, mises à jour de dépendance",
-                "it": "Compatibilità js-controller 2.0, aggiornamenti delle dipendenze",
-                "es": "Compatibilidad con js-controller 2.0, actualizaciones de dependencia",
-                "pl": "Zgodność z js-kontrolerem 2.0, aktualizacje zależności",
-                "zh-cn": "js-controller 2.0兼容性，依赖性更新"
-            },
-            "1.1.0": {
-                "en": "Admin3 is supported now",
-                "de": "Admin3 wird jetzt unterstützt",
-                "ru": "Admin3 теперь поддерживается",
-                "pt": "Admin3 é suportado agora",
-                "nl": "Admin3 wordt nu ondersteund",
-                "fr": "Admin3 est pris en charge maintenant",
-                "it": "Admin3 è supportato ora",
-                "es": "Admin3 es compatible ahora",
-                "pl": "Admin3 jest teraz obsługiwany",
-                "zh-cn": "现在支持 Admin3"
-            },
-            "1.0.4": {
-                "en": "callback is now possible (to receive the receipt from pushover if you use priority = 2)",
-                "de": "Callback ist jetzt möglich (um den Beleg von pushover zu erhalten, wenn Sie Priorität = 2 verwenden)",
-                "ru": "теперь возможен обратный вызов (чтобы получить результат от pushover, если вы используете приоритет = 2)",
-                "pt": "retorno de chamada agora é possível (para receber o recibo de pushover se você usar prioridade = 2)",
-                "nl": "terugbellen is nu mogelijk (om de bon van pushover te ontvangen als je prioriteit = 2)",
-                "fr": "le rappel est maintenant possible (pour recevoir le reçu de pushover si vous utilisez priorité = 2)",
-                "it": "ora è possibile richiamare (ricevere la ricevuta da pushover se si usa la priorità = 2)",
-                "es": "la devolución de llamada ahora es posible (para recibir el recibo de pushover si usa prioridad = 2)",
-                "pl": "oddzwonienie jest teraz możliwe (aby otrzymać potwierdzenie od pushover, jeśli używasz priorytetu = 2)",
-                "zh-cn": "现在可以回调（如果您使用优先级 = 2，则可以从 pushover 接收收据）"
-            },
-            "1.0.3": {
-                "en": "Change priorities in blockly",
-                "de": "Ändere Prioritäten in Blockly",
-                "ru": "Изменены значения приоритетов в blockly",
-                "pt": "Mude as prioridades em bloco",
-                "nl": "Wijzig prioriteiten in blockly",
-                "fr": "Changer les priorités dans blockly",
-                "it": "Cambia priorità in blocco block",
-                "es": "Cambiar prioridades en blockly",
-                "pl": "Zmień priorytety blokowo",
-                "zh-cn": "分块地改变优先级"
-            },
-            "1.0.2": {
-                "en": "support of blockly",
-                "de": "Blockly-Unterstützung",
-                "ru": "Поддержка blockly",
-                "pt": "suporte de bloqueio",
-                "nl": "ondersteuning van blockly",
-                "fr": "soutien de blockly",
-                "it": "supporto di blockly",
-                "es": "apoyo de blockly",
-                "pl": "wsparcie blokowe",
-                "zh-cn": "块状的支持"
-            },
-            "1.0.1": {
-                "en": "filter out double messages",
-                "de": "Ausfiltern doppelte Meldungen",
-                "ru": "Отфильтровывать двойные сообщения",
-                "pt": "filtrar mensagens duplas",
-                "nl": "dubbele berichten eruit filteren",
-                "fr": "filtrer les doubles messages",
-                "it": "filtra i messaggi doppi",
-                "es": "filtrar mensajes dobles",
-                "pl": "odfiltrować podwójne wiadomości",
-                "zh-cn": "过滤掉双重消息"
-            },
-            "1.0.0": {
-                "en": "fix timestamp\nupdate grunt packages",
-                "de": "fix timestamp\nupdate grunt packages",
-                "ru": "fix timestamp\nupdate grunt packages",
-                "pt": "fixar carimbo de data / hora\n",
-                "nl": "tijdstempel repareren\n",
-                "fr": "corriger l'horodatage\n",
-                "it": "correggere il timestamp\n",
-                "es": "arreglar marca de tiempo\n",
-                "pl": "napraw znacznik czasu\n",
-                "zh-cn": "修复时间戳\n"
-            }
-        },
-        "title": "Pushover",
-        "titleLang": {
-            "en": "Pushover",
-            "de": "Pushover",
-            "ru": "Пустяк",
-            "pt": "Pushover",
-            "nl": "Pushover",
-            "fr": "Poussée",
-            "it": "pushover",
-            "es": "Persona fácil de convencer",
-            "pl": "Łatwizna",
-            "zh-cn": "推倒"
-        },
-        "desc": {
-            "en": "This adapter allows to send pushover notifications from ioBroker",
-            "de": "Dieser Adapter ermöglicht das Senden von Pushover-Benachrichtigungen von ioBroker",
-            "ru": "Этот адаптер позволяет отправлять pushover-уведомления от ioBroker",
-            "pt": "Este adaptador permite enviar notificações pushover do ioBroker",
-            "nl": "Met deze adapter kunt u pushover-meldingen van ioBroker verzenden",
-            "fr": "Cet adaptateur permet d'envoyer des notifications de transfert depuis ioBroker",
-            "it": "Questo adattatore consente di inviare notifiche pushover da ioBroker",
-            "es": "Este adaptador permite enviar notificaciones fáciles de ioBroker",
-            "pl": "Ten adapter umożliwia wysyłanie powiadomień push z programu ioBroker",
-            "zh-cn": "此适配器允许从 ioBroker 发送推送通知"
-        },
-        "authors": [
-            "bluefox <dogafox@gmail.com>"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "mode": "daemon",
-        "loglevel": "info",
-        "messagebox": true,
-        "materialize": true,
-        "subscribe": "messagebox",
-        "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
-        "wakeup": true,
-        "compact": true,
-        "enabled": true,
-        "icon": "pushover.png",
-        "keywords": [
-            "notification",
-            "pushover",
-            "message"
-        ],
-        "adminUI": {
-            "config": "json"
-        },
-        "dependencies": [
-            {
-                "js-controller": ">=3.0.0"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=4.0.9"
-            }
-        ],
-        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
-        "type": "messaging",
-        "blockly": true,
-        "connectionType": "cloud",
-        "dataSource": "push",
-        "tier": 1,
-        "plugins": {
-            "sentry": {
-                "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
-            }
+  "common": {
+    "name": "pushover",
+    "version": "2.1.0",
+    "news": {
+      "2.1.0": {
+        "en": "Important: js-controller 3.0+ required! \nRemove some legacy code\nPrevent potential crash case when error occurs",
+        "de": "Wichtig: js-controller 3.0+ erforderlich!\nEntfernen Sie Legacy-Code\nVerhindern Sie einen potenziellen Absturzfall, wenn ein Fehler auftritt",
+        "ru": "Важно: требуется js-контроллер 3.0+!\nУдалите часть устаревшего кода\nПредотвращение потенциального сбоя при возникновении ошибки",
+        "pt": "Importante: js-controller 3.0+ necessário!\nRemover algum código legado\nPrevenir um possível caso de falha quando ocorrer um erro",
+        "nl": "Belangrijk: js-controller 3.0+ vereist!\nEen oude code verwijderen\nVoorkom een mogelijke crash wanneer er een fout optreedt",
+        "fr": "Important : js-controller 3.0+ requis !\nSupprimer du code hérité\nPrévenir les cas de plantage potentiels lorsqu'une erreur se produit",
+        "it": "Importante: è richiesto js-controller 3.0+!\nRimuovi del codice legacy\nPrevenire potenziali casi di arresto anomalo quando si verifica un errore",
+        "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
+        "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
+        "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况"
+      },
+      "2.0.5": {
+        "en": "Corrected error with token",
+        "de": "Fehler mit Token behoben",
+        "ru": "Исправлена ошибка токена",
+        "pt": "Erro corrigido com token",
+        "nl": "Fout gecorrigeerd met token",
+        "fr": "Erreur corrigée avec le jeton",
+        "it": "Errore corretto con token",
+        "es": "Error corregido con token",
+        "pl": "Poprawiony błąd z tokenem",
+        "zh-cn": "更正了令牌错误"
+      },
+      "2.0.4": {
+        "en": "Blockly input value for attachments\nimplemented the \"glances\"",
+        "de": "Block-Eingabewert für Anhänge\ndie \"Blicke\" umgesetzt",
+        "ru": "Блочно вводимое значение для вложений\nреализованы «взгляды»",
+        "pt": "Valor de entrada em bloco para anexos\nimplementou os \"olhares\"",
+        "nl": "Geblokkeerde invoerwaarde voor bijlagen\nimplementeerde de \"blik\"",
+        "fr": "Valeur d'entrée en bloc pour les pièces jointes\nmis en œuvre les \"coups d'œil\"",
+        "it": "Valore di input a blocchi per gli allegati\nimplementato gli \"sguardi\"",
+        "es": "Valor de entrada en bloque para archivos adjuntos\nimplementó las \"miradas\"",
+        "pl": "Blokowo wprowadzana wartość dla załączników\nwdrożył „spojrzenia”",
+        "zh-cn": "附件的块输入值\n实施“一瞥”"
+      },
+      "2.0.3": {
+        "en": "Removed spaces in the admin config dropdown",
+        "de": "Leerzeichen in der Dropdown-Liste der Administratorkonfiguration wurden entfernt",
+        "ru": "Удалены пробелы в раскрывающемся списке конфигурации администратора",
+        "pt": "Espaços removidos no menu suspenso de configuração do administrador",
+        "nl": "Spaties verwijderd in de vervolgkeuzelijst met admin-configuratie",
+        "fr": "Espaces supprimés dans la liste déroulante de configuration de l'administrateur",
+        "it": "Spazi rimossi nel menu a discesa della configurazione dell'amministratore",
+        "es": "Espacios eliminados en el menú desplegable de configuración de administrador",
+        "pl": "Usunięto spacje z listy rozwijanej konfiguracji administratora",
+        "zh-cn": "在管理员配置下拉列表中删除了空格"
+      },
+      "2.0.2": {
+        "en": "fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)",
+        "de": "behebt den Fall, dass das Token nicht definiert / vorhanden ist (Sentry IOBROKER-PUSHOVER-2)",
+        "ru": "исправляет случай, когда токен не определен / не существует (Sentry IOBROKER-PUSHOVER-2)",
+        "pt": "corrige caso o token não esteja definido / existente (Sentry IOBROKER-PUSHOVER-2)",
+        "nl": "lost het geval op dat het token niet is gedefinieerd / bestaat (Sentry IOBROKER-PUSHOVER-2)",
+        "fr": "corrige le cas où le jeton n'est pas défini / existant (Sentry IOBROKER-PUSHOVER-2)",
+        "it": "risolve il caso in cui il token non è definito / esistente (Sentry IOBROKER-PUSHOVER-2)",
+        "es": "corrige el caso de que el token no esté definido / existente (Sentry IOBROKER-PUSHOVER-2)",
+        "pl": "naprawiono przypadek, w którym token nie jest zdefiniowany / istnieje (Sentry IOBROKER-PUSHOVER-2)",
+        "zh-cn": "修复令牌未定义/不存在的情况（Sentry IOBROKER-PUSHOVER-2）"
+      },
+      "2.0.1": {
+        "en": "Fixed error in the blockly if language was not \"ru/en/de\"\nBreaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.\n",
+        "de": "Fehler im Block behoben, wenn die Sprache nicht \"ru / en / de\" war\nBreaking Change: Die Verschlüsselung des Passworts wurde geändert, daher muss das Token erneut eingegeben werden. Speichern Sie Ihr Token vor dem Update.\n",
+        "ru": "Исправлена ошибка в блоке, если язык не был \"ru / en / de\"\nСрочная смена: шифрование пароля было изменено, поэтому токен необходимо вводить заново. Сохраните свой токен перед обновлением.\n",
+        "pt": "Corrigido erro no bloco se o idioma não fosse \"ru / en / de\"\nAlteração de última hora: a criptografia da senha foi alterada, portanto, o token deve ser inserido novamente. Armazene seu token antes da atualização.\n",
+        "nl": "Fout opgelost in de blokkering als de taal niet \"ru / en / de\" was\nBrekende wijziging: de codering van het wachtwoord is gewijzigd, dus het token moet opnieuw worden ingevoerd. Sla uw token op vóór de update.\n",
+        "fr": "Correction d'une erreur dans le bloc si la langue n'était pas \"ru / en / de\"\nChangement de rupture: le cryptage du mot de passe a été modifié, le jeton doit donc être entré à nouveau. Stockez votre jeton avant la mise à jour.\n",
+        "it": "Risolto errore nel blocco se la lingua non era \"ru / en / de\"\nRottura del cambiamento: la crittografia della password è stata modificata, quindi il token deve essere inserito di nuovo. Conserva il token prima dell'aggiornamento.\n",
+        "es": "Se corrigió el error en el bloque si el idioma no era \"ru / en / de\"\nCambio de última hora: se modificó el cifrado de la contraseña, por lo que el token debe ingresarse nuevamente. Almacene su token antes de la actualización.\n",
+        "pl": "Naprawiono błąd w bloku, jeśli język nie był „ru / en / de”\nPrzełomowa zmiana: szyfrowanie hasła zostało zmienione, więc token należy wprowadzić od nowa. Przechowuj swój token przed aktualizacją.\n",
+        "zh-cn": "修复了如果语言不是“ ru / en / de”时出现的块错误\n重大更改：密码的加密已更改，因此必须重新输入令牌。在更新之前存储您的令牌。\n"
+      },
+      "1.3.2": {
+        "en": "Adapter crash prevented in certain error cases, but log error",
+        "de": "Adapterabsturz in bestimmten Fehlerfällen verhindert, aber Fehler protokollieren",
+        "ru": "Сбой адаптера предотвращен в некоторых случаях ошибки, но ошибка журнала",
+        "pt": "Falha no adaptador impedida em certos casos de erro, mas erro de log",
+        "nl": "Adaptercrash voorkomen in bepaalde foutgevallen, maar logboekfout",
+        "fr": "Blocage de l'adaptateur évité dans certains cas d'erreur, mais erreur de journal",
+        "it": "Arresto anomalo dell'adattatore impedito in alcuni casi di errore, ma errore di registro",
+        "es": "El bloqueo del adaptador se evitó en ciertos casos de error, pero el error de registro",
+        "pl": "W niektórych przypadkach błędów udało się uniknąć awarii adaptera, ale błąd dziennika",
+        "zh-cn": "在某些错误情况下防止适配器崩溃，但记录错误"
+      },
+      "1.3.0": {
+        "en": "Fix token decryption and add compatibility to js-controller 3.0",
+        "de": "Korrigieren Sie die Token-Entschlüsselung und fügen Sie die Kompatibilität zu js-controller 3.0 hinzu",
+        "ru": "Исправьте расшифровку токена и добавьте совместимость с js-controller 3.0",
+        "pt": "Corrija a descriptografia do token e adicione compatibilidade ao js-controller 3.0",
+        "nl": "Fix token-decodering en voeg compatibiliteit toe aan js-controller 3.0",
+        "fr": "Correction du déchiffrement des jetons et ajout de compatibilité à js-controller 3.0",
+        "it": "Correggi la decrittazione dei token e aggiungi la compatibilità a js-controller 3.0",
+        "es": "Repare el descifrado de tokens y agregue compatibilidad a js-controller 3.0",
+        "pl": "Napraw deszyfrowanie tokenów i dodaj zgodność z js-controller 3.0",
+        "zh-cn": "修复令牌解密并添加对js-controller 3.0的兼容性"
+      },
+      "1.2.3": {
+        "en": "Token will be encrypted now",
+        "de": "Das Token wird jetzt verschlüsselt",
+        "ru": "Теперь токен будет зашифрован",
+        "pt": "O token será criptografado agora",
+        "nl": "Token wordt nu gecodeerd",
+        "fr": "Le jeton sera crypté maintenant",
+        "it": "Il token verrà crittografato ora",
+        "es": "El token se cifrará ahora",
+        "pl": "Token zostanie teraz zaszyfrowany",
+        "zh-cn": "令牌现在将被加密"
+      },
+      "1.1.1": {
+        "en": "js-controller 2.0 compatibility, dependency updates",
+        "de": "Kompatibilität mit js-controller 2.0, Abhängigkeitsaktualisierungen",
+        "ru": "Совместимость с js-controller 2.0, обновления зависимостей",
+        "pt": "Compatibilidade com js-controller 2.0, atualizações de dependência",
+        "nl": "js-controller 2.0 compatibiliteit, afhankelijkheid updates",
+        "fr": "Compatibilité js-controller 2.0, mises à jour de dépendance",
+        "it": "Compatibilità js-controller 2.0, aggiornamenti delle dipendenze",
+        "es": "Compatibilidad con js-controller 2.0, actualizaciones de dependencia",
+        "pl": "Zgodność z js-kontrolerem 2.0, aktualizacje zależności",
+        "zh-cn": "js-controller 2.0兼容性，依赖性更新"
+      },
+      "1.1.0": {
+        "en": "Admin3 is supported now",
+        "de": "Admin3 wird jetzt unterstützt",
+        "ru": "Admin3 теперь поддерживается",
+        "pt": "Admin3 é suportado agora",
+        "nl": "Admin3 wordt nu ondersteund",
+        "fr": "Admin3 est pris en charge maintenant",
+        "it": "Admin3 è supportato ora",
+        "es": "Admin3 es compatible ahora",
+        "pl": "Admin3 jest teraz obsługiwany",
+        "zh-cn": "现在支持 Admin3"
+      },
+      "1.0.4": {
+        "en": "callback is now possible (to receive the receipt from pushover if you use priority = 2)",
+        "de": "Callback ist jetzt möglich (um den Beleg von pushover zu erhalten, wenn Sie Priorität = 2 verwenden)",
+        "ru": "теперь возможен обратный вызов (чтобы получить результат от pushover, если вы используете приоритет = 2)",
+        "pt": "retorno de chamada agora é possível (para receber o recibo de pushover se você usar prioridade = 2)",
+        "nl": "terugbellen is nu mogelijk (om de bon van pushover te ontvangen als je prioriteit = 2)",
+        "fr": "le rappel est maintenant possible (pour recevoir le reçu de pushover si vous utilisez priorité = 2)",
+        "it": "ora è possibile richiamare (ricevere la ricevuta da pushover se si usa la priorità = 2)",
+        "es": "la devolución de llamada ahora es posible (para recibir el recibo de pushover si usa prioridad = 2)",
+        "pl": "oddzwonienie jest teraz możliwe (aby otrzymać potwierdzenie od pushover, jeśli używasz priorytetu = 2)",
+        "zh-cn": "现在可以回调（如果您使用优先级 = 2，则可以从 pushover 接收收据）"
+      },
+      "1.0.3": {
+        "en": "Change priorities in blockly",
+        "de": "Ändere Prioritäten in Blockly",
+        "ru": "Изменены значения приоритетов в blockly",
+        "pt": "Mude as prioridades em bloco",
+        "nl": "Wijzig prioriteiten in blockly",
+        "fr": "Changer les priorités dans blockly",
+        "it": "Cambia priorità in blocco block",
+        "es": "Cambiar prioridades en blockly",
+        "pl": "Zmień priorytety blokowo",
+        "zh-cn": "分块地改变优先级"
+      },
+      "1.0.2": {
+        "en": "support of blockly",
+        "de": "Blockly-Unterstützung",
+        "ru": "Поддержка blockly",
+        "pt": "suporte de bloqueio",
+        "nl": "ondersteuning van blockly",
+        "fr": "soutien de blockly",
+        "it": "supporto di blockly",
+        "es": "apoyo de blockly",
+        "pl": "wsparcie blokowe",
+        "zh-cn": "块状的支持"
+      },
+      "1.0.1": {
+        "en": "filter out double messages",
+        "de": "Ausfiltern doppelte Meldungen",
+        "ru": "Отфильтровывать двойные сообщения",
+        "pt": "filtrar mensagens duplas",
+        "nl": "dubbele berichten eruit filteren",
+        "fr": "filtrer les doubles messages",
+        "it": "filtra i messaggi doppi",
+        "es": "filtrar mensajes dobles",
+        "pl": "odfiltrować podwójne wiadomości",
+        "zh-cn": "过滤掉双重消息"
+      },
+      "1.0.0": {
+        "en": "fix timestamp\nupdate grunt packages",
+        "de": "fix timestamp\nupdate grunt packages",
+        "ru": "fix timestamp\nupdate grunt packages",
+        "pt": "fixar carimbo de data / hora\n",
+        "nl": "tijdstempel repareren\n",
+        "fr": "corriger l'horodatage\n",
+        "it": "correggere il timestamp\n",
+        "es": "arreglar marca de tiempo\n",
+        "pl": "napraw znacznik czasu\n",
+        "zh-cn": "修复时间戳\n"
+      }
+    },
+    "title": "Pushover",
+    "titleLang": {
+      "en": "Pushover",
+      "de": "Pushover",
+      "ru": "Pushover",
+      "pt": "Pushover",
+      "nl": "Pushover",
+      "fr": "Pushover",
+      "it": "Pushover",
+      "es": "Pushover",
+      "pl": "Pushover",
+      "zh-cn": "Pushover"
+    },
+    "desc": {
+      "en": "Sends Pushover notifications",
+      "de": "Sendet Pushover-Benachrichtigungen",
+      "ru": "Отправляет уведомления Pushover",
+      "pt": "Envia notificações Pushover",
+      "nl": "Stuurt een Pushover",
+      "fr": "Envoyez des notifications Pushover",
+      "it": "Invia notifiche Pushover",
+      "es": "Enviar notificaciones de Pushover",
+      "pl": "Powiadomienia",
+      "zh-cn": "发布通知"
+    },
+    "authors": [
+      "bluefox <dogafox@gmail.com>"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "loglevel": "info",
+    "messagebox": true,
+    "materialize": true,
+    "subscribe": "messagebox",
+    "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
+    "wakeup": true,
+    "compact": true,
+    "enabled": true,
+    "icon": "pushover.png",
+    "keywords": [
+      "notification",
+      "pushover",
+      "message"
+    ],
+    "adminUI": {
+      "config": "json"
+    },
+    "docs": {
+      "en": "docs/en/README.md",
+      "de": "docs/de/README.md"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=4.0.9"
+      }
+    ],
+    "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
+    "type": "messaging",
+    "blockly": true,
+    "connectionType": "cloud",
+    "dataSource": "push",
+    "tier": 1,
+    "plugins": {
+      "sentry": {
+        "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
+      }
+    }
+  },
+  "encryptedNative": [
+    "token"
+  ],
+  "protectedNative": [
+    "token"
+  ],
+  "native": {
+    "user": "",
+    "token": "",
+    "title": "ioBroker",
+    "sound": "",
+    "priority": 0
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "app",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "App",
+          "de": "Anwendung",
+          "ru": "Приложение",
+          "pt": "Aplicação",
+          "nl": "App",
+          "fr": "App",
+          "it": "App",
+          "es": "App",
+          "pl": "App",
+          "zh-cn": "附录"
         }
+      },
+      "native": {}
     },
-    "encryptedNative": [
-        "token"
-    ],
-    "protectedNative": [
-        "token"
-    ],
-    "native": {
-        "user": "",
-        "token": "",
-        "title": "ioBroker",
-        "sound": "",
-        "priority": 0
+    {
+      "_id": "app.totalLimit",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Allowed messages",
+          "de": "Erlaubte Nachrichten",
+          "ru": "Разрешенные сообщения",
+          "pt": "Mensagens permitidas",
+          "nl": "Toegewezen berichten",
+          "fr": "Messages autorisés",
+          "it": "Messaggi consentiti",
+          "es": "Mensajes permitidos",
+          "pl": "Allowed messages",
+          "zh-cn": "致电"
+        },
+        "type": "number",
+        "role": "value",
+        "read": true,
+        "write": false
+      },
+      "native": {
+        "header": "x-limit-app-limit"
+      }
     },
-    "objects": []
+    {
+      "_id": "app.remainingLimit",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Allowed messages",
+          "de": "Erlaubte Nachrichten",
+          "ru": "Разрешенные сообщения",
+          "pt": "Mensagens permitidas",
+          "nl": "Toegewezen berichten",
+          "fr": "Messages autorisés",
+          "it": "Messaggi consentiti",
+          "es": "Mensajes permitidos",
+          "pl": "Allowed messages",
+          "zh-cn": "致电"
+        },
+        "type": "number",
+        "role": "value",
+        "read": true,
+        "write": false
+      },
+      "native": {
+        "header": "x-limit-app-remaining"
+      }
+    },
+    {
+      "_id": "app.limitRest",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "Next limit reset",
+          "de": "Nächster Limit-Reset",
+          "ru": "Следующий сброс лимита",
+          "pt": "Próximo limite reset",
+          "nl": "Volgende limiet",
+          "fr": "Réinitialisation de la limite suivante",
+          "it": "Prossimo reset limite",
+          "es": "Siguiente límite de reinicio",
+          "pl": "Reset",
+          "zh-cn": "B. 今后的限制"
+        },
+        "type": "number",
+        "role": "date",
+        "read": true,
+        "write": false
+      },
+      "native": {
+        "header": "x-limit-app-reset"
+      }
+    }
+  ]
 }

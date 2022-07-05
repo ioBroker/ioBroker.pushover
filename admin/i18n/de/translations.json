@@ -15,6 +15,5 @@
     "Token": "Token",
     "default": "Standard",
     "high-priority": "hohe Priorität",
-    "quiet": "ruhig",
-    "Test glances": "Prüfe glances"
+    "quiet": "ruhig"
 }
