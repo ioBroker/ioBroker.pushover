@@ -35,6 +35,9 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
+### __WORK IN PROGRESS__
+* (bluefox) Added log output of sent messages
+
 ### 3.0.0 (2022-07-05)
 * (klein0r) Added app limits as states
 * (klein0r) Changed to class definition

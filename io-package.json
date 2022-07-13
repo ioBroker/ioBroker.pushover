@@ -173,7 +173,8 @@
     "token": "",
     "title": "ioBroker",
     "sound": "",
-    "priority": 0
+    "priority": 0,
+    "showLog": false
   },
   "objects": [],
   "instanceObjects": [

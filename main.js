@@ -199,7 +199,7 @@ class Pushover extends utils.Adapter {
             message.expire = parseInt(message.expire, 10) || 3600;
         }
 
-        this.log.debug(`Sending pushover notification: ${JSON.stringify(message)}`);
+        (this.config.showLog ? this.log.info : this.log.debug)(`Sending pushover notification: ${JSON.stringify(message)}`);
 
         this.pushover.send(message, async (err, result, response) => {
             this.log.debug(`Pushover response: ${JSON.stringify(response.headers)}`);

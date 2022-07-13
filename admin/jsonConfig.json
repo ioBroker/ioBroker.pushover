@@ -67,6 +67,13 @@
         {"value": "1", "label": "high-priority"}
       ]
     },
+    "showLog": {
+      "type": "checkbox",
+      "label": "Show messages in log",
+      "help": "Only with log level info or higher",
+      "sm": 12,
+      "md": 4
+    },
     "_test": {
       "newLine": true,
       "variant": "contained",
