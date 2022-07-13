@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "pushover",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "news": {
+      "3.0.1": {
+        "en": "Added log output of sent messages",
+        "de": "Protokollausgabe von gesendeten Nachrichten hinzugefügt",
+        "ru": "Добавлен выход журнала отправленных сообщений",
+        "pt": "Adicionado saída de log de mensagens enviadas",
+        "nl": "Vertaling:",
+        "fr": "Ajout de la sortie de journal des messages envoyés",
+        "it": "Aggiunto l'output di registro dei messaggi inviati",
+        "es": "Añadido salida de registro de mensajes enviados",
+        "pl": "Wtedy log wyjściowy wysyłanych wiadomości",
+        "zh-cn": "增加发信的逻辑产出"
+      },
       "3.0.0": {
         "en": "Added app limits as states\nChanged to class definition\nUpdated logo\nUpdated testing",
         "de": "App-Grenze als Staaten hinzugefügt\nÄnderung der Klassendefinition\nAktualisiertes Logo\nAktualisierte Tests",
@@ -74,18 +86,6 @@
         "es": "corrige el caso de que el token no esté definido / existente (Sentry IOBROKER-PUSHOVER-2)",
         "pl": "naprawiono przypadek, w którym token nie jest zdefiniowany / istnieje (Sentry IOBROKER-PUSHOVER-2)",
         "zh-cn": "修复令牌未定义/不存在的情况（Sentry IOBROKER-PUSHOVER-2）"
-      },
-      "2.0.1": {
-        "en": "Fixed error in the blockly if language was not \"ru/en/de\"\nBreaking change: the encryption of the password was changed, so the token must be entered anew. Store your token before update.\n",
-        "de": "Fehler im Block behoben, wenn die Sprache nicht \"ru / en / de\" war\nBreaking Change: Die Verschlüsselung des Passworts wurde geändert, daher muss das Token erneut eingegeben werden. Speichern Sie Ihr Token vor dem Update.\n",
-        "ru": "Исправлена ошибка в блоке, если язык не был \"ru / en / de\"\nСрочная смена: шифрование пароля было изменено, поэтому токен необходимо вводить заново. Сохраните свой токен перед обновлением.\n",
-        "pt": "Corrigido erro no bloco se o idioma não fosse \"ru / en / de\"\nAlteração de última hora: a criptografia da senha foi alterada, portanto, o token deve ser inserido novamente. Armazene seu token antes da atualização.\n",
-        "nl": "Fout opgelost in de blokkering als de taal niet \"ru / en / de\" was\nBrekende wijziging: de codering van het wachtwoord is gewijzigd, dus het token moet opnieuw worden ingevoerd. Sla uw token op vóór de update.\n",
-        "fr": "Correction d'une erreur dans le bloc si la langue n'était pas \"ru / en / de\"\nChangement de rupture: le cryptage du mot de passe a été modifié, le jeton doit donc être entré à nouveau. Stockez votre jeton avant la mise à jour.\n",
-        "it": "Risolto errore nel blocco se la lingua non era \"ru / en / de\"\nRottura del cambiamento: la crittografia della password è stata modificata, quindi il token deve essere inserito di nuovo. Conserva il token prima dell'aggiornamento.\n",
-        "es": "Se corrigió el error en el bloque si el idioma no era \"ru / en / de\"\nCambio de última hora: se modificó el cifrado de la contraseña, por lo que el token debe ingresarse nuevamente. Almacene su token antes de la actualización.\n",
-        "pl": "Naprawiono błąd w bloku, jeśli język nie był „ru / en / de”\nPrzełomowa zmiana: szyfrowanie hasła zostało zmienione, więc token należy wprowadzić od nowa. Przechowuj swój token przed aktualizacją.\n",
-        "zh-cn": "修复了如果语言不是“ ru / en / de”时出现的块错误\n重大更改：密码的加密已更改，因此必须重新输入令牌。在更新之前存储您的令牌。\n"
       }
     },
     "title": "Pushover",

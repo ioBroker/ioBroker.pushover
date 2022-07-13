@@ -35,7 +35,7 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
-### __WORK IN PROGRESS__
+### 3.0.1 (2022-07-13)
 * (bluefox) Added log output of sent messages
 
 ### 3.0.0 (2022-07-05)
@@ -55,9 +55,6 @@ iobroker add pushover
 ### 2.0.4 (2021-06-28)
 * (dipts) Blockly input value for attachments
 * (bluefox) implemented the "glances"
-
-### 2.0.3 (2020-09-25)
-* (klein0r) Removed spaces in the admin config dropdown
 
 ## License
 

@@ -1,4 +1,7 @@
 # Older changes
+## 2.0.3 (2020-09-25)
+* (klein0r) Removed spaces in the admin config dropdown
+
 ## 2.0.2 (2020-04-29)
 * (Apollon77) fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)
 
