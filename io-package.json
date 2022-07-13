@@ -3,18 +3,6 @@
     "name": "pushover",
     "version": "3.0.1",
     "news": {
-      "3.0.1": {
-        "en": "Added log output of sent messages",
-        "de": "Protokollausgabe von gesendeten Nachrichten hinzugefügt",
-        "ru": "Добавлен выход журнала отправленных сообщений",
-        "pt": "Adicionado saída de log de mensagens enviadas",
-        "nl": "Vertaling:",
-        "fr": "Ajout de la sortie de journal des messages envoyés",
-        "it": "Aggiunto l'output di registro dei messaggi inviati",
-        "es": "Añadido salida de registro de mensajes enviados",
-        "pl": "Wtedy log wyjściowy wysyłanych wiadomości",
-        "zh-cn": "增加发信的逻辑产出"
-      },
       "3.0.0": {
         "en": "Added app limits as states\nChanged to class definition\nUpdated logo\nUpdated testing",
         "de": "App-Grenze als Staaten hinzugefügt\nÄnderung der Klassendefinition\nAktualisiertes Logo\nAktualisierte Tests",

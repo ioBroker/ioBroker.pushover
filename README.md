@@ -35,8 +35,9 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
-### 3.0.1 (2022-07-13)
+### __WORK IN PROGRESS__
 * (bluefox) Added log output of sent messages
+* (bluefox) Added custom sound to blockly
 
 ### 3.0.0 (2022-07-05)
 * (klein0r) Added app limits as states
