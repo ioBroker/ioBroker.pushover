@@ -36,7 +36,7 @@ iobroker add pushover
 	### __WORK IN PROGRESS__
 -->
 
-### __WORK IN PROGRESS__
+### 3.0.3 (2022-07-27)
 * (Apollon77) Fix crash cases reported by Sentry
 
 ### 3.0.2 (2022-07-14)
@@ -56,10 +56,6 @@ iobroker add pushover
 
 ### 2.0.5 (2021-06-29)
 * (bluefox) Corrected error with token
-
-### 2.0.4 (2021-06-28)
-* (dipts) Blockly input value for attachments
-* (bluefox) implemented the "glances"
 
 ## License
 

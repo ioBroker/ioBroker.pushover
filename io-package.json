@@ -1,276 +1,288 @@
 {
-  "common": {
-    "name": "pushover",
-    "version": "3.0.2",
-    "news": {
-      "3.0.2": {
-        "en": "Added log output of sent messages\nAdded custom sound to blockly",
-        "de": "Protokollausgabe von gesendeten Nachrichten hinzugefügt\nHinzugefügt kundenspezifischen Sound zu blockieren",
-        "ru": "Добавлен выход журнала отправленных сообщений\nДобавлен пользовательский звук для блокировки",
-        "pt": "Adicionado saída de log de mensagens enviadas\nAdicionado som personalizado para blockly",
-        "nl": "Vertaling:\n_",
-        "fr": "Ajout de la sortie de journal des messages envoyés\nAjout du son personnalisé pour bloquer",
-        "it": "Aggiunto l'output di registro dei messaggi inviati\nAggiunto suono personalizzato per bloccare",
-        "es": "Añadido salida de registro de mensajes enviados\nAñadido sonido personalizado para bloquear",
-        "pl": "Wtedy log wyjściowy wysyłanych wiadomości\nDodrukowane dźwięki do blokowania",
-        "zh-cn": "增加发信的逻辑产出\n添加的习俗以阻挡"
-      },
-      "3.0.0": {
-        "en": "Added app limits as states\nChanged to class definition\nUpdated logo\nUpdated testing",
-        "de": "App-Grenze als Staaten hinzugefügt\nÄnderung der Klassendefinition\nAktualisiertes Logo\nAktualisierte Tests",
-        "ru": "Добавлены ограничения приложений как государства\nИзменено в определение класса\nОбновленный логотип\nОбновленное тестирование",
-        "pt": "Limites de aplicativos adicionados como estados\nAlterado na definição de classe\nLogotipo atualizado\nTestes atualizados",
-        "nl": "Geadresseerde applimieten als staat\nVeranderd naar de klas definitie\nUpdate logo\nVerouderde test",
-        "fr": "Ajout de limites d'application en tant qu'états\nChanged to class definition\nLogo mis à jour\nEssais actualisés",
-        "it": "Limiti di app aggiunti come stati\nCambiato nella definizione di classe\nLogo aggiornato\nTest aggiornato",
-        "es": "Limitaciones de aplicación adicionales como estados\nCambio en la definición de clase\nLogo Actualizado\nPruebas actualizadas",
-        "pl": "Ograniczenie stosowne jako stany\nZmienił się do definicji klasowej\nLogo aktualne\nPrzetestowanie",
-        "zh-cn": "按国家开列的附加数限制\nB. 对分类定义的变化\n最新标志\n最新试验"
-      },
-      "2.1.0": {
-        "en": "Important: js-controller 3.0+ required! \nRemove some legacy code\nPrevent potential crash case when error occurs",
-        "de": "Wichtig: js-controller 3.0+ erforderlich!\nEntfernen Sie Legacy-Code\nVerhindern Sie einen potenziellen Absturzfall, wenn ein Fehler auftritt",
-        "ru": "Важно: требуется js-контроллер 3.0+!\nУдалите часть устаревшего кода\nПредотвращение потенциального сбоя при возникновении ошибки",
-        "pt": "Importante: js-controller 3.0+ necessário!\nRemover algum código legado\nPrevenir um possível caso de falha quando ocorrer um erro",
-        "nl": "Belangrijk: js-controller 3.0+ vereist!\nEen oude code verwijderen\nVoorkom een mogelijke crash wanneer er een fout optreedt",
-        "fr": "Important : js-controller 3.0+ requis !\nSupprimer du code hérité\nPrévenir les cas de plantage potentiels lorsqu'une erreur se produit",
-        "it": "Importante: è richiesto js-controller 3.0+!\nRimuovi del codice legacy\nPrevenire potenziali casi di arresto anomalo quando si verifica un errore",
-        "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
-        "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
-        "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况"
-      },
-      "2.0.5": {
-        "en": "Corrected error with token",
-        "de": "Fehler mit Token behoben",
-        "ru": "Исправлена ошибка токена",
-        "pt": "Erro corrigido com token",
-        "nl": "Fout gecorrigeerd met token",
-        "fr": "Erreur corrigée avec le jeton",
-        "it": "Errore corretto con token",
-        "es": "Error corregido con token",
-        "pl": "Poprawiony błąd z tokenem",
-        "zh-cn": "更正了令牌错误"
-      },
-      "2.0.4": {
-        "en": "Blockly input value for attachments\nimplemented the \"glances\"",
-        "de": "Block-Eingabewert für Anhänge\ndie \"Blicke\" umgesetzt",
-        "ru": "Блочно вводимое значение для вложений\nреализованы «взгляды»",
-        "pt": "Valor de entrada em bloco para anexos\nimplementou os \"olhares\"",
-        "nl": "Geblokkeerde invoerwaarde voor bijlagen\nimplementeerde de \"blik\"",
-        "fr": "Valeur d'entrée en bloc pour les pièces jointes\nmis en œuvre les \"coups d'œil\"",
-        "it": "Valore di input a blocchi per gli allegati\nimplementato gli \"sguardi\"",
-        "es": "Valor de entrada en bloque para archivos adjuntos\nimplementó las \"miradas\"",
-        "pl": "Blokowo wprowadzana wartość dla załączników\nwdrożył „spojrzenia”",
-        "zh-cn": "附件的块输入值\n实施“一瞥”"
-      },
-      "2.0.3": {
-        "en": "Removed spaces in the admin config dropdown",
-        "de": "Leerzeichen in der Dropdown-Liste der Administratorkonfiguration wurden entfernt",
-        "ru": "Удалены пробелы в раскрывающемся списке конфигурации администратора",
-        "pt": "Espaços removidos no menu suspenso de configuração do administrador",
-        "nl": "Spaties verwijderd in de vervolgkeuzelijst met admin-configuratie",
-        "fr": "Espaces supprimés dans la liste déroulante de configuration de l'administrateur",
-        "it": "Spazi rimossi nel menu a discesa della configurazione dell'amministratore",
-        "es": "Espacios eliminados en el menú desplegable de configuración de administrador",
-        "pl": "Usunięto spacje z listy rozwijanej konfiguracji administratora",
-        "zh-cn": "在管理员配置下拉列表中删除了空格"
-      },
-      "2.0.2": {
-        "en": "fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)",
-        "de": "behebt den Fall, dass das Token nicht definiert / vorhanden ist (Sentry IOBROKER-PUSHOVER-2)",
-        "ru": "исправляет случай, когда токен не определен / не существует (Sentry IOBROKER-PUSHOVER-2)",
-        "pt": "corrige caso o token não esteja definido / existente (Sentry IOBROKER-PUSHOVER-2)",
-        "nl": "lost het geval op dat het token niet is gedefinieerd / bestaat (Sentry IOBROKER-PUSHOVER-2)",
-        "fr": "corrige le cas où le jeton n'est pas défini / existant (Sentry IOBROKER-PUSHOVER-2)",
-        "it": "risolve il caso in cui il token non è definito / esistente (Sentry IOBROKER-PUSHOVER-2)",
-        "es": "corrige el caso de que el token no esté definido / existente (Sentry IOBROKER-PUSHOVER-2)",
-        "pl": "naprawiono przypadek, w którym token nie jest zdefiniowany / istnieje (Sentry IOBROKER-PUSHOVER-2)",
-        "zh-cn": "修复令牌未定义/不存在的情况（Sentry IOBROKER-PUSHOVER-2）"
-      }
-    },
-    "title": "Pushover",
-    "titleLang": {
-      "en": "Pushover",
-      "de": "Pushover",
-      "ru": "Pushover",
-      "pt": "Pushover",
-      "nl": "Pushover",
-      "fr": "Pushover",
-      "it": "Pushover",
-      "es": "Pushover",
-      "pl": "Pushover",
-      "zh-cn": "Pushover"
-    },
-    "desc": {
-      "en": "Sends Pushover notifications",
-      "de": "Sendet Pushover-Benachrichtigungen",
-      "ru": "Отправляет уведомления Pushover",
-      "pt": "Envia notificações Pushover",
-      "nl": "Stuurt een Pushover",
-      "fr": "Envoyez des notifications Pushover",
-      "it": "Invia notifiche Pushover",
-      "es": "Enviar notificaciones de Pushover",
-      "pl": "Powiadomienia",
-      "zh-cn": "发布通知"
-    },
-    "authors": [
-      "bluefox <dogafox@gmail.com>"
-    ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "mode": "daemon",
-    "loglevel": "info",
-    "messagebox": true,
-    "materialize": true,
-    "subscribe": "messagebox",
-    "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
-    "wakeup": true,
-    "compact": true,
-    "enabled": true,
-    "icon": "pushover.png",
-    "keywords": [
-      "notification",
-      "pushover",
-      "message"
-    ],
-    "adminUI": {
-      "config": "json"
-    },
-    "docs": {
-      "en": "docs/en/README.md",
-      "de": "docs/de/README.md"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.0.0"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=4.0.9"
-      }
-    ],
-    "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
-    "type": "messaging",
-    "blockly": true,
-    "connectionType": "cloud",
-    "dataSource": "push",
-    "tier": 1,
-    "plugins": {
-      "sentry": {
-        "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
-      }
-    }
-  },
-  "encryptedNative": [
-    "token"
-  ],
-  "protectedNative": [
-    "token"
-  ],
-  "native": {
-    "user": "",
-    "token": "",
-    "title": "ioBroker",
-    "sound": "",
-    "priority": 0,
-    "showLog": false
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "app",
-      "type": "channel",
-      "common": {
-        "name": {
-          "en": "App",
-          "de": "Anwendung",
-          "ru": "Приложение",
-          "pt": "Aplicação",
-          "nl": "App",
-          "fr": "App",
-          "it": "App",
-          "es": "App",
-          "pl": "App",
-          "zh-cn": "附录"
+    "common": {
+        "name": "pushover",
+        "version": "3.0.3",
+        "news": {
+            "3.0.3": {
+                "en": "Fix crash cases reported by Sentry",
+                "de": "Reparieren Crashfälle gemeldet von Sentry",
+                "ru": "Исправление случаев аварии, описанных Sentry",
+                "pt": "Corrigir casos de acidente relatados por Sentry",
+                "nl": "Vertaling:",
+                "fr": "Troubles de crash signalés par Sentry",
+                "it": "Correzione dei casi di crash segnalati da Sentry",
+                "es": "Casos de accidente fijo reportados por Sentry",
+                "pl": "Sprawy katastrofy Fix podane przez Sentry’a",
+                "zh-cn": "Sentry所报告的六例事故"
+            },
+            "3.0.2": {
+                "en": "Added log output of sent messages\nAdded custom sound to blockly",
+                "de": "Protokollausgabe von gesendeten Nachrichten hinzugefügt\nHinzugefügt kundenspezifischen Sound zu blockieren",
+                "ru": "Добавлен выход журнала отправленных сообщений\nДобавлен пользовательский звук для блокировки",
+                "pt": "Adicionado saída de log de mensagens enviadas\nAdicionado som personalizado para blockly",
+                "nl": "Vertaling:\n_",
+                "fr": "Ajout de la sortie de journal des messages envoyés\nAjout du son personnalisé pour bloquer",
+                "it": "Aggiunto l'output di registro dei messaggi inviati\nAggiunto suono personalizzato per bloccare",
+                "es": "Añadido salida de registro de mensajes enviados\nAñadido sonido personalizado para bloquear",
+                "pl": "Wtedy log wyjściowy wysyłanych wiadomości\nDodrukowane dźwięki do blokowania",
+                "zh-cn": "增加发信的逻辑产出\n添加的习俗以阻挡"
+            },
+            "3.0.0": {
+                "en": "Added app limits as states\nChanged to class definition\nUpdated logo\nUpdated testing",
+                "de": "App-Grenze als Staaten hinzugefügt\nÄnderung der Klassendefinition\nAktualisiertes Logo\nAktualisierte Tests",
+                "ru": "Добавлены ограничения приложений как государства\nИзменено в определение класса\nОбновленный логотип\nОбновленное тестирование",
+                "pt": "Limites de aplicativos adicionados como estados\nAlterado na definição de classe\nLogotipo atualizado\nTestes atualizados",
+                "nl": "Geadresseerde applimieten als staat\nVeranderd naar de klas definitie\nUpdate logo\nVerouderde test",
+                "fr": "Ajout de limites d'application en tant qu'états\nChanged to class definition\nLogo mis à jour\nEssais actualisés",
+                "it": "Limiti di app aggiunti come stati\nCambiato nella definizione di classe\nLogo aggiornato\nTest aggiornato",
+                "es": "Limitaciones de aplicación adicionales como estados\nCambio en la definición de clase\nLogo Actualizado\nPruebas actualizadas",
+                "pl": "Ograniczenie stosowne jako stany\nZmienił się do definicji klasowej\nLogo aktualne\nPrzetestowanie",
+                "zh-cn": "按国家开列的附加数限制\nB. 对分类定义的变化\n最新标志\n最新试验"
+            },
+            "2.1.0": {
+                "en": "Important: js-controller 3.0+ required! \nRemove some legacy code\nPrevent potential crash case when error occurs",
+                "de": "Wichtig: js-controller 3.0+ erforderlich!\nEntfernen Sie Legacy-Code\nVerhindern Sie einen potenziellen Absturzfall, wenn ein Fehler auftritt",
+                "ru": "Важно: требуется js-контроллер 3.0+!\nУдалите часть устаревшего кода\nПредотвращение потенциального сбоя при возникновении ошибки",
+                "pt": "Importante: js-controller 3.0+ necessário!\nRemover algum código legado\nPrevenir um possível caso de falha quando ocorrer um erro",
+                "nl": "Belangrijk: js-controller 3.0+ vereist!\nEen oude code verwijderen\nVoorkom een mogelijke crash wanneer er een fout optreedt",
+                "fr": "Important : js-controller 3.0+ requis !\nSupprimer du code hérité\nPrévenir les cas de plantage potentiels lorsqu'une erreur se produit",
+                "it": "Importante: è richiesto js-controller 3.0+!\nRimuovi del codice legacy\nPrevenire potenziali casi di arresto anomalo quando si verifica un errore",
+                "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
+                "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
+                "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况"
+            },
+            "2.0.5": {
+                "en": "Corrected error with token",
+                "de": "Fehler mit Token behoben",
+                "ru": "Исправлена ошибка токена",
+                "pt": "Erro corrigido com token",
+                "nl": "Fout gecorrigeerd met token",
+                "fr": "Erreur corrigée avec le jeton",
+                "it": "Errore corretto con token",
+                "es": "Error corregido con token",
+                "pl": "Poprawiony błąd z tokenem",
+                "zh-cn": "更正了令牌错误"
+            },
+            "2.0.4": {
+                "en": "Blockly input value for attachments\nimplemented the \"glances\"",
+                "de": "Block-Eingabewert für Anhänge\ndie \"Blicke\" umgesetzt",
+                "ru": "Блочно вводимое значение для вложений\nреализованы «взгляды»",
+                "pt": "Valor de entrada em bloco para anexos\nimplementou os \"olhares\"",
+                "nl": "Geblokkeerde invoerwaarde voor bijlagen\nimplementeerde de \"blik\"",
+                "fr": "Valeur d'entrée en bloc pour les pièces jointes\nmis en œuvre les \"coups d'œil\"",
+                "it": "Valore di input a blocchi per gli allegati\nimplementato gli \"sguardi\"",
+                "es": "Valor de entrada en bloque para archivos adjuntos\nimplementó las \"miradas\"",
+                "pl": "Blokowo wprowadzana wartość dla załączników\nwdrożył „spojrzenia”",
+                "zh-cn": "附件的块输入值\n实施“一瞥”"
+            },
+            "2.0.3": {
+                "en": "Removed spaces in the admin config dropdown",
+                "de": "Leerzeichen in der Dropdown-Liste der Administratorkonfiguration wurden entfernt",
+                "ru": "Удалены пробелы в раскрывающемся списке конфигурации администратора",
+                "pt": "Espaços removidos no menu suspenso de configuração do administrador",
+                "nl": "Spaties verwijderd in de vervolgkeuzelijst met admin-configuratie",
+                "fr": "Espaces supprimés dans la liste déroulante de configuration de l'administrateur",
+                "it": "Spazi rimossi nel menu a discesa della configurazione dell'amministratore",
+                "es": "Espacios eliminados en el menú desplegable de configuración de administrador",
+                "pl": "Usunięto spacje z listy rozwijanej konfiguracji administratora",
+                "zh-cn": "在管理员配置下拉列表中删除了空格"
+            },
+            "2.0.2": {
+                "en": "fixes case that token is not defined/existing (Sentry IOBROKER-PUSHOVER-2)",
+                "de": "behebt den Fall, dass das Token nicht definiert / vorhanden ist (Sentry IOBROKER-PUSHOVER-2)",
+                "ru": "исправляет случай, когда токен не определен / не существует (Sentry IOBROKER-PUSHOVER-2)",
+                "pt": "corrige caso o token não esteja definido / existente (Sentry IOBROKER-PUSHOVER-2)",
+                "nl": "lost het geval op dat het token niet is gedefinieerd / bestaat (Sentry IOBROKER-PUSHOVER-2)",
+                "fr": "corrige le cas où le jeton n'est pas défini / existant (Sentry IOBROKER-PUSHOVER-2)",
+                "it": "risolve il caso in cui il token non è definito / esistente (Sentry IOBROKER-PUSHOVER-2)",
+                "es": "corrige el caso de que el token no esté definido / existente (Sentry IOBROKER-PUSHOVER-2)",
+                "pl": "naprawiono przypadek, w którym token nie jest zdefiniowany / istnieje (Sentry IOBROKER-PUSHOVER-2)",
+                "zh-cn": "修复令牌未定义/不存在的情况（Sentry IOBROKER-PUSHOVER-2）"
+            }
+        },
+        "title": "Pushover",
+        "titleLang": {
+            "en": "Pushover",
+            "de": "Pushover",
+            "ru": "Pushover",
+            "pt": "Pushover",
+            "nl": "Pushover",
+            "fr": "Pushover",
+            "it": "Pushover",
+            "es": "Pushover",
+            "pl": "Pushover",
+            "zh-cn": "Pushover"
+        },
+        "desc": {
+            "en": "Sends Pushover notifications",
+            "de": "Sendet Pushover-Benachrichtigungen",
+            "ru": "Отправляет уведомления Pushover",
+            "pt": "Envia notificações Pushover",
+            "nl": "Stuurt een Pushover",
+            "fr": "Envoyez des notifications Pushover",
+            "it": "Invia notifiche Pushover",
+            "es": "Enviar notificaciones de Pushover",
+            "pl": "Powiadomienia",
+            "zh-cn": "发布通知"
+        },
+        "authors": [
+            "bluefox <dogafox@gmail.com>"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "mode": "daemon",
+        "loglevel": "info",
+        "messagebox": true,
+        "materialize": true,
+        "subscribe": "messagebox",
+        "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
+        "wakeup": true,
+        "compact": true,
+        "enabled": true,
+        "icon": "pushover.png",
+        "keywords": [
+            "notification",
+            "pushover",
+            "message"
+        ],
+        "adminUI": {
+            "config": "json"
+        },
+        "docs": {
+            "en": "docs/en/README.md",
+            "de": "docs/de/README.md"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=3.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=4.0.9"
+            }
+        ],
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
+        "type": "messaging",
+        "blockly": true,
+        "connectionType": "cloud",
+        "dataSource": "push",
+        "tier": 1,
+        "plugins": {
+            "sentry": {
+                "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
+            }
         }
-      },
-      "native": {}
     },
-    {
-      "_id": "app.totalLimit",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "Allowed messages",
-          "de": "Erlaubte Nachrichten",
-          "ru": "Разрешенные сообщения",
-          "pt": "Mensagens permitidas",
-          "nl": "Toegewezen berichten",
-          "fr": "Messages autorisés",
-          "it": "Messaggi consentiti",
-          "es": "Mensajes permitidos",
-          "pl": "Allowed messages",
-          "zh-cn": "致电"
-        },
-        "type": "number",
-        "role": "value",
-        "read": true,
-        "write": false
-      },
-      "native": {
-        "header": "x-limit-app-limit"
-      }
+    "encryptedNative": [
+        "token"
+    ],
+    "protectedNative": [
+        "token"
+    ],
+    "native": {
+        "user": "",
+        "token": "",
+        "title": "ioBroker",
+        "sound": "",
+        "priority": 0,
+        "showLog": false
     },
-    {
-      "_id": "app.remainingLimit",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "Allowed messages",
-          "de": "Erlaubte Nachrichten",
-          "ru": "Разрешенные сообщения",
-          "pt": "Mensagens permitidas",
-          "nl": "Toegewezen berichten",
-          "fr": "Messages autorisés",
-          "it": "Messaggi consentiti",
-          "es": "Mensajes permitidos",
-          "pl": "Allowed messages",
-          "zh-cn": "致电"
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "app",
+            "type": "channel",
+            "common": {
+                "name": {
+                    "en": "App",
+                    "de": "Anwendung",
+                    "ru": "Приложение",
+                    "pt": "Aplicação",
+                    "nl": "App",
+                    "fr": "App",
+                    "it": "App",
+                    "es": "App",
+                    "pl": "App",
+                    "zh-cn": "附录"
+                }
+            },
+            "native": {}
         },
-        "type": "number",
-        "role": "value",
-        "read": true,
-        "write": false
-      },
-      "native": {
-        "header": "x-limit-app-remaining"
-      }
-    },
-    {
-      "_id": "app.limitRest",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "Next limit reset",
-          "de": "Nächster Limit-Reset",
-          "ru": "Следующий сброс лимита",
-          "pt": "Próximo limite reset",
-          "nl": "Volgende limiet",
-          "fr": "Réinitialisation de la limite suivante",
-          "it": "Prossimo reset limite",
-          "es": "Siguiente límite de reinicio",
-          "pl": "Reset",
-          "zh-cn": "B. 今后的限制"
+        {
+            "_id": "app.totalLimit",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "Allowed messages",
+                    "de": "Erlaubte Nachrichten",
+                    "ru": "Разрешенные сообщения",
+                    "pt": "Mensagens permitidas",
+                    "nl": "Toegewezen berichten",
+                    "fr": "Messages autorisés",
+                    "it": "Messaggi consentiti",
+                    "es": "Mensajes permitidos",
+                    "pl": "Allowed messages",
+                    "zh-cn": "致电"
+                },
+                "type": "number",
+                "role": "value",
+                "read": true,
+                "write": false
+            },
+            "native": {
+                "header": "x-limit-app-limit"
+            }
         },
-        "type": "number",
-        "role": "date",
-        "read": true,
-        "write": false
-      },
-      "native": {
-        "header": "x-limit-app-reset"
-      }
-    }
-  ]
+        {
+            "_id": "app.remainingLimit",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "Allowed messages",
+                    "de": "Erlaubte Nachrichten",
+                    "ru": "Разрешенные сообщения",
+                    "pt": "Mensagens permitidas",
+                    "nl": "Toegewezen berichten",
+                    "fr": "Messages autorisés",
+                    "it": "Messaggi consentiti",
+                    "es": "Mensajes permitidos",
+                    "pl": "Allowed messages",
+                    "zh-cn": "致电"
+                },
+                "type": "number",
+                "role": "value",
+                "read": true,
+                "write": false
+            },
+            "native": {
+                "header": "x-limit-app-remaining"
+            }
+        },
+        {
+            "_id": "app.limitRest",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "Next limit reset",
+                    "de": "Nächster Limit-Reset",
+                    "ru": "Следующий сброс лимита",
+                    "pt": "Próximo limite reset",
+                    "nl": "Volgende limiet",
+                    "fr": "Réinitialisation de la limite suivante",
+                    "it": "Prossimo reset limite",
+                    "es": "Siguiente límite de reinicio",
+                    "pl": "Reset",
+                    "zh-cn": "B. 今后的限制"
+                },
+                "type": "number",
+                "role": "date",
+                "read": true,
+                "write": false
+            },
+            "native": {
+                "header": "x-limit-app-reset"
+            }
+        }
+    ]
 }
