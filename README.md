@@ -35,6 +35,10 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### __WORK IN PROGRESS__
 -->
+
+### __WORK IN PROGRESS__
+* (Apollon77) Fix crash cases reported by Sentry
+
 ### 3.0.2 (2022-07-14)
 * (bluefox) Added log output of sent messages
 * (bluefox) Added custom sound to blockly

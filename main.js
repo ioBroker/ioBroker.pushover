@@ -60,14 +60,14 @@ class Pushover extends utils.Adapter {
             const tempPushover = new PushoverNotifications({
                 user: obj.message.user,
                 token: obj.message.token,
-                onerror: this.onError
+                onerror: this.onError.bind(this)
             });
 
             delete obj.message.user;
             delete obj.message.token;
 
             tempPushover.send(obj.message, (err, result, response) => {
-                this.log.debug(`Pushover response: ${JSON.stringify(response.headers)}`);
+                this.log.debug(`Pushover response: ${JSON.stringify(response && response.headers)}`);
 
                 if (err) {
                     try {
@@ -162,7 +162,7 @@ class Pushover extends utils.Adapter {
                 this.pushover = new PushoverNotifications({
                     user: this.config.user,
                     token: this.config.token,
-                    onerror: this.onError
+                    onerror: this.onError.bind(this)
                 });
             } else {
                 this.log.error('Cannot send notification while not configured');
@@ -202,7 +202,7 @@ class Pushover extends utils.Adapter {
         (this.config.showLog ? this.log.info : this.log.debug)(`Sending pushover notification: ${JSON.stringify(message)}`);
 
         this.pushover.send(message, async (err, result, response) => {
-            this.log.debug(`Pushover response: ${JSON.stringify(response.headers)}`);
+            this.log.debug(`Pushover response: ${JSON.stringify(response && response.headers)}`);
 
             if (err) {
                 try {
