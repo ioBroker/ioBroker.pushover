@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "pushover-notifications": "^1.2.2",
-    "@iobroker/adapter-core": "^2.6.0",
+    "@iobroker/adapter-core": "^2.6.2",
     "axios": "^0.27.2"
   },
   "devDependencies": {
