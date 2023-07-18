@@ -31,7 +31,7 @@ Blockly.Words['pushover_normal']        = {'en': 'default',                     
 Blockly.Words['pushover_high']          = {'en': 'high priority',               'de': 'Hohe Priorität',                     'ru': 'приоритетное'};
 Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'Leise',                              'ru': 'тихое'};
 Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'Mit Bestätigung',                    'ru': 'с подтверждением'};
-Blockly.Words['pushover_ttl']           = {'en': 'TTL in seconds (optional)',   'de': 'Dauer in Sekunden (optional',        'ru': 'время жить (не обяз.)'};
+Blockly.Words['pushover_ttl']           = {'en': 'TTL in seconds (optional)',   'de': 'Dauer in Sekunden (optional)',       'ru': 'время жить (не обяз.)'};
 
 Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
 Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
