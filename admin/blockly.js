@@ -31,6 +31,7 @@ Blockly.Words['pushover_normal']        = {'en': 'default',                     
 Blockly.Words['pushover_high']          = {'en': 'high priority',               'de': 'Hohe Priorität',                     'ru': 'приоритетное'};
 Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'Leise',                              'ru': 'тихое'};
 Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'Mit Bestätigung',                    'ru': 'с подтверждением'};
+Blockly.Words['pushover_ttl']           = {'en': 'TTL in seconds (optional)',   'de': 'Dauer in Sekunden (optional)',       'ru': 'время жить (не обяз.)'};
 
 Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
 Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
@@ -98,6 +99,8 @@ Blockly.Sendto.blocks['pushover'] =
     + '     <value name="TIMESTAMP">'
     + '     </value>'
     + '     <value name="LOG">'
+    + '     </value>'
+    + '     <value name="TTL">'
     + '     </value>'
     + '</block>';
 
@@ -224,6 +227,13 @@ Blockly.Blocks['pushover'] = {
                 [Blockly.Translate('pushover_log_error'), 'error']
             ]), 'LOG');
 
+        input = this.appendValueInput('TTL')
+            .setCheck('Number')
+            .appendField(Blockly.Translate('pushover_ttl'));
+        if (input.connection) {
+            input.connection._optional = true;
+        }
+
         this.setInputsInline(false);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -271,6 +281,10 @@ Blockly.JavaScript['pushover'] = function(block) {
 
     value = Blockly.JavaScript.valueToCode(block, 'TIMESTAMP', Blockly.JavaScript.ORDER_ATOMIC);
     if (value)     text += '   timestamp: ' + value + ',\n';
+
+    value = Blockly.JavaScript.valueToCode(block, 'TTL', Blockly.JavaScript.ORDER_ATOMIC);
+    if (value)     text += '   ttl: ' + value + ',\n';
+
     text = text.substring(0, text.length - 2);
     text += '\n';
 
