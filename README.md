@@ -33,8 +33,10 @@ iobroker add pushover
 
 <!--
 	Placeholder for the next version (at the beginning of the line):
-	### __WORK IN PROGRESS__
+	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (MrStefanH) Added new ttl parameter to blockly
 
 ### 3.0.3 (2022-07-27)
 * (Apollon77) Fix crash cases reported by Sentry
@@ -61,7 +63,7 @@ iobroker add pushover
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2022 bluefox <dogafox@gmail.com>
+Copyright (c) 2014-2023 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
