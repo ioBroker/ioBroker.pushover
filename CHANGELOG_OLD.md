@@ -1,4 +1,9 @@
 # Older changes
+## 2.1.0 (2022-02-20)
+* Important: js-controller 3.0+ required! 
+* (Apollon77) Remove some legacy code
+* (Apollon77) Prevent potential crash case when error occurs
+
 ## 2.0.5 (2021-06-29)
 * (bluefox) Corrected error with token
 

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "3.0.4",
+    "version": "3.0.5",
     "news": {
+      "3.0.5": {
+        "en": "Updated packages",
+        "de": "Aktualisierte Pakete",
+        "ru": "Обновленные пакеты",
+        "pt": "Pacotes atualizados",
+        "nl": "Verouderde pakketten",
+        "fr": "Forfaits mis à jour",
+        "it": "Pacchetti aggiornati",
+        "es": "Paquetes actualizados",
+        "pl": "Pakiet upoważniony",
+        "uk": "Оновлені пакети",
+        "zh-cn": "最新一揽子计划"
+      },
       "3.0.4": {
         "en": "Added new ttl parameter to blockly",
         "de": "Neue ttl-Parameter blockweise hinzugefügt",
@@ -75,18 +88,6 @@
         "es": "Error corregido con token",
         "pl": "Poprawiony błąd z tokenem",
         "zh-cn": "更正了令牌错误"
-      },
-      "2.0.4": {
-        "en": "Blockly input value for attachments\nimplemented the \"glances\"",
-        "de": "Block-Eingabewert für Anhänge\ndie \"Blicke\" umgesetzt",
-        "ru": "Блочно вводимое значение для вложений\nреализованы «взгляды»",
-        "pt": "Valor de entrada em bloco para anexos\nimplementou os \"olhares\"",
-        "nl": "Geblokkeerde invoerwaarde voor bijlagen\nimplementeerde de \"blik\"",
-        "fr": "Valeur d'entrée en bloc pour les pièces jointes\nmis en œuvre les \"coups d'œil\"",
-        "it": "Valore di input a blocchi per gli allegati\nimplementato gli \"sguardi\"",
-        "es": "Valor de entrada en bloque para archivos adjuntos\nimplementó las \"miradas\"",
-        "pl": "Blokowo wprowadzana wartość dla załączników\nwdrożył „spojrzenia”",
-        "zh-cn": "附件的块输入值\n实施“一瞥”"
       }
     },
     "title": "Pushover",
