@@ -170,6 +170,7 @@ class Pushover extends utils.Adapter {
         }
 
         if (!this.pushover) {
+            callback && callback('Cannot send notification while not configured');
             return;
         }
 
