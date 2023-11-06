@@ -35,6 +35,9 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (ticaki) Caught the error by sending of sendToAsync if no configuration exists
+
 ### 3.0.5 (2023-10-24)
 * (bluefox) Updated packages
 
