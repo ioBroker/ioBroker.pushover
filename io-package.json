@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "3.0.5",
+    "version": "3.0.6",
     "news": {
+      "3.0.6": {
+        "en": "Caught the error by sending of sendToAsync if no configuration exists",
+        "de": "Erwischt den Fehler durch Senden von senden ToAsync wenn keine Konfiguration vorhanden ist",
+        "ru": "Поймали ошибку, отправив отправку ToAsync если никакая конфигурация не существует",
+        "pt": "Apanhado o erro enviando de envio ToAsync se nenhuma configuração existe",
+        "nl": "Greep de fout door te sturen ToAsync als er geen vertrouwen bestaat",
+        "fr": "Caught the error by sending of send ToAsync si aucune configuration n'existe",
+        "it": "Cattura l'errore inviando ToAsync se non esiste alcuna configurazione",
+        "es": "Cogido el error por el envío de envío ToAsync si no existe ninguna configuración",
+        "pl": "Uszkodził błąd wysyłając wysyłając wysyłając z niego wiadomość. ToAsynsynoza, jeśli żadna konfiguracja nie istnieje",
+        "uk": "Спіймана похибкою по відправці ToAsync якщо немає конфігурації",
+        "zh-cn": "D. 发送错误 如果没有组合"
+      },
       "3.0.5": {
         "en": "Updated packages",
         "de": "Aktualisierte Pakete",
@@ -76,18 +89,6 @@
         "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
         "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
         "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况"
-      },
-      "2.0.5": {
-        "en": "Corrected error with token",
-        "de": "Fehler mit Token behoben",
-        "ru": "Исправлена ошибка токена",
-        "pt": "Erro corrigido com token",
-        "nl": "Fout gecorrigeerd met token",
-        "fr": "Erreur corrigée avec le jeton",
-        "it": "Errore corretto con token",
-        "es": "Error corregido con token",
-        "pl": "Poprawiony błąd z tokenem",
-        "zh-cn": "更正了令牌错误"
       }
     },
     "title": "Pushover",

@@ -35,7 +35,7 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 3.0.6 (2023-11-06)
 * (ticaki) Caught the error by sending of sendToAsync if no configuration exists
 
 ### 3.0.5 (2023-10-24)
@@ -50,12 +50,6 @@ iobroker add pushover
 ### 3.0.2 (2022-07-14)
 * (bluefox) Added log output of sent messages
 * (bluefox) Added custom sound to blockly
-
-### 3.0.0 (2022-07-05)
-* (klein0r) Added app limits as states
-* (klein0r) Changed to class definition
-* (klein0r) Updated logo
-* (klein0r) Updated testing
 
 ## License
 

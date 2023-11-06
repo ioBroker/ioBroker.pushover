@@ -1,4 +1,10 @@
 # Older changes
+## 3.0.0 (2022-07-05)
+* (klein0r) Added app limits as states
+* (klein0r) Changed to class definition
+* (klein0r) Updated logo
+* (klein0r) Updated testing
+
 ## 2.1.0 (2022-02-20)
 * Important: js-controller 3.0+ required! 
 * (Apollon77) Remove some legacy code
