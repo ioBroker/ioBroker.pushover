@@ -17,6 +17,9 @@
     "type": "git",
     "url": "https://github.com/ioBroker/ioBroker.pushover"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "pushover-notifications": "^1.2.3",
     "@iobroker/adapter-core": "^3.1.6",

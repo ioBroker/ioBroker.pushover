@@ -36,6 +36,8 @@ iobroker add pushover
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+NodeJS >= 18.x and js-controller >= 5 is required
+
 * (klein0r) Updated dependencies
 * (klein0r) Fixed blockly definitions
 
