@@ -35,6 +35,9 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (klein0r) Updated dependencies
+
 ### 3.0.6 (2023-11-06)
 * (ticaki) Caught the error by sending of sendToAsync if no configuration exists
 
