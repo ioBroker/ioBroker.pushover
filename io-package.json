@@ -117,7 +117,9 @@
       "zh-cn": "发布通知"
     },
     "authors": [
-      "bluefox <dogafox@gmail.com>"
+      "bluefox <dogafox@gmail.com>",
+      "Apollon77 <iobroker@fischer-ka.de>",
+      "Matthias Kleine <info@haus-automatisierung.com>"
     ],
     "license": "MIT",
     "platform": "Javascript/Node.js",
