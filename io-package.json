@@ -127,15 +127,11 @@
       "Apollon77 <iobroker@fischer-ka.de>",
       "Matthias Kleine <info@haus-automatisierung.com>"
     ],
-    "license": "MIT",
     "platform": "Javascript/Node.js",
     "mode": "daemon",
     "loglevel": "info",
     "messagebox": true,
-    "materialize": true,
-    "subscribe": "messagebox",
     "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
-    "wakeup": true,
     "compact": true,
     "enabled": true,
     "icon": "pushover.png",
@@ -166,7 +162,11 @@
     "blockly": true,
     "connectionType": "cloud",
     "dataSource": "push",
-    "tier": 1,
+    "tier": 3,
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "plugins": {
       "sentry": {
         "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
