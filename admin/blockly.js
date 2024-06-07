@@ -69,56 +69,38 @@ Blockly.Words['pushover_tooltip']           = {'en': 'Send message to pushover',
 Blockly.Words['pushover_help']              = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'de': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'ru': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md'};
 
 Blockly.Sendto.blocks['pushover'] =
-    '<block type="pushover">'
-    + '     <value name="INSTANCE">'
-    + '     </value>'
-    + '     <value name="MESSAGE">'
-    + '         <shadow type="text">'
-    + '             <field name="TEXT">text</field>'
-    + '         </shadow>'
-    + '     </value>'
-    + '     <value name="TITLE">'
-    + '     </value>'
-    + '     <value name="SOUND">'
-    + '     </value>'
-    + '     <value name="SOUND_CUSTOM">'
-    + '         <shadow type="text">'
-    + '             <field name="TEXT"></field>'
-    + '         </shadow>'
-    + '     </value>'
-    + '     <value name="PRIORITY">'
-    + '     </value>'
-    + '     <value name="URL">'
-    + '     </value>'
-    + '     <value name="URL_TITLE">'
-    + '     </value>'
-    + '     <value name="ATTACHMENT">'
-    + '     </value>'
-    + '     <value name="DEVICE">'
-    + '     </value>'
-    + '     <value name="TIMESTAMP">'
-    + '     </value>'
-    + '     <value name="LOG">'
-    + '     </value>'
-    + '     <value name="TTL">'
-    + '     </value>'
-    + '</block>';
+    '<block type="pushover">' +
+    '  <field name="INSTANCE"></field>' +
+    '  <field name="SOUND"></field>' +
+    '  <field name="PRIORITY">0</field>' +
+    '  <field name="LOG"></field>' +
+    '  <value name="MESSAGE">' +
+    '    <shadow type="text">' +
+    '      <field name="TEXT">text</field>' +
+    '    </shadow>' +
+    '  </value>' +
+    '  <value name="SOUND_CUSTOM">' +
+    '    <shadow type="text">' +
+    '      <field name="TEXT"></field>' +
+    '    </shadow>' +
+    '  </value>' +
+    '</block>';
 
 Blockly.Blocks['pushover'] = {
     init: function() {
-        var options = [[Blockly.Translate('pushover_anyInstance'), '']];
+        const options = [[Blockly.Translate('pushover_anyInstance'), '']];
         if (typeof main !== 'undefined' && main.instances) {
-            for (var i = 0; i < main.instances.length; i++) {
-                var m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
+            for (let i = 0; i < main.instances.length; i++) {
+                const m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
                 if (m) {
-                    var n = parseInt(m[1], 10);
+                    const n = parseInt(m[1], 10);
                     options.push(['pushover.' + n, '.' + n]);
                 }
             }
         }
 
         if (!options.length) {
-            for (var u = 0; u <= 4; u++) {
+            for (let u = 0; u <= 4; u++) {
                 options.push(['pushover.' + u, '.' + u]);
             }
         }
@@ -133,29 +115,29 @@ Blockly.Blocks['pushover'] = {
         this.appendDummyInput('SOUND')
             .appendField(Blockly.Translate('pushover_sound'))
             .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_sound_default'), ""],
-                [Blockly.Translate('pushover_sound_pushover'), "pushover"],
-                [Blockly.Translate('pushover_sound_bike'), "bike"],
-                [Blockly.Translate('pushover_sound_bugle'), "bugle"],
-                [Blockly.Translate('pushover_sound_cashregister'), "cashregister"],
-                [Blockly.Translate('pushover_sound_classical'), "classical"],
-                [Blockly.Translate('pushover_sound_cosmic'), "cosmic"],
-                [Blockly.Translate('pushover_sound_falling'), "falling"],
-                [Blockly.Translate('pushover_sound_gamelan'), "gamelan"],
-                [Blockly.Translate('pushover_sound_incoming'), "incoming"],
-                [Blockly.Translate('pushover_sound_intermission'), "intermission"],
-                [Blockly.Translate('pushover_sound_magic'), "magic"],
-                [Blockly.Translate('pushover_sound_mechanical'), "mechanical"],
-                [Blockly.Translate('pushover_sound_pianobar'), "pianobar"],
-                [Blockly.Translate('pushover_sound_siren'), "siren"],
-                [Blockly.Translate('pushover_sound_spacealarm'), "spacealarm"],
-                [Blockly.Translate('pushover_sound_tugboat'), "tugboat"],
-                [Blockly.Translate('pushover_sound_alien'), "alien"],
-                [Blockly.Translate('pushover_sound_climb'), "climb"],
-                [Blockly.Translate('pushover_sound_persistent'), "persistent"],
-                [Blockly.Translate('pushover_sound_echo'), "echo"],
-                [Blockly.Translate('pushover_sound_updown'), "updown"],
-                [Blockly.Translate('pushover_sound_none'), "none"]
+                [Blockly.Translate('pushover_sound_default'), ''],
+                [Blockly.Translate('pushover_sound_pushover'), 'pushover'],
+                [Blockly.Translate('pushover_sound_bike'), 'bike'],
+                [Blockly.Translate('pushover_sound_bugle'), 'bugle'],
+                [Blockly.Translate('pushover_sound_cashregister'), 'cashregister'],
+                [Blockly.Translate('pushover_sound_classical'), 'classical'],
+                [Blockly.Translate('pushover_sound_cosmic'), 'cosmic'],
+                [Blockly.Translate('pushover_sound_falling'), 'falling'],
+                [Blockly.Translate('pushover_sound_gamelan'), 'gamelan'],
+                [Blockly.Translate('pushover_sound_incoming'), 'incoming'],
+                [Blockly.Translate('pushover_sound_intermission'), 'intermission'],
+                [Blockly.Translate('pushover_sound_magic'), 'magic'],
+                [Blockly.Translate('pushover_sound_mechanical'), 'mechanical'],
+                [Blockly.Translate('pushover_sound_pianobar'), 'pianobar'],
+                [Blockly.Translate('pushover_sound_siren'), 'siren'],
+                [Blockly.Translate('pushover_sound_spacealarm'), 'spacealarm'],
+                [Blockly.Translate('pushover_sound_tugboat'), 'tugboat'],
+                [Blockly.Translate('pushover_sound_alien'), 'alien'],
+                [Blockly.Translate('pushover_sound_climb'), 'climb'],
+                [Blockly.Translate('pushover_sound_persistent'), 'persistent'],
+                [Blockly.Translate('pushover_sound_echo'), 'echo'],
+                [Blockly.Translate('pushover_sound_updown'), 'updown'],
+                [Blockly.Translate('pushover_sound_none'), 'none'],
             ]), 'SOUND');
 
         this.appendValueInput('SOUND_CUSTOM')
@@ -165,13 +147,13 @@ Blockly.Blocks['pushover'] = {
         this.appendDummyInput('PRIORITY')
             .appendField(Blockly.Translate('pushover_priority'))
             .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_normal'),       "0"],
-                [Blockly.Translate('pushover_high'),         "1"],
-                [Blockly.Translate('pushover_quiet'),        "-1"],
-                [Blockly.Translate('pushover_confirmation'), "2"]
+                [Blockly.Translate('pushover_normal'),       '0'],
+                [Blockly.Translate('pushover_high'),         '1'],
+                [Blockly.Translate('pushover_quiet'),        '-1'],
+                [Blockly.Translate('pushover_confirmation'), '2'],
             ]), 'PRIORITY');
 
-        var input = this.appendValueInput('TITLE')
+        let input = this.appendValueInput('TITLE')
             .setCheck('String')
             .appendField(Blockly.Translate('pushover_title'));
 
@@ -179,8 +161,7 @@ Blockly.Blocks['pushover'] = {
             input.connection._optional = true;
         }
 
-
-        input = this.appendValueInput("URL")
+        input = this.appendValueInput('URL')
             .setCheck('String')
             .appendField(Blockly.Translate('pushover_url'));
         if (input.connection) {
@@ -216,7 +197,6 @@ Blockly.Blocks['pushover'] = {
             input.connection._optional = true;
         }
 
-
         this.appendDummyInput('LOG')
             .appendField(Blockly.Translate('pushover_log'))
             .appendField(new Blockly.FieldDropdown([
@@ -241,63 +221,76 @@ Blockly.Blocks['pushover'] = {
         this.setColour(Blockly.Sendto.HUE);
         this.setTooltip(Blockly.Translate('pushover_tooltip'));
         this.setHelpUrl(Blockly.Translate('pushover_help'));
-    }
+    },
 };
 
 Blockly.JavaScript['pushover'] = function(block) {
-    var dropdown_instance = block.getFieldValue('INSTANCE');
-    var logLevel = block.getFieldValue('LOG');
-    var message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
-    var customSound = Blockly.JavaScript.valueToCode(block, 'SOUND_CUSTOM', Blockly.JavaScript.ORDER_ATOMIC);
+    const dropdown_instance = block.getFieldValue('INSTANCE');
+    const logLevel = block.getFieldValue('LOG');
+    const message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
+    const customSound = Blockly.JavaScript.valueToCode(block, 'SOUND_CUSTOM', Blockly.JavaScript.ORDER_ATOMIC);
 
-    var text = '{\n';
-    text += '   message: ' + message + ',\n';
+    let text = '{\n';
+    text += `  message: ${message},\n`;
     if (customSound && customSound !== "''") {
-        text += '   sound: ' + customSound + ',\n';
+        text += `  sound: ${customSound},\n`;
     } else {
-        text += '   sound: "' + block.getFieldValue('SOUND') + '",\n';
-    }
-    var value = parseInt(block.getFieldValue('PRIORITY'), 10);
-    if (value)     text += '   priority: ' + value + ',\n';
-    if (value === 2) {
-        text += '   retry: 60,\n';
-        text += '   expire: 3600,\n';
+        text += `  sound: '${block.getFieldValue('SOUND')}',\n`;
     }
 
-    value = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   url: ' + value + ',\n';
+    const priority = parseInt(block.getFieldValue('PRIORITY'), 10);
+    if (priority) {
+        text += '  priority: ' + value + ',\n';
 
-    value = Blockly.JavaScript.valueToCode(block, 'URL_TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   url_title: ' + value + ',\n';
+        if (priority === 2) {
+            text += '  retry: 60,\n';
+            text += '  expire: 3600,\n';
+        }
+    }
 
-    value = Blockly.JavaScript.valueToCode(block, 'ATTACHMENT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   file: ' + value + ',\n';
+    const url = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC);
+    if (url) {
+        text += `  url: ${url},\n`;
+    }
 
-    value = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   title: ' + value + ',\n';
+    const urlTitle = Blockly.JavaScript.valueToCode(block, 'URL_TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (urlTitle) {
+        text += `  url_title: ${urlTitle},\n`;
+    }
 
-    value = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   device: ' + value + ',\n';
+    const attachment = Blockly.JavaScript.valueToCode(block, 'ATTACHMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (attachment) {
+        text += `  file: ${attachment},\n`;
+    }
 
-    value = Blockly.JavaScript.valueToCode(block, 'TIMESTAMP', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   timestamp: ' + value + ',\n';
+    const title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (title) {
+        text += `  title: ${title},\n`;
+    }
 
-    value = Blockly.JavaScript.valueToCode(block, 'TTL', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   ttl: ' + value + ',\n';
+    const device = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (device) {
+        text += `  device: ${device},\n`;
+    }
 
-    text = text.substring(0, text.length - 2);
-    text += '\n';
+    const timestamp = Blockly.JavaScript.valueToCode(block, 'TIMESTAMP', Blockly.JavaScript.ORDER_ATOMIC);
+    if (timestamp) {
+        text += `  timestamp: ${timestamp},\n`;
+    }
+
+    const ttl = Blockly.JavaScript.valueToCode(block, 'TTL', Blockly.JavaScript.ORDER_ATOMIC);
+    if (ttl) {
+        text += `  ttl: ${ttl},\n`;
+    }
 
     text += '}';
-    var logText;
 
+    let logText = '';
     if (logLevel) {
-        logText = 'console.' + logLevel + '("pushover: " + ' + message + ');\n';
-    } else {
-        logText = '';
+        logText = `console.${logLevel}('pushover${dropdown_instance}: ${message}');\n`;
     }
 
-    return 'sendTo("pushover' + dropdown_instance + '", "send", ' + text + ');\n' + logText;
+    return `sendTo('pushover${dropdown_instance}', 'send', ${text});\n` + logText;
 };
 
 /// --- SendTo glances --------------------------------------------------
@@ -355,43 +348,31 @@ Blockly.Words['glances_tooltip']    =  {
 Blockly.Words['glances_help']       = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md#glances'};
 
 Blockly.Sendto.blocks['glances'] =
-    '<block type="glances">'
-    + '     <value name="INSTANCE">'
-    + '     </value>'
-    + '     <value name="MESSAGE">'
-    + '         <shadow type="text">'
-    + '             <field name="TEXT">text</field>'
-    + '         </shadow>'
-    + '     </value>'
-    + '     <value name="TITLE">'
-    + '     </value>'
-    + '     <value name="SUBTEXT">'
-    + '     </value>'
-    + '     <value name="COUNT">'
-    + '     </value>'
-    + '     <value name="PERCENT">'
-    + '     </value>'
-    + '     <value name="DEVICE">'
-    + '     </value>'
-    + '     <value name="LOG">'
-    + '     </value>'
-    + '</block>';
+    '<block type="glances">' +
+    '  <field name="INSTANCE"></field>' +
+    '  <field name="LOG"></field>' +
+    '  <value name="MESSAGE">' +
+    '    <shadow type="text">' +
+    '      <field name="TEXT">text</field>' +
+    '    </shadow>' +
+    '  </value>' +
+    '</block>';
 
 Blockly.Blocks['glances'] = {
     init: function() {
-        var options = [[Blockly.Translate('pushover_anyInstance'), '']];
+        const options = [[Blockly.Translate('pushover_anyInstance'), '']];
         if (typeof main !== 'undefined' && main.instances) {
-            for (var i = 0; i < main.instances.length; i++) {
-                var m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
+            for (let i = 0; i < main.instances.length; i++) {
+                const m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
                 if (m) {
-                    var n = parseInt(m[1], 10);
+                    const n = parseInt(m[1], 10);
                     options.push(['pushover.' + n, '.' + n]);
                 }
             }
         }
 
         if (!options.length) {
-            for (var u = 0; u <= 4; u++) {
+            for (let u = 0; u <= 4; u++) {
                 options.push(['pushover.' + u, '.' + u]);
             }
         }
@@ -403,7 +384,7 @@ Blockly.Blocks['glances'] = {
         this.appendValueInput('MESSAGE')
             .appendField(Blockly.Translate('pushover_message'));
 
-        var input = this.appendValueInput('TITLE')
+        let input = this.appendValueInput('TITLE')
             .setCheck('String')
             .appendField(Blockly.Translate('pushover_title'));
 
@@ -447,7 +428,7 @@ Blockly.Blocks['glances'] = {
                 [Blockly.Translate('pushover_log_info'),  'log'],
                 [Blockly.Translate('pushover_log_debug'), 'debug'],
                 [Blockly.Translate('pushover_log_warn'),  'warn'],
-                [Blockly.Translate('pushover_log_error'), 'error']
+                [Blockly.Translate('pushover_log_error'), 'error'],
             ]), 'LOG');
 
         this.setInputsInline(false);
@@ -457,42 +438,48 @@ Blockly.Blocks['glances'] = {
         this.setColour(Blockly.Sendto.HUE);
         this.setTooltip(Blockly.Translate('pushover_tooltip'));
         this.setHelpUrl(Blockly.Translate('pushover_help'));
-    }
+    },
 };
 
 Blockly.JavaScript['glances'] = function(block) {
-    var dropdown_instance = block.getFieldValue('INSTANCE');
-    var logLevel = block.getFieldValue('LOG');
-    var message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
-    var text = '{\n';
-    text += '   message: ' + message + ',\n';
+    const dropdown_instance = block.getFieldValue('INSTANCE');
+    const logLevel = block.getFieldValue('LOG');
+    const message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
 
-    var value = Blockly.JavaScript.valueToCode(block, 'COUNT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   count: ' + parseInt(value, 10) + ',\n';
+    let text = '{\n';
+    text += `  message: ${message},\n`;
 
-    value = Blockly.JavaScript.valueToCode(block, 'PERCENT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   percent: ' + parseInt(value, 10) + ',\n';
-
-    value = Blockly.JavaScript.valueToCode(block, 'SUBTEXT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   subtext: ' + value + ',\n';
-
-    value = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   title: ' + value + ',\n';
-
-    value = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (value)     text += '   device: ' + value + ',\n';
-
-    text = text.substring(0, text.length - 2);
-    text += '\n';
-
-    text += '}';
-    var logText;
-
-    if (logLevel) {
-        logText = 'console.' + logLevel + '("glances: " + ' + message + ');\n'
-    } else {
-        logText = '';
+    const count = Blockly.JavaScript.valueToCode(block, 'COUNT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (count) {
+        text += `  count: ${parseInt(count, 10)},\n`;
     }
 
-    return 'sendTo("pushover' + dropdown_instance + '", "glances", ' + text + ');\n' + logText;
+    const percent = Blockly.JavaScript.valueToCode(block, 'PERCENT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (percent) {
+        text += `  percent: ${parseInt(percent, 10)},\n`;
+    }
+
+    const subtext = Blockly.JavaScript.valueToCode(block, 'SUBTEXT', Blockly.JavaScript.ORDER_ATOMIC);
+    if (subtext) {
+        text += `  subtext: ${subtext},\n`;
+    }
+
+    const title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (title) {
+        text += `  title: ${title},\n`;
+    }
+
+    const device = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
+    if (device) {
+        text += `  device: ${device},\n`;
+    }
+
+    text += '}';
+    let logText = '';
+
+    if (logLevel) {
+        logText = `console.${logLevel}('pushover${dropdown_instance} (glances): ${message}');\n`;
+    }
+
+    return `sendTo('pushover${dropdown_instance}', 'glances', ${text});\n` + logText;
 };
