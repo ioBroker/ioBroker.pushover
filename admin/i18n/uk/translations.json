@@ -1,0 +1,21 @@
+{
+    "API Token/Key of Application": "Маркер API/ключ програми",
+    "Check the log or your pushover app!": "Перевірте журнал або свою програму pushover!",
+    "Enable first the adapter to test notification.": "Спочатку увімкніть адаптер, щоб перевірити сповіщення.",
+    "First save the settings": "Спочатку збережіть налаштування",
+    "Group Key": "Ключ групи або ключ користувача",
+    "Group Key of Delivery Group": "Ключ групи доставки",
+    "Notification settings": "Налаштування сповіщень",
+    "Priority": "Пріоритет",
+    "Pushover adapter settings": "Налаштування адаптера Pushover",
+    "Pushover settings": "Налаштування Pushover",
+    "Sound": "Звук",
+    "Test": "Тест",
+    "Title": "Назва",
+    "Token": "Токен",
+    "default": "за замовчуванням",
+    "high-priority": "високий пріоритет",
+    "quiet": "спокійно",
+    "Show messages in log": "Показати повідомлення в журналі",
+    "Only with log level info or higher": "Лише з рівнем журналу \"info\" або вищим"
+}
