@@ -72,7 +72,7 @@ class Pushover extends utils.Adapter {
                     try {
                         this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                     } catch (err) {
-                        this.log.error('Cannot send notification: Error');
+                        this.log.error(`Cannot send notification: ${err}`);
                     }
                 }
 
@@ -208,7 +208,7 @@ class Pushover extends utils.Adapter {
                 try {
                     this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                 } catch (err) {
-                    this.log.error('Cannot send notification: Error');
+                    this.log.error(`Cannot send notification: ${err}`);
                 }
 
                 callback && callback(err);
