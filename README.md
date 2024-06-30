@@ -38,9 +38,9 @@ iobroker add pushover
 ### **WORK IN PROGRESS**
 NodeJS >= 18.x and js-controller >= 5 is required
 
-* (klein0r) Updated dependencies
-* (klein0r) Fixed blockly definitions
-* (klein0r) Updated translations
+* (@klein0r) Updated dependencies
+* (@klein0r) Fixed blockly definitions
+* (@klein0r) Updated translations
 
 ### 3.0.6 (2023-11-06)
 * (ticaki) Caught the error by sending of sendToAsync if no configuration exists
