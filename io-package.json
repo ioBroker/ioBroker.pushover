@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "3.0.6",
+    "version": "4.0.0",
     "news": {
+      "4.0.0": {
+        "en": "Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required\nUpdated dependencies\nFixed blockly definitions\nUpdated translations",
+        "de": "Bruchänderungen: NodeJS >= 18.x und js-Controller >== 5 sind erforderlich\nAktualisierte Abhängigkeiten\nFeste blockweise Definitionen\nAktualisierte Übersetzungen",
+        "ru": "Перерывы: NodeJS >= 18.x и js-контроллер >= 5 требуется\nОбновленные зависимости\nИсправленные блокированные определения\nОбновленные переводы",
+        "pt": "Alterações de ruptura: NodeJS >= 18.x e js-controller >= 5 são necessários\nDependências atualizadas\nDefinições bloqueadas fixas\nTraduções atualizadas",
+        "nl": "Voor de toepassing van deze onderverdeling wordt verstaan onder: 5 zijn vereist\nBijgewerkte afhankelijkheden\nVaste blokdefinities\nBijgewerkte vertalingen",
+        "fr": "Breaking changes: NodeJS >= 18.x et js-controller >= 5 sont nécessaires\nDépendances actualisées\nDéfinition par blocs\nTraductions actualisées",
+        "it": "Cambiamenti di rottura: NodeJS >= 18.x e js-controller >= 5 sono necessari\nDipendenze aggiornate\nDefinizioni bloccate fissate\nTraduzione aggiornata",
+        "es": "Cambios de ruptura: NodeJS √≥= 18.x y js-controller 5 se requieren\nDependencias actualizadas\nDefiniciones bloqueadas fijas\nTraducciones actualizadas",
+        "pl": "Zmiany łamania: NodeJS > = 18.x i kontroler js- > = 5 są wymagane\nAktualizacja zależności\nPoprawione definicje blokowane\nAktualizacja tłumaczeń",
+        "uk": "Зміни прориву: NodeJS >= 18.x та js-controller >= 5 обов'язкові\nОновлені залежності\nФіксовані визначення блоків\nОновлені переклади",
+        "zh-cn": "断裂变化:节点JS QQ 18.x和js控制器 QQ 需要5个\n更新的依赖关系\n固定的区块定义\n最新翻译"
+      },
       "3.0.6": {
         "en": "Caught the error by sending of sendToAsync if no configuration exists",
         "de": "Erwischt den Fehler durch Senden von senden ToAsync wenn keine Konfiguration vorhanden ist",
@@ -80,19 +93,6 @@
         "pl": "Ograniczenie stosowne jako stany\nZmienił się do definicji klasowej\nLogo aktualne\nPrzetestowanie",
         "zh-cn": "按国家开列的附加数限制\nB. 对分类定义的变化\n最新标志\n最新试验",
         "uk": "Додано обмеження додатків як стани\nЗмінено на визначення класу\nОновлений логотип\nОновлене тестування"
-      },
-      "2.1.0": {
-        "en": "Important: js-controller 3.0+ required! \nRemove some legacy code\nPrevent potential crash case when error occurs",
-        "de": "Wichtig: js-controller 3.0+ erforderlich!\nEntfernen Sie Legacy-Code\nVerhindern Sie einen potenziellen Absturzfall, wenn ein Fehler auftritt",
-        "ru": "Важно: требуется js-контроллер 3.0+!\nУдалите часть устаревшего кода\nПредотвращение потенциального сбоя при возникновении ошибки",
-        "pt": "Importante: js-controller 3.0+ necessário!\nRemover algum código legado\nPrevenir um possível caso de falha quando ocorrer um erro",
-        "nl": "Belangrijk: js-controller 3.0+ vereist!\nEen oude code verwijderen\nVoorkom een mogelijke crash wanneer er een fout optreedt",
-        "fr": "Important : js-controller 3.0+ requis !\nSupprimer du code hérité\nPrévenir les cas de plantage potentiels lorsqu'une erreur se produit",
-        "it": "Importante: è richiesto js-controller 3.0+!\nRimuovi del codice legacy\nPrevenire potenziali casi di arresto anomalo quando si verifica un errore",
-        "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
-        "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
-        "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况",
-        "uk": "Важливо: потрібен js-controller 3.0+! \nВидаліть деякий застарілий код\nЗапобігайте потенційному збою в разі виникнення помилки"
       }
     },
     "titleLang": {

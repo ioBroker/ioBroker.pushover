@@ -1,4 +1,8 @@
 # Older changes
+## 3.0.2 (2022-07-14)
+* (bluefox) Added log output of sent messages
+* (bluefox) Added custom sound to blockly
+
 ## 3.0.0 (2022-07-05)
 * (klein0r) Added app limits as states
 * (klein0r) Changed to class definition

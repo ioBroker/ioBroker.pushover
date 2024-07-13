@@ -35,7 +35,7 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.0.0 (2024-07-13)
 * Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required
 * (@klein0r) Updated dependencies
 * (@klein0r) Fixed blockly definitions
@@ -52,10 +52,6 @@ iobroker add pushover
 
 ### 3.0.3 (2022-07-27)
 * (Apollon77) Fix crash cases reported by Sentry
-
-### 3.0.2 (2022-07-14)
-* (bluefox) Added log output of sent messages
-* (bluefox) Added custom sound to blockly
 
 ## License
 
