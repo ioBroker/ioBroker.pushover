@@ -52,7 +52,8 @@
         "it": "Correzione dei casi di crash segnalati da Sentry",
         "es": "Casos de accidente fijo reportados por Sentry",
         "pl": "Sprawy katastrofy Fix podane przez Sentry’a",
-        "zh-cn": "Sentry所报告的六例事故"
+        "zh-cn": "Sentry所报告的六例事故",
+        "uk": "Виправте випадки збоїв, про які повідомляє Sentry"
       },
       "3.0.2": {
         "en": "Added log output of sent messages\nAdded custom sound to blockly",
@@ -64,7 +65,8 @@
         "it": "Aggiunto l'output di registro dei messaggi inviati\nAggiunto suono personalizzato per bloccare",
         "es": "Añadido salida de registro de mensajes enviados\nAñadido sonido personalizado para bloquear",
         "pl": "Wtedy log wyjściowy wysyłanych wiadomości\nDodrukowane dźwięki do blokowania",
-        "zh-cn": "增加发信的逻辑产出\n添加的习俗以阻挡"
+        "zh-cn": "增加发信的逻辑产出\n添加的习俗以阻挡",
+        "uk": "Додано журнал виведення надісланих повідомлень\nДодано спеціальний звук для Blockly"
       },
       "3.0.0": {
         "en": "Added app limits as states\nChanged to class definition\nUpdated logo\nUpdated testing",
@@ -76,7 +78,8 @@
         "it": "Limiti di app aggiunti come stati\nCambiato nella definizione di classe\nLogo aggiornato\nTest aggiornato",
         "es": "Limitaciones de aplicación adicionales como estados\nCambio en la definición de clase\nLogo Actualizado\nPruebas actualizadas",
         "pl": "Ograniczenie stosowne jako stany\nZmienił się do definicji klasowej\nLogo aktualne\nPrzetestowanie",
-        "zh-cn": "按国家开列的附加数限制\nB. 对分类定义的变化\n最新标志\n最新试验"
+        "zh-cn": "按国家开列的附加数限制\nB. 对分类定义的变化\n最新标志\n最新试验",
+        "uk": "Додано обмеження додатків як стани\nЗмінено на визначення класу\nОновлений логотип\nОновлене тестування"
       },
       "2.1.0": {
         "en": "Important: js-controller 3.0+ required! \nRemove some legacy code\nPrevent potential crash case when error occurs",
@@ -88,10 +91,10 @@
         "it": "Importante: è richiesto js-controller 3.0+!\nRimuovi del codice legacy\nPrevenire potenziali casi di arresto anomalo quando si verifica un errore",
         "es": "Importante: ¡Se requiere js-controller 3.0+!\nEliminar algún código heredado\nEvitar posibles casos de bloqueo cuando se produce un error",
         "pl": "Ważne: wymagany js-controller 3.0+!\nUsuń stary kod\nZapobiegaj potencjalnym przypadkom awarii, gdy wystąpi błąd",
-        "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况"
+        "zh-cn": "重要提示：需要 js-controller 3.0+！\n删除一些遗留代码\n发生错误时防止潜在的崩溃情况",
+        "uk": "Важливо: потрібен js-controller 3.0+! \nВидаліть деякий застарілий код\nЗапобігайте потенційному збою в разі виникнення помилки"
       }
     },
-    "title": "Pushover",
     "titleLang": {
       "en": "Pushover",
       "de": "Pushover",
@@ -102,7 +105,8 @@
       "it": "Pushover",
       "es": "Pushover",
       "pl": "Pushover",
-      "zh-cn": "Pushover"
+      "zh-cn": "Pushover",
+      "uk": "Pushover"
     },
     "desc": {
       "en": "Sends Pushover notifications",
@@ -114,20 +118,19 @@
       "it": "Invia notifiche Pushover",
       "es": "Enviar notificaciones de Pushover",
       "pl": "Powiadomienia",
-      "zh-cn": "发布通知"
+      "zh-cn": "发布通知",
+      "uk": "Надсилає сповіщення Pushover"
     },
     "authors": [
-      "bluefox <dogafox@gmail.com>"
+      "bluefox <dogafox@gmail.com>",
+      "Apollon77 <iobroker@fischer-ka.de>",
+      "Matthias Kleine <info@haus-automatisierung.com>"
     ],
-    "license": "MIT",
     "platform": "Javascript/Node.js",
     "mode": "daemon",
     "loglevel": "info",
     "messagebox": true,
-    "materialize": true,
-    "subscribe": "messagebox",
     "readme": "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md",
-    "wakeup": true,
     "compact": true,
     "enabled": true,
     "icon": "pushover.png",
@@ -145,12 +148,12 @@
     },
     "dependencies": [
       {
-        "js-controller": ">=3.0.0"
+        "js-controller": ">=5.0.0"
       }
     ],
     "globalDependencies": [
       {
-        "admin": ">=4.0.9"
+        "admin": ">=6.6.0"
       }
     ],
     "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.pushover/master/admin/pushover.png",
@@ -158,7 +161,11 @@
     "blockly": true,
     "connectionType": "cloud",
     "dataSource": "push",
-    "tier": 1,
+    "tier": 3,
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
     "plugins": {
       "sentry": {
         "dsn": "https://70ffe9e756e3454cbad2bef69e8807dc@sentry.iobroker.net/14"
@@ -195,6 +202,7 @@
           "it": "App",
           "es": "App",
           "pl": "App",
+          "uk": "Зареєструватися",
           "zh-cn": "附录"
         }
       },
@@ -214,6 +222,7 @@
           "it": "Messaggi consentiti",
           "es": "Mensajes permitidos",
           "pl": "Allowed messages",
+          "uk": "Дозволені повідомлення",
           "zh-cn": "致电"
         },
         "type": "number",
@@ -230,16 +239,17 @@
       "type": "state",
       "common": {
         "name": {
-          "en": "Allowed messages",
-          "de": "Erlaubte Nachrichten",
-          "ru": "Разрешенные сообщения",
-          "pt": "Mensagens permitidas",
-          "nl": "Toegewezen berichten",
-          "fr": "Messages autorisés",
-          "it": "Messaggi consentiti",
-          "es": "Mensajes permitidos",
-          "pl": "Allowed messages",
-          "zh-cn": "致电"
+          "en": "Remaining message limit",
+          "de": "Nachrichtenlimit verbleibend",
+          "ru": "Оставшийся предел сообщения",
+          "pt": "Limite de mensagem restante",
+          "nl": "Resterend berichtlimiet",
+          "fr": "Limite de message restante",
+          "it": "Limite di messaggio rimanente",
+          "es": "Limitación del mensaje restante",
+          "pl": "Pozostały limit wiadomości",
+          "uk": "Обмеження повідомлення",
+          "zh-cn": "剩余信件限制"
         },
         "type": "number",
         "role": "value",
@@ -257,14 +267,15 @@
         "name": {
           "en": "Next limit reset",
           "de": "Nächster Limit-Reset",
-          "ru": "Следующий сброс лимита",
+          "ru": "Следующий лимит",
           "pt": "Próximo limite reset",
-          "nl": "Volgende limiet",
-          "fr": "Réinitialisation de la limite suivante",
+          "nl": "Volgende limiet reset",
+          "fr": "Prochaine réinitialisation de la limite",
           "it": "Prossimo reset limite",
           "es": "Siguiente límite de reinicio",
-          "pl": "Reset",
-          "zh-cn": "B. 今后的限制"
+          "pl": "Następny limit reset",
+          "uk": "Наступний ліміт скидання",
+          "zh-cn": "下一个限制重置"
         },
         "type": "number",
         "role": "date",

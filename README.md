@@ -35,6 +35,13 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+NodeJS >= 18.x and js-controller >= 5 is required
+
+* (@klein0r) Updated dependencies
+* (@klein0r) Fixed blockly definitions
+* (@klein0r) Updated translations
+
 ### 3.0.6 (2023-11-06)
 * (ticaki) Caught the error by sending of sendToAsync if no configuration exists
 
@@ -55,7 +62,7 @@ iobroker add pushover
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2023 bluefox <dogafox@gmail.com>
+Copyright (c) 2014-2024 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

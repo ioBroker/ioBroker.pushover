@@ -35,8 +35,7 @@ class Pushover extends utils.Adapter {
     onMessage(obj) {
         if (obj && obj.command === 'send' && obj.message) {
             obj.message && this.processMessage(obj);
-        } else
-        if (obj && obj.command === 'glances' && obj.message) {
+        } else if (obj && obj.command === 'glances' && obj.message) {
             obj.message && this.sendGlances(obj);
         } else {
             obj.callback && this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
@@ -73,7 +72,7 @@ class Pushover extends utils.Adapter {
                     try {
                         this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                     } catch (err) {
-                        this.log.error('Cannot send notification: Error');
+                        this.log.error(`Cannot send notification: ${err}`);
                     }
                 }
 
@@ -100,14 +99,14 @@ class Pushover extends utils.Adapter {
         const msg = obj.message;
 
         const formData = {
-            token:   msg.token   || this.config.token,
-            user:    msg.user    || this.config.user,
-            title:   msg.title !== undefined ? msg.title : this.config.title,
-            text:    msg.message || msg.text,
+            token: msg.token || this.config.token,
+            user: msg.user || this.config.user,
+            title: msg.title !== undefined ? msg.title : this.config.title,
+            text: msg.message || msg.text,
             subtext: msg.subtext || undefined,
-            count:   msg.count   || undefined,
+            count: msg.count || undefined,
             percent: msg.percent || undefined,
-            device:  msg.device  || undefined
+            device: msg.device || undefined
         };
 
         if (formData.title && formData.title.length > 100) {
@@ -146,7 +145,7 @@ class Pushover extends utils.Adapter {
             })
             .catch(error => {
                 this.log.error(`Pushover error: ${error}`);
-                obj.callback && this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}`}, obj.callback);
+                obj.callback && this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}` }, obj.callback);
             });
     }
 
@@ -184,10 +183,10 @@ class Pushover extends utils.Adapter {
             this.pushover.token = this.config.token;
         }
 
-        message.title    = message.title    || this.config.title;
-        message.sound    = message.sound    || (this.config.sound ? this.config.sound : undefined);
+        message.title = message.title || this.config.title;
+        message.sound = message.sound || (this.config.sound ? this.config.sound : undefined);
         message.priority = message.priority || this.config.priority;
-        message.message  = message.message  || '';
+        message.message = message.message || '';
 
         // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
         if (message.timestamp && message.timestamp > 946681200000) {
@@ -196,7 +195,7 @@ class Pushover extends utils.Adapter {
 
         // mandatory parameters if priority is high (2)
         if (message.priority === 2) {
-            message.retry  = parseInt(message.retry, 10)  || 60;
+            message.retry = parseInt(message.retry, 10) || 60;
             message.expire = parseInt(message.expire, 10) || 3600;
         }
 
@@ -209,7 +208,7 @@ class Pushover extends utils.Adapter {
                 try {
                     this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                 } catch (err) {
-                    this.log.error('Cannot send notification: Error');
+                    this.log.error(`Cannot send notification: ${err}`);
                 }
 
                 callback && callback(err);
