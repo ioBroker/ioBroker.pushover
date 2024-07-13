@@ -188,7 +188,7 @@ class Pushover extends utils.Adapter {
         message.priority = message.priority || this.config.priority;
         message.message = message.message || '';
 
-        // if timestamp in ms => make seconds // if greater than 2000.01.01 00:00:00
+        // if timestamp in ms => makes seconds // if greater than 2000.01.01 00:00:00
         if (message.timestamp && message.timestamp > 946681200000) {
             message.timestamp = Math.round(message.timestamp / 1000);
         }
