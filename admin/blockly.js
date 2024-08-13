@@ -32,6 +32,10 @@ Blockly.Words['pushover_high']          = {'en': 'high priority',               
 Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'Leise',                              'ru': 'тихое'};
 Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'Mit Bestätigung',                    'ru': 'с подтверждением'};
 Blockly.Words['pushover_ttl']           = {'en': 'TTL in seconds (optional)',   'de': 'Dauer in Sekunden (optional)',       'ru': 'время жизни в сек. (не обяз.)'};
+Blockly.Words['pushover_format']        = {'en': 'formatting (optional)',       'de': 'Formatierung (optional)',            'ru': 'форматирование (не обяз.)'};
+Blockly.Words['pushover_format_html']   = {'en': 'HTML',                        'de': 'HTML',                               'ru': 'HTML'};
+Blockly.Words['pushover_format_mono']   = {'en': 'monospace',                   'de': 'monospace',                          'ru': 'monospace'};
+Blockly.Words['pushover_format_none']   = {'en': 'none',                        'de': 'keine',                              'ru': 'никто'};
 
 Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
 Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
@@ -214,6 +218,14 @@ Blockly.Blocks['pushover'] = {
             input.connection._optional = true;
         }
 
+        this.appendDummyInput('FORMAT')
+            .appendField(Blockly.Translate('pushover_format'))
+            .appendField(new Blockly.FieldDropdown([
+                [Blockly.Translate('pushover_format_none'),  'none'],
+                [Blockly.Translate('pushover_format_html'),  'html'],
+                [Blockly.Translate('pushover_format_mono'),  'monospace'],
+            ]), 'FORMAT');
+
         this.setInputsInline(false);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
@@ -229,6 +241,7 @@ Blockly.JavaScript['pushover'] = function(block) {
     const logLevel = block.getFieldValue('LOG');
     const message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
     const customSound = Blockly.JavaScript.valueToCode(block, 'SOUND_CUSTOM', Blockly.JavaScript.ORDER_ATOMIC);
+
 
     let text = '{\n';
     text += `  message: ${message},\n`;
@@ -281,6 +294,18 @@ Blockly.JavaScript['pushover'] = function(block) {
     const ttl = Blockly.JavaScript.valueToCode(block, 'TTL', Blockly.JavaScript.ORDER_ATOMIC);
     if (ttl) {
         text += `  ttl: ${ttl},\n`;
+    }
+
+    const format = block.getFieldValue('FORMAT');
+    switch (format){
+        case 'html':
+            text += `  html: 1,\n`;
+            break;
+        case 'monospace':
+            text += `  monospace: 1,\n`;
+            break;
+        default:
+            break;
     }
 
     text += '}';
