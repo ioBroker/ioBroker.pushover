@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "4.0.0",
+    "version": "4.1.0",
     "news": {
+      "4.1.0": {
+        "en": "added HTML/monospace options to blockly\nfixed issue that blockly block is invalid when different priority other than normal is selected\nfixed the error when log level selected by duplicate quotes",
+        "de": "hTML/Monospace-Optionen blockieren\nfestes problem, dass blocksperre ungültig ist, wenn andere priorität als normal gewählt wird\nfestlegen des fehlers, wenn die durch doppelte zitate ausgewählte protokollebene",
+        "ru": "добавлены варианты HTML/monospace для блокировки\nфиксированная проблема, которая блокирует, недействительна, когда выбран другой приоритет, кроме обычного\nисправить ошибку, когда уровень журнала выбран по дубликатам",
+        "pt": "adicionou opções HTML/monospace para bloquear\nproblema fixo que bloco bloqueado é inválido quando diferente prioridade diferente do normal é selecionado\ncorrigiu o erro quando o nível de log selecionado por citações duplicadas",
+        "nl": "toegevoegd HTML/monospace opties te blokkeren\nvast probleem dat blokkeer ongeldig is wanneer andere prioriteit anders dan normaal is geselecteerd\nvast de fout bij logniveau geselecteerd door dubbele aanhalingstekens",
+        "fr": "ajout d'options HTML/monospace pour bloquer\nproblème corrigé qui bloque est invalide lorsque différentes priorités autres que la normale sont sélectionnées\ncorrection de l'erreur lorsque le niveau de log sélectionné par les guillemets dupliqués",
+        "it": "aggiunte opzioni HTML/monospaziale per bloccare\nproblema fisso che il blocco blockly è invalido quando viene selezionata una priorità diversa\nfisso l'errore quando il livello di registro selezionato da citazioni duplicate",
+        "es": "opciones HTML/monospace agregadas para bloquear\nproblema fijo que bloquea bloque es inválido cuando se selecciona una prioridad diferente a la normalidad\nsolucionó el error cuando el nivel de registro seleccionado por citas duplicadas",
+        "pl": "dodane opcje HTML / monospace do blockly\nproblem stały, że blockly block jest niepoprawny, gdy wybrany inny priorytet niż normalny\nnaprawiono błąd, gdy poziom dziennika wybrany przez duplikaty cytatów",
+        "uk": "додано параметри HTML/monospace для блокування\nвиправлений номер, який блокує блок, недійсний при різному пріоритеті, ніж звичайний обраний\nвиправлено помилку, коли рівень входу вибрано дублікати лапки",
+        "zh-cn": "添加 HTML/ Monospace 选项以阻断\n当选择正常以外的不同优先级时, 块状块的固定问题无效\n重复引用选择日志级别时修正错误"
+      },
       "4.0.0": {
         "en": "Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required\nUpdated dependencies\nFixed blockly definitions\nUpdated translations",
         "de": "Bruchänderungen: NodeJS >= 18.x und js-Controller >== 5 sind erforderlich\nAktualisierte Abhängigkeiten\nFeste blockweise Definitionen\nAktualisierte Übersetzungen",
@@ -80,19 +93,6 @@
         "pl": "Wtedy log wyjściowy wysyłanych wiadomości\nDodrukowane dźwięki do blokowania",
         "zh-cn": "增加发信的逻辑产出\n添加的习俗以阻挡",
         "uk": "Додано журнал виведення надісланих повідомлень\nДодано спеціальний звук для Blockly"
-      },
-      "3.0.0": {
-        "en": "Added app limits as states\nChanged to class definition\nUpdated logo\nUpdated testing",
-        "de": "App-Grenze als Staaten hinzugefügt\nÄnderung der Klassendefinition\nAktualisiertes Logo\nAktualisierte Tests",
-        "ru": "Добавлены ограничения приложений как государства\nИзменено в определение класса\nОбновленный логотип\nОбновленное тестирование",
-        "pt": "Limites de aplicativos adicionados como estados\nAlterado na definição de classe\nLogotipo atualizado\nTestes atualizados",
-        "nl": "Geadresseerde applimieten als staat\nVeranderd naar de klas definitie\nUpdate logo\nVerouderde test",
-        "fr": "Ajout de limites d'application en tant qu'états\nChanged to class definition\nLogo mis à jour\nEssais actualisés",
-        "it": "Limiti di app aggiunti come stati\nCambiato nella definizione di classe\nLogo aggiornato\nTest aggiornato",
-        "es": "Limitaciones de aplicación adicionales como estados\nCambio en la definición de clase\nLogo Actualizado\nPruebas actualizadas",
-        "pl": "Ograniczenie stosowne jako stany\nZmienił się do definicji klasowej\nLogo aktualne\nPrzetestowanie",
-        "zh-cn": "按国家开列的附加数限制\nB. 对分类定义的变化\n最新标志\n最新试验",
-        "uk": "Додано обмеження додатків як стани\nЗмінено на визначення класу\nОновлений логотип\nОновлене тестування"
       }
     },
     "titleLang": {

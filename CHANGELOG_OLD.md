@@ -1,4 +1,7 @@
 # Older changes
+## 3.0.3 (2022-07-27)
+* (Apollon77) Fix crash cases reported by Sentry
+
 ## 3.0.2 (2022-07-14)
 * (bluefox) Added log output of sent messages
 * (bluefox) Added custom sound to blockly

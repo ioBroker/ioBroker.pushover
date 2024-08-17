@@ -27,7 +27,7 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.1.0 (2024-08-17)
 * (isi07) added HTML/monospace options to blockly
 * (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
 * (isi07) fixed the error when log level selected by duplicate quotes
@@ -46,9 +46,6 @@
 
 ### 3.0.4 (2023-08-08)
 * (MrStefanH) Added new ttl parameter to blockly
-
-### 3.0.3 (2022-07-27)
-* (Apollon77) Fix crash cases reported by Sentry
 
 ## License
 
