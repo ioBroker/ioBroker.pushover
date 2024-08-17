@@ -11,14 +11,6 @@
 
 [Pushover](https://pushover.net) is a service of Pushover, LLC (formerly Superblock, LLC), a private, independently-financed software development company based out of Chicago, Illinois. **This ioBroker adapter is not written or supported by Pushover, LLC**.
 
-## Installation
-
-Please use the "adapter list" in ioBroker to install a stable version of this adapter. You can also use the CLI to install this adapter:
-
-```
-iobroker add pushover
-```
-
 ## Documentation
 
 [🇺🇸 Documentation](./docs/en/README.md)
@@ -35,6 +27,11 @@ iobroker add pushover
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (isi07) added HTML/monospace options to blockly
+* (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
+* (isi07) fixed the error when log level selected by duplicate quotes
+
 ### 4.0.0 (2024-07-13)
 * Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required
 * (@klein0r) Updated dependencies
