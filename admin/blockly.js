@@ -287,7 +287,7 @@ Blockly.JavaScript['pushover'] = function(block) {
 
     let logText = '';
     if (logLevel) {
-        logText = `console.${logLevel}('pushover${dropdown_instance}: ${message}');\n`;
+        logText = `console.${logLevel}('pushover${dropdown_instance}: ' + ${message});\n`;
     }
 
     return `sendTo('pushover${dropdown_instance}', 'send', ${text});\n` + logText;
@@ -478,7 +478,7 @@ Blockly.JavaScript['glances'] = function(block) {
     let logText = '';
 
     if (logLevel) {
-        logText = `console.${logLevel}('pushover${dropdown_instance} (glances): ${message}');\n`;
+        logText = `console.${logLevel}('pushover${dropdown_instance} (glances): ' + ${message});\n`;
     }
 
     return `sendTo('pushover${dropdown_instance}', 'glances', ${text});\n` + logText;
