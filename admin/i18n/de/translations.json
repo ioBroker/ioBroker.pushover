@@ -13,7 +13,7 @@
     "Test": "Test",
     "Title": "Titel",
     "Token": "Token",
-    "default": "Systemsprache",
+    "default": "Standard",
     "high-priority": "hohe Priorität",
     "quiet": "ruhig",
     "Show messages in log": "Meldungen im Log anzeigen",
