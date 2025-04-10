@@ -36,6 +36,7 @@ Blockly.Words['pushover_format']        = {'en': 'formatting (optional)',       
 Blockly.Words['pushover_format_html']   = {'en': 'HTML',                        'de': 'HTML',                               'ru': 'HTML'};
 Blockly.Words['pushover_format_mono']   = {'en': 'monospace',                   'de': 'monospace',                          'ru': 'monospace'};
 Blockly.Words['pushover_format_none']   = {'en': 'none',                        'de': 'keine',                              'ru': 'никто'};
+Blockly.Words['pushover_tags']          = {'en': 'tags (optional)',             'de': 'Tags (optional)',                    'ru': 'tags (не обяз.)'};
 
 Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
 Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
@@ -193,6 +194,13 @@ Blockly.Blocks['pushover'] = {
             input.connection._optional = true;
         }
 
+        input = this.appendValueInput('TAGS')
+            .setCheck('String')
+            .appendField(Blockly.Translate('pushover_tags'));
+        if (input.connection) {
+        	input.connection._optional = true;
+        }
+
         input = this.appendValueInput('TIMESTAMP')
             .setCheck('Date')
             .appendField(Blockly.Translate('pushover_timestamp'));
@@ -284,6 +292,11 @@ Blockly.JavaScript['pushover'] = function(block) {
     const device = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
     if (device) {
         text += `  device: ${device},\n`;
+    }
+
+    const tags = Blockly.JavaScript.valueToCode(block, 'TAGS', Blockly.JavaScript.ORDER_ATOMIC);
+    if (tags) {
+        text += `  tags: ${tags},\n`;
     }
 
     const timestamp = Blockly.JavaScript.valueToCode(block, 'TIMESTAMP', Blockly.JavaScript.ORDER_ATOMIC);
