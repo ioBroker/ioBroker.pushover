@@ -6,7 +6,7 @@
 
 1. Erstelle ein Konto auf [pushover.net](https://pushover.net/)
 2. Erstelle eine neue Applikation
-3. Konfiguriere das Applikations-Token und Benutzer-Token in Deiner Pushover-Instanz
+3. Konfiguriere das Applikation-Token und Benutzer-Token in Deiner Pushover-Instanz
 
 ![Pushover configuration](./img/pushover-applications.png)
 

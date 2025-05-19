@@ -9,7 +9,7 @@
 [![Translation status](https://weblate.iobroker.net/widgets/adapters/-/pushover/svg-badge.svg)](https://weblate.iobroker.net/engage/adapters/?utm_source=widget)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.pushover.svg)](https://www.npmjs.com/package/iobroker.pushover)
 
-[Pushover](https://pushover.net) is a service of Pushover, LLC (formerly Superblock, LLC), a private, independently-financed software development company based out of Chicago, Illinois. **This ioBroker adapter is not written or supported by Pushover, LLC**.
+[Pushover](https://pushover.net) is a service of Pushover, LLC (formerly Superblock, LLC), a private, independently financed software development company based out of Chicago, Illinois. **This ioBroker adapter is not written or supported by Pushover, LLC**.
 
 ## Documentation
 
@@ -27,6 +27,10 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (robseh) Added a field "tags" to hand over a tag to pushover-service
+* (@GermanBluefox) Updated packages
+
 ### 4.1.0 (2024-08-17)
 * (isi07) added HTML/monospace options to blockly
 * (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
