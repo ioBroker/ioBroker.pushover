@@ -27,7 +27,7 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 4.1.1 (2025-05-19)
 * (robseh) Added a field "tags" to hand over a tag to pushover-service
 * (@GermanBluefox) Updated packages
 
@@ -47,9 +47,6 @@
 
 ### 3.0.5 (2023-10-24)
 * (bluefox) Updated packages
-
-### 3.0.4 (2023-08-08)
-* (MrStefanH) Added new ttl parameter to blockly
 
 ## License
 

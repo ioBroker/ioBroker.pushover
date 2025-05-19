@@ -1,4 +1,7 @@
 # Older changes
+## 3.0.4 (2023-08-08)
+* (MrStefanH) Added new ttl parameter to blockly
+
 ## 3.0.3 (2022-07-27)
 * (Apollon77) Fix crash cases reported by Sentry
 

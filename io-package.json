@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "4.1.0",
+    "version": "4.1.1",
     "news": {
+      "4.1.1": {
+        "en": "Added a field \"tags\" to hand over a tag to pushover-service\nUpdated packages",
+        "de": "Ein Feld \"Tags\" hinzugefügt, um einen Tag zum Pushover-Service zu übergeben\nAktualisierte Pakete",
+        "ru": "Добавлено поле «метки», чтобы передать тег для pushover-сервиса\nОбновленные пакеты",
+        "pt": "Adicionado um campo \"tags\" para entregar sobre uma etiqueta para pushover-service\nPacotes atualizados",
+        "nl": "Een veld \"tags\" toegevoegd om een tag over te dragen aan pushover-service\nBijgewerkte pakketten",
+        "fr": "Ajout d'un champ \"tags\" pour remettre une étiquette à pushover-service\nPaquets mis à jour",
+        "it": "Aggiunto un campo \"tags\" a consegnare sopra un tag a pushover-service\nPacchetti aggiornati",
+        "es": "Agregó un campo \"etiquetas\" para entregar una etiqueta al servicio pushover\nPaquetes actualizados",
+        "pl": "Dodano pole \"tagi\" do przekazania znacznika do pushover- service\nAktualizacja pakietów",
+        "uk": "Додано поле \"мітки\" для передачі тегу для pushover-service\nОновлені пакети",
+        "zh-cn": "添加一个字段“ tags ” , 将标签交接给推重服务\n更新软件包"
+      },
       "4.1.0": {
         "en": "added HTML/monospace options to blockly\nfixed issue that blockly block is invalid when different priority other than normal is selected\nfixed the error when log level selected by duplicate quotes",
         "de": "hTML/Monospace-Optionen blockieren\nfestes problem, dass blocksperre ungültig ist, wenn andere priorität als normal gewählt wird\nfestlegen des fehlers, wenn die durch doppelte zitate ausgewählte protokollebene",
@@ -80,19 +93,6 @@
         "pl": "Sprawy katastrofy Fix podane przez Sentry’a",
         "zh-cn": "Sentry所报告的六例事故",
         "uk": "Виправте випадки збоїв, про які повідомляє Sentry"
-      },
-      "3.0.2": {
-        "en": "Added log output of sent messages\nAdded custom sound to blockly",
-        "de": "Protokollausgabe von gesendeten Nachrichten hinzugefügt\nHinzugefügt kundenspezifischen Sound zu blockieren",
-        "ru": "Добавлен выход журнала отправленных сообщений\nДобавлен пользовательский звук для блокировки",
-        "pt": "Adicionado saída de log de mensagens enviadas\nAdicionado som personalizado para blockly",
-        "nl": "Vertaling:\n_",
-        "fr": "Ajout de la sortie de journal des messages envoyés\nAjout du son personnalisé pour bloquer",
-        "it": "Aggiunto l'output di registro dei messaggi inviati\nAggiunto suono personalizzato per bloccare",
-        "es": "Añadido salida de registro de mensajes enviados\nAñadido sonido personalizado para bloquear",
-        "pl": "Wtedy log wyjściowy wysyłanych wiadomości\nDodrukowane dźwięki do blokowania",
-        "zh-cn": "增加发信的逻辑产出\n添加的习俗以阻挡",
-        "uk": "Додано журнал виведення надісланих повідомлень\nДодано спеціальний звук для Blockly"
       }
     },
     "titleLang": {
