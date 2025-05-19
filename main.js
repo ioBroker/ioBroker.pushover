@@ -34,11 +34,11 @@ class Pushover extends utils.Adapter {
      */
     onMessage(obj) {
         if (obj && obj.command === 'send' && obj.message) {
-            obj.message && this.processMessage(obj);
+            this.processMessage(obj);
         } else if (obj && obj.command === 'glances' && obj.message) {
-            obj.message && this.sendGlances(obj);
-        } else {
-            obj.callback && this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
+            this.sendGlances(obj);
+        } else if (obj.callback) {
+            this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
         }
     }
 
@@ -184,7 +184,7 @@ class Pushover extends utils.Adapter {
     }
 
     sendNotification(message, callback) {
-        message = message || {};
+        message ||= {};
 
         if (!this.pushover) {
             if (this.config.user && this.config.token) {
