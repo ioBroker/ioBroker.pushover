@@ -36,7 +36,7 @@ Blockly.Words['pushover_format']        = {'en': 'formatting (optional)',       
 Blockly.Words['pushover_format_html']   = {'en': 'HTML',                        'de': 'HTML',                               'ru': 'HTML'};
 Blockly.Words['pushover_format_mono']   = {'en': 'monospace',                   'de': 'monospace',                          'ru': 'monospace'};
 Blockly.Words['pushover_format_none']   = {'en': 'none',                        'de': 'keine',                              'ru': 'никто'};
-Blockly.Words['pushover_tags']          = {'en': 'tags (optional)',             'de': 'Tags (optional)',                    'ru': 'tags (не обяз.)'};
+Blockly.Words['pushover_tags']          = {'en': 'tags (optional)',             'de': 'Tags (optional)',                    'ru': 'тэги (не обяз.)'};
 
 Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
 Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
