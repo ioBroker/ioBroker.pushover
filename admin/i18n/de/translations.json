@@ -1,8 +1,8 @@
 {
     "API Token/Key of Application": "API Token / Schlüssel der Anwendung",
-    "Check the log or your pushover app!": "Überprüfen Sie das Log oder Ihre Pushover-App!",
-    "Enable first the adapter to test notification.": "Aktivieren Sie zuerst den Adapter, um die Benachrichtigung zu testen.",
-    "First save the settings": "Speichern Sie zuerst die Einstellungen",
+    "Check the log or your pushover app!": "Bitte das Log oder die Pushover-App prüfen!",
+    "Enable first the adapter to test notification.": "Zuerst den Adapter aktivieren um die Benachrichtigung zu testen.",
+    "First save the settings": "Bitte zuerst die Einstellungen speichern",
     "Group Key": "Gruppenschlüssel oder Benutzerschlüssel",
     "Group Key of Delivery Group": "Gruppenschlüssel der Zustellgruppe",
     "Notification settings": "Benachrichtigungseinstellungen",
