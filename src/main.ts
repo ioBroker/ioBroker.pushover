@@ -1,88 +1,96 @@
-'use strict';
+import * as utils from '@iobroker/adapter-core';
+import axios from 'axios';
+import PushoverNotifications from 'pushover-notifications';
 
-const utils = require('@iobroker/adapter-core');
-const axios = require('axios').default;
-const PushoverNotifications = require('pushover-notifications');
+interface PushoverAdapterConfig extends ioBroker.AdapterConfig {
+    user: string;
+    token: string;
+    title: string;
+    sound: string;
+    priority: number;
+    showLog: boolean;
+}
 
 class Pushover extends utils.Adapter {
-    /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
-     */
-    constructor(options) {
+    #pushover: any;
+    #lastMessageTime: number;
+    #lastMessageText: string;
+
+    // Override config property with proper type
+    declare config: PushoverAdapterConfig;
+
+    public constructor(options: Partial<utils.AdapterOptions> = {}) {
         super({
             ...options,
             name: 'pushover',
         });
 
-        this.pushover = undefined;
-        this.lastMessageTime = 0;
-        this.lastMessageText = '';
+        this.#pushover = undefined;
+        this.#lastMessageTime = 0;
+        this.#lastMessageText = '';
 
-        this.on('ready', this.onReady.bind(this));
-        this.on('message', this.onMessage.bind(this));
+        this.on('ready', this.#onReady.bind(this));
+        this.on('message', this.#onMessage.bind(this));
     }
 
-    async onReady() {
+    #onReady(): void {
         // do nothing. Only answer on messages.
         if (!this.config.user || !this.config.token) {
             this.log.error('Cannot send notification while not configured');
         }
     }
 
-    /**
-     * @param {ioBroker.Message} obj
-     */
-    onMessage(obj) {
+    #onMessage(obj: ioBroker.Message): void {
         if (obj && obj.command === 'send' && obj.message) {
-            this.processMessage(obj);
+            this.#processMessage(obj);
         } else if (obj && obj.command === 'glances' && obj.message) {
-            this.sendGlances(obj);
+            this.#sendGlances(obj);
         } else if (obj.callback) {
             this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
         }
     }
 
-    processMessage(obj) {
+    #processMessage(obj: ioBroker.Message): void {
         // filter out the double messages
         const json = JSON.stringify(obj.message);
         if (
-            this.lastMessageTime &&
-            this.lastMessageText === JSON.stringify(obj.message) &&
-            Date.now() - this.lastMessageTime < 1000
+            this.#lastMessageTime &&
+            this.#lastMessageText === JSON.stringify(obj.message) &&
+            Date.now() - this.#lastMessageTime < 1000
         ) {
             return this.log.debug(
-                `Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`,
+                `Filter out double message [first was for ${Date.now() - this.#lastMessageTime}ms]: ${json}`,
             );
         }
 
-        this.lastMessageTime = Date.now();
-        this.lastMessageText = json;
+        this.#lastMessageTime = Date.now();
+        this.#lastMessageText = json;
 
         if (obj.message.user && obj.message.token && obj.message.user !== this.config.user) {
             const tempPushover = new PushoverNotifications({
                 user: obj.message.user,
                 token: obj.message.token,
-                onerror: this.onError.bind(this),
+                onerror: this.#onError.bind(this),
             });
 
             delete obj.message.user;
             delete obj.message.token;
 
-            tempPushover.send(obj.message, (err, result, response) => {
+            tempPushover.send(obj.message, (err: any, result: any, response: any) => {
                 this.log.debug(`Pushover response: ${JSON.stringify(response && response.headers)}`);
 
                 if (err) {
                     try {
                         this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
-                    } catch (err) {
-                        this.log.error(`Cannot send notification: ${err}`);
+                    } catch (e) {
+                        this.log.error(`Cannot send notification: ${String(e)}`);
                     }
                 }
 
                 obj.callback && this.sendTo(obj.from, 'send', { err, result: result }, obj.callback);
             });
         } else {
-            this.sendNotification(
+            this.#sendNotification(
                 obj.message,
                 (error, result) =>
                     obj.callback && this.sendTo(obj.from, 'send', { error, result: result }, obj.callback),
@@ -90,20 +98,20 @@ class Pushover extends utils.Adapter {
         }
     }
 
-    sendGlances(obj) {
+    #sendGlances(obj: ioBroker.Message): void {
         const json = JSON.stringify(obj.message);
         if (
-            this.lastMessageTime &&
-            this.lastMessageText === JSON.stringify(obj.message) &&
-            Date.now() - this.lastMessageTime < 1000
+            this.#lastMessageTime &&
+            this.#lastMessageText === JSON.stringify(obj.message) &&
+            Date.now() - this.#lastMessageTime < 1000
         ) {
             return this.log.debug(
-                `Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`,
+                `Filter out double message [first was for ${Date.now() - this.#lastMessageTime}ms]: ${json}`,
             );
         }
 
-        this.lastMessageTime = Date.now();
-        this.lastMessageText = json;
+        this.#lastMessageTime = Date.now();
+        this.#lastMessageText = json;
 
         const msg = obj.message;
 
@@ -179,26 +187,26 @@ class Pushover extends utils.Adapter {
             });
     }
 
-    onError(error) {
+    #onError(error: any): void {
         this.log.error(`Error from Pushover: ${error}`);
     }
 
-    sendNotification(message, callback) {
+    #sendNotification(message: any, callback?: (error?: any, result?: any) => void): void {
         message ||= {};
 
-        if (!this.pushover) {
+        if (!this.#pushover) {
             if (this.config.user && this.config.token) {
-                this.pushover = new PushoverNotifications({
+                this.#pushover = new PushoverNotifications({
                     user: this.config.user,
                     token: this.config.token,
-                    onerror: this.onError.bind(this),
+                    onerror: this.#onError.bind(this),
                 });
             } else {
                 this.log.error('Cannot send notification while not configured');
             }
         }
 
-        if (!this.pushover) {
+        if (!this.#pushover) {
             callback && callback('Cannot send notification while not configured');
             return;
         }
@@ -208,9 +216,9 @@ class Pushover extends utils.Adapter {
         }
 
         if (Object.prototype.hasOwnProperty.call(message, 'token')) {
-            this.pushover.token = message.token;
+            this.#pushover.token = message.token;
         } else {
-            this.pushover.token = this.config.token;
+            this.#pushover.token = this.config.token;
         }
 
         message.title = message.title || this.config.title;
@@ -233,14 +241,14 @@ class Pushover extends utils.Adapter {
             `Sending pushover notification: ${JSON.stringify(message)}`,
         );
 
-        this.pushover.send(message, async (err, result, response) => {
+        this.#pushover.send(message, async (err: any, result: any, response: any) => {
             this.log.debug(`Pushover response: ${JSON.stringify(response && response.headers)}`);
 
             if (err) {
                 try {
                     this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
-                } catch (err) {
-                    this.log.error(`Cannot send notification: ${err}`);
+                } catch (e) {
+                    this.log.error(`Cannot send notification: ${String(e)}`);
                 }
 
                 callback && callback(err);
@@ -267,10 +275,7 @@ class Pushover extends utils.Adapter {
 
 if (require.main !== module) {
     // Export the constructor in compact mode
-    /**
-     * @param {Partial<utils.AdapterOptions>} [options={}]
-     */
-    module.exports = options => new Pushover(options);
+    module.exports = (options?: Partial<utils.AdapterOptions>) => new Pushover(options);
 } else {
     // otherwise start the instance directly
     new Pushover();
