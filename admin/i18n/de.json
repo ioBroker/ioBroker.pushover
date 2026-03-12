@@ -17,5 +17,7 @@
     "Token": "Token",
     "default": "Standard",
     "high-priority": "hohe Priorität",
-    "quiet": "ruhig"
+    "quiet": "ruhig",
+    "lowest": "niedrigste Priorität",
+    "confirmation": "Bestätigung erforderlich"
 }

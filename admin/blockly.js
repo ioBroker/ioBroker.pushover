@@ -31,6 +31,7 @@ Blockly.Words['pushover_normal']        = {'en': 'default',                     
 Blockly.Words['pushover_high']          = {'en': 'high priority',               'de': 'Hohe Priorität',                     'ru': 'приоритетное'};
 Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'Leise',                              'ru': 'тихое'};
 Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'Mit Bestätigung',                    'ru': 'с подтверждением'};
+Blockly.Words['pushover_lowest']        = {'en': 'lowest',                      'de': 'Niedrigste Priorität',               'ru': 'низкий приоритет' };
 Blockly.Words['pushover_ttl']           = {'en': 'TTL in seconds (optional)',   'de': 'Dauer in Sekunden (optional)',       'ru': 'время жизни в сек. (не обяз.)'};
 Blockly.Words['pushover_format']        = {'en': 'formatting (optional)',       'de': 'Formatierung (optional)',            'ru': 'форматирование (не обяз.)'};
 Blockly.Words['pushover_format_html']   = {'en': 'HTML',                        'de': 'HTML',                               'ru': 'HTML'};
@@ -151,12 +152,16 @@ Blockly.Blocks['pushover'] = {
 
         this.appendDummyInput('PRIORITY')
             .appendField(Blockly.Translate('pushover_priority'))
-            .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_normal'),       '0'],
-                [Blockly.Translate('pushover_high'),         '1'],
-                [Blockly.Translate('pushover_quiet'),        '-1'],
-                [Blockly.Translate('pushover_confirmation'), '2'],
-            ]), 'PRIORITY');
+            .appendField(
+                new Blockly.FieldDropdown([
+                    [Blockly.Translate('pushover_normal'), '0'],
+                    [Blockly.Translate('pushover_high'), '1'],
+                    [Blockly.Translate('pushover_quiet'), '-1'],
+                    [Blockly.Translate('pushover_lowest'), '-2'],
+                    [Blockly.Translate('pushover_confirmation'), '2'],
+                ]),
+                'PRIORITY',
+            );
 
         let input = this.appendValueInput('TITLE')
             .setCheck('String')

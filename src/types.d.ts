@@ -1,4 +1,4 @@
-export type MessagePriority = '-1' | '0' | '1' | -1 | 0 | 1;
+export type MessagePriority = '-2' | '-1' | '0' | '1' | '2' | -2 | -1 | 0 | 1 | 2;
 export type MessageSound =
     | ''
     | 'pushover'

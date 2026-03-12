@@ -67,9 +67,11 @@
             "sm": 12,
             "md": 4,
             "options": [
+                { "value": "-2", "label": "lowest" },
                 { "value": "-1", "label": "quiet" },
                 { "value": "0", "label": "default" },
-                { "value": "1", "label": "high-priority" }
+                { "value": "1", "label": "high-priority" },
+                { "value": "2", "label": "confirmation" }
             ]
         },
         "showLog": {

@@ -31,6 +31,7 @@
 * (@GermanBluefox) Updated packages
 * (@GermanBluefox) Dropped support for node 18
 * (@GermanBluefox) Migrated to TypeScript
+* (@GermanBluefox) Added the lowest priority to messages
 
 ### 4.1.1 (2025-05-19)
 * (robseh) Added a field "tags" to hand over a tag to pushover-service
