@@ -41,31 +41,29 @@
         "@alcalzone/release-script-plugin-iobroker": "^5.1.2",
         "@alcalzone/release-script-plugin-license": "^5.1.1",
         "@alcalzone/release-script-plugin-manual-review": "^5.1.1",
-        "@iobroker/eslint-config": "^2.2.0",
         "@iobroker/adapter-dev": "^1.5.0",
+        "@iobroker/eslint-config": "^2.2.0",
         "@iobroker/testing": "^5.2.2",
         "typescript": "~5.9.3"
     },
     "bugs": {
         "url": "https://github.com/ioBroker/ioBroker.pushover/issues"
     },
-    "main": "main.js",
+    "main": "build/main.js",
     "files": [
-        "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json",
-        "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
-        "lib/",
-        "www/",
+        "admin/",
+        "build/",
         "io-package.json",
-        "LICENSE",
-        "main.js"
+        "LICENSE"
     ],
     "scripts": {
         "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
         "test:package": "mocha test/package --exit",
         "test:integration": "mocha test/integration --exit",
         "test": "npm run test:js && npm run test:package",
-        "check": "tsc --noEmit -p tsconfig.check.json",
-        "lint": "eslint",
+        "build:tsc": "tsc -p tsconfig.build.json",
+        "build": "npm run build:tsc",
+        "lint": "eslint -c eslint.config.mjs",
         "translate": "translate-adapter",
         "release": "release-script",
         "release-patch": "release-script patch --yes",

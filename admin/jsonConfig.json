@@ -1,105 +1,105 @@
 {
-  "i18n": true,
-  "type": "panel",
-  "items": {
-    "user": {
-      "type": "text",
-      "label": "Group Key",
-      "help": "Group Key of Delivery Group",
-      "xs": 12,
-      "sm": 12,
-      "md": 4
-    },
-    "token": {
-      "type": "text",
-      "label": "Token",
-      "help": "API Token/Key of Application",
-      "xs": 12,
-      "sm": 12,
-      "md": 4
-    },
-    "title": {
-      "newLine": true,
-      "type": "text",
-      "label": "Title",
-      "xs": 12,
-      "sm": 12,
-      "md": 4
-    },
-    "sound": {
-      "newLine": true,
-      "type": "select",
-      "label": "Sound",
-      "xs": 12,
-      "sm": 12,
-      "md": 4,
-      "options": [
-        {"value": "", "label": "default"},
-        {"value": "pushover", "label": "pushover"},
-        {"value": "bike", "label": "bike"},
-        {"value": "bugle", "label": "bugle"},
-        {"value": "cashregister", "label": "cashregister"},
-        {"value": "classical", "label": "classical"},
-        {"value": "cosmic", "label": "cosmic"},
-        {"value": "falling", "label": "falling"},
-        {"value": "gamelan", "label": "gamelan"},
-        {"value": "incoming", "label": "incoming"},
-        {"value": "intermission", "label": "intermission"},
-        {"value": "magic", "label": "magic"},
-        {"value": "mechanical", "label": "mechanical"},
-        {"value": "pianobar", "label": "pianobar"},
-        {"value": "siren", "label": "siren"},
-        {"value": "spacealarm", "label": "spacealarm"},
-        {"value": "tugboat", "label": "tugboat"},
-        {"value": "alien", "label": "alien"},
-        {"value": "climb", "label": "climb"},
-        {"value": "persistent", "label": "persistent"},
-        {"value": "echo", "label": "echo"},
-        {"value": "updown", "label": "updown"},
-        {"value": "none", "label": "none"}
-      ],
-      "noTranslation": true
-    },
-    "priority": {
-      "type": "select",
-      "label": "Priority",
-      "xs": 12,
-      "sm": 12,
-      "md": 4,
-      "options": [
-        {"value": "-1", "label": "quiet"},
-        {"value": "0", "label": "default"},
-        {"value": "1", "label": "high-priority"}
-      ]
-    },
-    "showLog": {
-      "type": "checkbox",
-      "label": "Show messages in log",
-      "help": "Only with log level info or higher",
-      "xs": 12,
-      "sm": 12,
-      "md": 4
-    },
-    "_test": {
-      "newLine": true,
-      "variant": "contained",
-      "disabled": "!_alive",
-      "type": "sendTo",
-      "command": "send",
-      "label": "Test",
-      "tooltip": "Enable first the adapter to test notification.",
-      "result": {"1": "Check the log or your pushover app!" },
-      "jsonData": "{\"message\": \"This is your test notification!\", \"priority\": \"${data.priority}\", \"sound\": \"${data.sound}\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
-    },
-    "_testGlances": {
-      "variant": "contained",
-      "disabled": "!_alive",
-      "type": "sendTo",
-      "command": "glances",
-      "label": "Test glances",
-      "result": {"1": "Check the log or your pushover app!" },
-      "tooltip": "Enable first the adapter to test notification.",
-      "jsonData": "{\"message\": \"Glances test notification!\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
+    "i18n": true,
+    "type": "panel",
+    "items": {
+        "user": {
+            "type": "text",
+            "label": "Group Key",
+            "help": "Group Key of Delivery Group",
+            "xs": 12,
+            "sm": 12,
+            "md": 4
+        },
+        "token": {
+            "type": "text",
+            "label": "Token",
+            "help": "API Token/Key of Application",
+            "xs": 12,
+            "sm": 12,
+            "md": 4
+        },
+        "title": {
+            "newLine": true,
+            "type": "text",
+            "label": "Title",
+            "xs": 12,
+            "sm": 12,
+            "md": 4
+        },
+        "sound": {
+            "newLine": true,
+            "type": "select",
+            "label": "Sound",
+            "xs": 12,
+            "sm": 12,
+            "md": 4,
+            "options": [
+                { "value": "", "label": "default" },
+                { "value": "pushover", "label": "pushover" },
+                { "value": "bike", "label": "bike" },
+                { "value": "bugle", "label": "bugle" },
+                { "value": "cashregister", "label": "cashregister" },
+                { "value": "classical", "label": "classical" },
+                { "value": "cosmic", "label": "cosmic" },
+                { "value": "falling", "label": "falling" },
+                { "value": "gamelan", "label": "gamelan" },
+                { "value": "incoming", "label": "incoming" },
+                { "value": "intermission", "label": "intermission" },
+                { "value": "magic", "label": "magic" },
+                { "value": "mechanical", "label": "mechanical" },
+                { "value": "pianobar", "label": "pianobar" },
+                { "value": "siren", "label": "siren" },
+                { "value": "spacealarm", "label": "spacealarm" },
+                { "value": "tugboat", "label": "tugboat" },
+                { "value": "alien", "label": "alien" },
+                { "value": "climb", "label": "climb" },
+                { "value": "persistent", "label": "persistent" },
+                { "value": "echo", "label": "echo" },
+                { "value": "updown", "label": "updown" },
+                { "value": "none", "label": "none" }
+            ],
+            "noTranslation": true
+        },
+        "priority": {
+            "type": "select",
+            "label": "Priority",
+            "xs": 12,
+            "sm": 12,
+            "md": 4,
+            "options": [
+                { "value": "-1", "label": "quiet" },
+                { "value": "0", "label": "default" },
+                { "value": "1", "label": "high-priority" }
+            ]
+        },
+        "showLog": {
+            "type": "checkbox",
+            "label": "Show messages in log",
+            "help": "Only with log level info or higher",
+            "xs": 12,
+            "sm": 12,
+            "md": 4
+        },
+        "_test": {
+            "newLine": true,
+            "variant": "contained",
+            "disabled": "!_alive",
+            "type": "sendTo",
+            "command": "send",
+            "label": "Test",
+            "tooltip": "Enable first the adapter to test notification.",
+            "result": { "1": "Check the log or your pushover app!" },
+            "jsonData": "{\"message\": \"This is your test notification!\", \"priority\": \"${data.priority}\", \"sound\": \"${data.sound}\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
+        },
+        "_testGlances": {
+            "variant": "contained",
+            "disabled": "!_alive",
+            "type": "sendTo",
+            "command": "glances",
+            "label": "Test glances",
+            "result": { "1": "Check the log or your pushover app!" },
+            "tooltip": "Enable first the adapter to test notification.",
+            "jsonData": "{\"message\": \"Glances test notification!\", \"title\": \"${data.title}\", \"user\": \"${data.user}\", \"token\": \"${data.token}\"}"
+        }
     }
-  }
 }
