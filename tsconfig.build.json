@@ -8,5 +8,5 @@
         "outDir": "./build",
         "rootDir": "./src"
     },
-    "include": ["src/**/*.ts", "lib/**/*.d.ts"]
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "lib/**/*.d.ts"]
 }

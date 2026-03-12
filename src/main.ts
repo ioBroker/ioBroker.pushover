@@ -124,7 +124,7 @@ export default class Pushover extends Adapter {
                     try {
                         this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                     } catch (jsonError) {
-                        this.log.error(`Cannot send notification: ${jsonError}`);
+                        this.log.error(`Cannot send notification: ${String(jsonError)}`);
                     }
                 }
 
@@ -214,15 +214,15 @@ export default class Pushover extends Adapter {
                 }
             })
             .catch(error => {
-                this.log.error(`Pushover error: ${error}`);
+                this.log.error(`Pushover error: ${String(error)}`);
                 if (obj.callback) {
-                    this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}` }, obj.callback);
+                    this.sendTo(obj.from, 'glances', { error: `Pushover error: ${String(error)}` }, obj.callback);
                 }
             });
     }
 
     private onError(error: unknown): void {
-        this.log.error(`Error from Pushover: ${error as Error}`);
+        this.log.error(`Error from Pushover: ${String(error)}`);
     }
 
     private sendNotification(
@@ -279,7 +279,7 @@ export default class Pushover extends Adapter {
                 try {
                     this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                 } catch (jsonError) {
-                    this.log.error(`Cannot send notification: ${jsonError}`);
+                    this.log.error(`Cannot send notification: ${String(jsonError)}`);
                 }
 
                 callback?.(err);
@@ -297,7 +297,7 @@ export default class Pushover extends Adapter {
         }
 
         if (typeof message === 'object' && !Array.isArray(message)) {
-            return { ...(message as Record<string, unknown>) } as PushoverMessage;
+            return { ...(message as Record<string, unknown>) };
         }
 
         return { message: String(message) };

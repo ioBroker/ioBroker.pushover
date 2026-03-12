@@ -14,8 +14,8 @@
         "strict": true,
         "target": "es2022",
         "useUnknownInCatchVariables": false,
-        "types": ["@iobroker/types"]
+        "types": ["@iobroker/types", "@types/node"]
     },
-    "include": ["src/**/*.ts", "lib/**/*.d.ts"],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "lib/**/*.d.ts"],
     "exclude": ["node_modules/**", "build/**"]
 }
