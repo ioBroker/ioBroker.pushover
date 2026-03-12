@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "4.1.1",
+    "version": "5.0.0",
     "news": {
+      "5.0.0": {
+        "en": "Updated packages\nDropped support for node 18\nMigrated to TypeScript\nAdded the lowest priority to messages",
+        "de": "Aktualisierte Pakete\nDropped-Unterstützung für Knoten 183\nZu TypeScript migriert\nDie niedrigste Priorität für Nachrichten hinzugefügt",
+        "ru": "Обновленные пакеты\nСброшена поддержка узла 18\nИммиграция в TypeScript\nДобавлен самый низкий приоритет сообщениям",
+        "pt": "Pacotes atualizados\nSuporte abandonado para o nó 18\nMigrado para TipoScript\nAdicionada a menor prioridade às mensagens",
+        "nl": "Bijgewerkte pakketten\nVervallen ondersteuning voor knooppunt 18\nNaar typeScript migreren\nDe laagste prioriteit toegevoegd aan berichten",
+        "fr": "Paquets mis à jour\nPrise en charge des nœuds 18\nMigré vers TypeScript\nAjout de la plus faible priorité aux messages",
+        "it": "Pacchetti aggiornati\nSupporto goccia per nodo 18\nMigrato a TypeScript\nAggiunto la priorità più bassa ai messaggi",
+        "es": "Paquetes actualizados\nApoyo para nodos 18\nMigrado a TipoScript\nSe agregó la prioridad más baja a los mensajes",
+        "pl": "Aktualizacja pakietów\nUpadłe wsparcie dla węzła 18\nMigrated to TypeScript\nDodano najniższy priorytet wiadomości",
+        "uk": "Оновлені пакети\nDropped підтримка для вузла 18 років\nMigrated до TypeScript\nДодано найнижчий пріоритет до повідомлень",
+        "zh-cn": "更新软件包\n节点已放弃支持 第 18 条\n移动到类型脚本\n在信件中添加最低优先级"
+      },
       "4.1.1": {
         "en": "Added a field \"tags\" to hand over a tag to pushover-service\nUpdated packages",
         "de": "Ein Feld \"Tags\" hinzugefügt, um einen Tag zum Pushover-Service zu übergeben\nAktualisierte Pakete",
@@ -80,19 +93,6 @@
         "pl": "Dodał nowy parametr tl aby zablokować sposób",
         "uk": "Додано новий параметр ttl до блоклі",
         "zh-cn": "增加新的Ttl参数以阻挡"
-      },
-      "3.0.3": {
-        "en": "Fix crash cases reported by Sentry",
-        "de": "Reparieren Crashfälle gemeldet von Sentry",
-        "ru": "Исправление случаев аварии, описанных Sentry",
-        "pt": "Corrigir casos de acidente relatados por Sentry",
-        "nl": "Vertaling:",
-        "fr": "Troubles de crash signalés par Sentry",
-        "it": "Correzione dei casi di crash segnalati da Sentry",
-        "es": "Casos de accidente fijo reportados por Sentry",
-        "pl": "Sprawy katastrofy Fix podane przez Sentry’a",
-        "zh-cn": "Sentry所报告的六例事故",
-        "uk": "Виправте випадки збоїв, про які повідомляє Sentry"
       }
     },
     "titleLang": {

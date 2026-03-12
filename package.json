@@ -1,75 +1,75 @@
 {
-    "name": "iobroker.pushover",
-    "description": "ioBroker Adapter to send Pushover notifications",
-    "version": "4.1.1",
-    "author": "bluefox <dogafox@gmail.com>",
-    "contributors": [
-        {
-            "name": "bluefox",
-            "email": "dogafox@gmail.com"
-        },
-        {
-            "name": "Apollon77",
-            "email": "ingo@fischer-ka.de"
-        },
-        {
-            "name": "Matthias Kleine",
-            "email": "info@haus-automatisierung.com"
-        }
-    ],
-    "homepage": "https://github.com/ioBroker/ioBroker.pushover",
-    "license": "MIT",
-    "keywords": [
-        "ioBroker",
-        "pushover",
-        "home automation"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ioBroker/ioBroker.pushover"
+  "name": "iobroker.pushover",
+  "description": "ioBroker Adapter to send Pushover notifications",
+  "version": "5.0.0",
+  "author": "bluefox <dogafox@gmail.com>",
+  "contributors": [
+    {
+      "name": "bluefox",
+      "email": "dogafox@gmail.com"
     },
-    "engines": {
-        "node": ">=20"
+    {
+      "name": "Apollon77",
+      "email": "ingo@fischer-ka.de"
     },
-    "dependencies": {
-        "@iobroker/adapter-core": "^3.3.2",
-        "axios": "^1.13.6",
-        "pushover-notifications": "^1.2.3"
-    },
-    "devDependencies": {
-        "@alcalzone/release-script": "^5.1.1",
-        "@alcalzone/release-script-plugin-iobroker": "^5.1.2",
-        "@alcalzone/release-script-plugin-license": "^5.1.1",
-        "@alcalzone/release-script-plugin-manual-review": "^5.1.1",
-        "@iobroker/adapter-dev": "^1.5.0",
-        "@iobroker/eslint-config": "^2.2.0",
-        "@iobroker/testing": "^5.2.2",
-        "@types/node": "^25.4.0",
-        "typescript": "~5.9.3"
-    },
-    "bugs": {
-        "url": "https://github.com/ioBroker/ioBroker.pushover/issues"
-    },
-    "main": "build/main.js",
-    "files": [
-        "admin/",
-        "build/",
-        "io-package.json",
-        "LICENSE"
-    ],
-    "scripts": {
-        "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
-        "test:package": "mocha test/package --exit",
-        "test:integration": "mocha test/integration --exit",
-        "test": "npm run test:js && npm run test:package",
-        "build:tsc": "tsc -p tsconfig.build.json",
-        "build": "npm run build:tsc",
-        "lint": "eslint -c eslint.config.mjs",
-        "translate": "translate-adapter",
-        "release": "release-script",
-        "release-patch": "release-script patch --yes",
-        "release-minor": "release-script minor --yes",
-        "release-major": "release-script major --yes",
-        "update-packages": "npx -y npm-check-updates --upgrade"
+    {
+      "name": "Matthias Kleine",
+      "email": "info@haus-automatisierung.com"
     }
+  ],
+  "homepage": "https://github.com/ioBroker/ioBroker.pushover",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "pushover",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ioBroker/ioBroker.pushover"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.3.2",
+    "axios": "^1.13.6",
+    "pushover-notifications": "^1.2.3"
+  },
+  "devDependencies": {
+    "@alcalzone/release-script": "^5.1.1",
+    "@alcalzone/release-script-plugin-iobroker": "^5.1.2",
+    "@alcalzone/release-script-plugin-license": "^5.1.1",
+    "@alcalzone/release-script-plugin-manual-review": "^5.1.1",
+    "@iobroker/adapter-dev": "^1.5.0",
+    "@iobroker/eslint-config": "^2.2.0",
+    "@iobroker/testing": "^5.2.2",
+    "@types/node": "^25.4.0",
+    "typescript": "~5.9.3"
+  },
+  "bugs": {
+    "url": "https://github.com/ioBroker/ioBroker.pushover/issues"
+  },
+  "main": "build/main.js",
+  "files": [
+    "admin/",
+    "build/",
+    "io-package.json",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "build": "npm run build:tsc",
+    "lint": "eslint -c eslint.config.mjs",
+    "translate": "translate-adapter",
+    "release": "release-script",
+    "release-patch": "release-script patch --yes",
+    "release-minor": "release-script minor --yes",
+    "release-major": "release-script major --yes",
+    "update-packages": "npx -y npm-check-updates --upgrade"
+  }
 }

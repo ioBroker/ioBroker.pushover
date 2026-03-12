@@ -1,4 +1,7 @@
 # Older changes
+## 3.0.5 (2023-10-24)
+* (bluefox) Updated packages
+
 ## 3.0.4 (2023-08-08)
 * (MrStefanH) Added new ttl parameter to blockly
 

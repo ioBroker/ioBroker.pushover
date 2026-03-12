@@ -27,7 +27,7 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 5.0.0 (2026-03-12)
 * (@GermanBluefox) Updated packages
 * (@GermanBluefox) Dropped support for node 18
 * (@GermanBluefox) Migrated to TypeScript
@@ -50,9 +50,6 @@
 
 ### 3.0.6 (2023-11-06)
 * (ticaki) Caught the error by sending of sendToAsync if no configuration exists
-
-### 3.0.5 (2023-10-24)
-* (bluefox) Updated packages
 
 ## License
 
