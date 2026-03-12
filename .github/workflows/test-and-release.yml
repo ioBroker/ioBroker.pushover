@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-check@v1
         with:
-          node-version: 20.x
+          node-version: 22.x
           lint: true
           lint-command: 'npm run lint .'
 
@@ -38,7 +38,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [20.x, 22.x, 24.x]
         os: [ubuntu-latest, windows-latest, macos-latest]
 
     steps:
@@ -63,13 +63,12 @@ jobs:
     steps:
       - uses: ioBroker/testing-action-deploy@v1
         with:
-          node-version: 20.x
-          # npm-token: ${{ secrets.NPM_TOKEN }}  # Commented out for migration to Trusted Publishing
+          node-version: 22.x
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
           # When using Sentry for error reporting, Sentry can be informed about new releases
-          # To enable create an API-Token in Sentry (User settings, API keys)
-          # Enter this token as a GitHub secret (with name SENTRY_AUTH_TOKEN) in the repository options
+          # To enable, create an API-Token in Sentry (User settings, API keys)
+          # Enter this token as a GitHub secret (with the name SENTRY_AUTH_TOKEN) in the repository options
           # Then uncomment and customize the following block:
           sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
           sentry-project: "iobroker-pushover"

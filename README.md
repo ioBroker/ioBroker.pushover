@@ -27,6 +27,10 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Updated packages
+* (@GermanBluefox) Dropped support for node 18
+
 ### 4.1.1 (2025-05-19)
 * (robseh) Added a field "tags" to hand over a tag to pushover-service
 * (@GermanBluefox) Updated packages
@@ -52,7 +56,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2025 bluefox <dogafox@gmail.com>
+Copyright (c) 2014-2026 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

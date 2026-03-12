@@ -6,16 +6,16 @@
     "Group Key": "Clave de grupo o clave de usuario",
     "Group Key of Delivery Group": "Grupo clave del grupo de entrega",
     "Notification settings": "Configuración de las notificaciones",
+    "Only with log level info or higher": "Solo con nivel de registro \"info\" o superior",
     "Priority": "Prioridad",
     "Pushover adapter settings": "Configuración del adaptador Pushover",
     "Pushover settings": "Configuración de Pushover",
+    "Show messages in log": "Mostrar mensajes en el registro",
     "Sound": "Sonido",
     "Test": "Prueba",
     "Title": "Título",
     "Token": "Simbólico",
     "default": "defecto",
     "high-priority": "alta prioridad",
-    "quiet": "tranquilo",
-    "Show messages in log": "Mostrar mensajes en el registro",
-    "Only with log level info or higher": "Solo con nivel de registro \"info\" o superior"
+    "quiet": "tranquilo"
 }

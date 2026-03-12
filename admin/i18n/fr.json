@@ -6,16 +6,16 @@
     "Group Key": "Clé de groupe ou clé d'utilisateur",
     "Group Key of Delivery Group": "Group Key of Delivery Group",
     "Notification settings": "Paramètres de notification",
+    "Only with log level info or higher": "Uniquement avec le niveau de journal \"info\" ou supérieur",
     "Priority": "Priorité",
     "Pushover adapter settings": "Paramètres de l'adaptateur de pushover",
     "Pushover settings": "Paramètres de pushover",
+    "Show messages in log": "Afficher les messages dans le journal",
     "Sound": "Du son",
     "Test": "Tester",
     "Title": "Titre",
     "Token": "Jeton",
     "default": "défaut",
     "high-priority": "haute priorité",
-    "quiet": "silencieux",
-    "Show messages in log": "Afficher les messages dans le journal",
-    "Only with log level info or higher": "Uniquement avec le niveau de journal \"info\" ou supérieur"
+    "quiet": "silencieux"
 }

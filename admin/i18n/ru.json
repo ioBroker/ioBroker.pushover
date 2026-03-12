@@ -6,16 +6,16 @@
     "Group Key": "Групповой ключ или пользовательский ключ",
     "Group Key of Delivery Group": "Групповой ключ группы доставки",
     "Notification settings": "Настройки уведомлений",
+    "Only with log level info or higher": "Только с уровнем журнала \"info\" или выше",
     "Priority": "приоритет",
     "Pushover adapter settings": "Настройки адаптера Pushover",
     "Pushover settings": "Настройки Pushover",
+    "Show messages in log": "Показать сообщения в журнале",
     "Sound": "Звук",
     "Test": "Тест",
     "Title": "заглавие",
     "Token": "знак",
     "default": "по умолчанию",
     "high-priority": "высокий приоритет",
-    "quiet": "тихо",
-    "Show messages in log": "Показать сообщения в журнале",
-    "Only with log level info or higher": "Только с уровнем журнала \"info\" или выше"
+    "quiet": "тихо"
 }

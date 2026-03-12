@@ -6,16 +6,16 @@
     "Group Key": "Groepssleutel of gebruikerssleutel",
     "Group Key of Delivery Group": "Groepssleutel van leveringsgroep",
     "Notification settings": "Notificatie instellingen",
+    "Only with log level info or higher": "Alleen met logniveau \"info\" of hoger",
     "Priority": "Prioriteit",
     "Pushover adapter settings": "Pushover adapter-instellingen",
     "Pushover settings": "Pushover instellingen",
+    "Show messages in log": "Toon berichten in logboek",
     "Sound": "Geluid",
     "Test": "Test",
     "Title": "Titel",
     "Token": "blijk",
     "default": "standaard",
     "high-priority": "hoge prioriteit",
-    "quiet": "rustig",
-    "Show messages in log": "Toon berichten in logboek",
-    "Only with log level info or higher": "Alleen met logniveau \"info\" of hoger"
+    "quiet": "rustig"
 }
