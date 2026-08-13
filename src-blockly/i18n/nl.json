@@ -1,0 +1,6 @@
+{
+    "glances_count": "Tel",
+    "glances_percent": "procent",
+    "glances_subtext": "Tweede lijn",
+    "glances_tooltip": "Stuur een kort bericht naar pushover (glances)"
+}

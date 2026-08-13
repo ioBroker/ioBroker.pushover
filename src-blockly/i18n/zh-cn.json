@@ -1,0 +1,6 @@
+{
+    "glances_count": "数数",
+    "glances_percent": "百分",
+    "glances_subtext": "第二行",
+    "glances_tooltip": "发送短消息到pushover (glances)"
+}

@@ -63,7 +63,7 @@ class Pushover extends adapter_core_1.Adapter {
                         this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                     }
                     catch (jsonError) {
-                        this.log.error(`Cannot send notification: ${jsonError}`);
+                        this.log.error(`Cannot send notification: ${String(jsonError)}`);
                     }
                 }
                 if (obj.callback) {
@@ -139,14 +139,14 @@ class Pushover extends adapter_core_1.Adapter {
             }
         })
             .catch(error => {
-            this.log.error(`Pushover error: ${error}`);
+            this.log.error(`Pushover error: ${String(error)}`);
             if (obj.callback) {
-                this.sendTo(obj.from, 'glances', { error: `Pushover error: ${error}` }, obj.callback);
+                this.sendTo(obj.from, 'glances', { error: `Pushover error: ${String(error)}` }, obj.callback);
             }
         });
     }
     onError(error) {
-        this.log.error(`Error from Pushover: ${error}`);
+        this.log.error(`Error from Pushover: ${String(error)}`);
     }
     sendNotification(message, callback) {
         const normalizedMessage = this.normalizeMessage(message) ?? {};
@@ -191,7 +191,7 @@ class Pushover extends adapter_core_1.Adapter {
                     this.log.error(`Cannot send notification: ${JSON.stringify(err)}`);
                 }
                 catch (jsonError) {
-                    this.log.error(`Cannot send notification: ${jsonError}`);
+                    this.log.error(`Cannot send notification: ${String(jsonError)}`);
                 }
                 callback?.(err);
                 return;

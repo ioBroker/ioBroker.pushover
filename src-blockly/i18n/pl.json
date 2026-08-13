@@ -1,0 +1,6 @@
+{
+    "glances_count": "Liczyć",
+    "glances_percent": "Procent",
+    "glances_subtext": "Druga linia",
+    "glances_tooltip": "Wyślij krótką wiadomość do pushover (glances)"
+}

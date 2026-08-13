@@ -6,7 +6,8 @@ export default [
         languageOptions: {
             parserOptions: {
                 projectService: {
-                    allowDefaultProject: ['*.mjs'],
+                    // src-blockly/build.mjs is a build script, not part of a tsconfig
+                    allowDefaultProject: ['*.mjs', 'src-blockly/*.mjs'],
                 },
                 tsconfigRootDir: import.meta.dirname,
             },

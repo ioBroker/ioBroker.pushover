@@ -1,0 +1,6 @@
+{
+    "glances_count": "Compter",
+    "glances_percent": "Pour cent",
+    "glances_subtext": "Deuxième ligne",
+    "glances_tooltip": "Envoyer un court message à pushover (glances)"
+}

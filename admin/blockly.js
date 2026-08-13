@@ -1,528 +1,561 @@
-'use strict';
-
-if (typeof goog !== 'undefined') {
-    goog.provide('Blockly.JavaScript.Sendto');
-
-    goog.require('Blockly.JavaScript');
-}
-
-// remove it somewhere, because it defined in javascript=>blocks_words.js from javascript>=4.6.0
-Blockly.Translate = Blockly.Translate || function (word, lang) {
-    lang = lang || systemLang;
-    if (Blockly.Words && Blockly.Words[word]) {
-        return Blockly.Words[word][lang] || Blockly.Words[word].en;
-    } else {
-        return word;
+// GENERATED FILE - do not edit.
+// Source: src-blockly/blockly.ts - rebuild with `npm run build:blockly`.
+"use strict";
+(() => {
+  // src-blockly/helpers.ts
+  var Blockly = window.Blockly;
+  function instanceOptions() {
+    const options = [[Blockly.Translate("pushover_anyInstance"), ""]];
+    const instances = window.main?.instances;
+    if (instances) {
+      for (let i = 0; i < instances.length; i++) {
+        const m = instances[i].match(/^system\.adapter\.pushover\.(\d+)$/);
+        if (m) {
+          const n = parseInt(m[1], 10);
+          options.push([`pushover.${n}`, `.${n}`]);
+        }
+      }
     }
-};
+    if (options.length === 1) {
+      for (let n = 0; n <= 4; n++) {
+        options.push([`pushover.${n}`, `.${n}`]);
+      }
+    }
+    return options;
+  }
+  function logLevelOptions() {
+    return [
+      [Blockly.Translate("pushover_log_none"), ""],
+      [Blockly.Translate("pushover_log_info"), "log"],
+      [Blockly.Translate("pushover_log_debug"), "debug"],
+      [Blockly.Translate("pushover_log_warn"), "warn"],
+      [Blockly.Translate("pushover_log_error"), "error"]
+    ];
+  }
+  function logLine(logLevel, prefix, message) {
+    if (!logLevel) {
+      return "";
+    }
+    return `console.${logLevel}('${prefix}: '${message ? ` + ${message}` : ""});
+`;
+  }
+  function makeOptional(input) {
+    if (input.connection) {
+      input.connection._optional = true;
+    }
+  }
+  function registerGenerator(type, generator) {
+    if (Blockly.JavaScript.forBlock) {
+      Blockly.JavaScript.forBlock[type] = generator;
+    } else {
+      Blockly.JavaScript[type] = generator;
+    }
+  }
 
-/// --- SendTo pushover --------------------------------------------------
-Blockly.Words['pushover']               = {'en': 'pushover',                    'de': 'pushover',                           'ru': 'pushover'};
-Blockly.Words['pushover_message']       = {'en': 'message',                     'de': 'Meldung',                            'ru': 'сообщение'};
-Blockly.Words['pushover_title']         = {'en': 'title (optional)',            'de': 'Betreff (optional)',                 'ru': 'заголовок (не обяз.)'};
-Blockly.Words['pushover_sound']         = {'en': 'sound',                       'de': 'Klang',                              'ru': 'звук'};
-Blockly.Words['pushover_priority']      = {'en': 'priority',                    'de': 'Priorität',                          'ru': 'приоритет'};
-Blockly.Words['pushover_url']           = {'en': 'URL (optional)',              'de': 'URL (optional)',                     'ru': 'URL (не обяз.)'};
-Blockly.Words['pushover_url_title']     = {'en': 'URL title (optional)',        'de': 'URL Betreff (optional)',             'ru': 'заголовок для URL (не обяз.)'};
-Blockly.Words['pushover_attachment']    = {'en': 'attachment (optional)',       'de': 'Anhang (optional)',                  'ru': 'вложение (не обяз.)'};
-Blockly.Words['pushover_device']        = {'en': 'device ID (optional)',        'de': 'Gerät ID (optional)',                'ru': 'ID устройства (не обяз.)'};
-Blockly.Words['pushover_timestamp']     = {'en': 'time in ms (optional)',       'de': 'Zeit in ms (optional)',              'ru': 'время в мс (не обяз.)'};
-Blockly.Words['pushover_normal']        = {'en': 'default',                     'de': 'Normal',                             'ru': 'по умолчанию'};
-Blockly.Words['pushover_high']          = {'en': 'high priority',               'de': 'Hohe Priorität',                     'ru': 'приоритетное'};
-Blockly.Words['pushover_quiet']         = {'en': 'quiet',                       'de': 'Leise',                              'ru': 'тихое'};
-Blockly.Words['pushover_confirmation']  = {'en': 'with confirmation',           'de': 'Mit Bestätigung',                    'ru': 'с подтверждением'};
-Blockly.Words['pushover_lowest']        = {'en': 'lowest',                      'de': 'Niedrigste Priorität',               'ru': 'низкий приоритет' };
-Blockly.Words['pushover_ttl']           = {'en': 'TTL in seconds (optional)',   'de': 'Dauer in Sekunden (optional)',       'ru': 'время жизни в сек. (не обяз.)'};
-Blockly.Words['pushover_format']        = {'en': 'formatting (optional)',       'de': 'Formatierung (optional)',            'ru': 'форматирование (не обяз.)'};
-Blockly.Words['pushover_format_html']   = {'en': 'HTML',                        'de': 'HTML',                               'ru': 'HTML'};
-Blockly.Words['pushover_format_mono']   = {'en': 'monospace',                   'de': 'monospace',                          'ru': 'monospace'};
-Blockly.Words['pushover_format_none']   = {'en': 'none',                        'de': 'keine',                              'ru': 'никто'};
-Blockly.Words['pushover_tags']          = {'en': 'tags (optional)',             'de': 'Tags (optional)',                    'ru': 'тэги (не обяз.)'};
-
-Blockly.Words['pushover_sound_default']     = {'en': 'default',                 'de': 'normal',                             'ru': 'по умолчанию'};
-Blockly.Words['pushover_sound_pushover']    = {'en': 'pushover',                'de': 'pushover',                           'ru': 'pushover'};
-Blockly.Words['pushover_sound_bike']        = {'en': 'bike',                    'de': 'bike',                               'ru': 'bike'};
-Blockly.Words['pushover_sound_bugle']       = {'en': 'bugle',                   'de': 'bugle',                              'ru': 'bugle'};
-Blockly.Words['pushover_sound_cashregister'] = {'en': 'cashregister',           'de': 'cashregister',                       'ru': 'cashregister'};
-Blockly.Words['pushover_sound_classical']   = {'en': 'classical',               'de': 'classical',                          'ru': 'classical'};
-Blockly.Words['pushover_sound_cosmic']      = {'en': 'cosmic',                  'de': 'cosmic',                             'ru': 'cosmic'};
-Blockly.Words['pushover_sound_falling']     = {'en': 'falling',                 'de': 'falling',                            'ru': 'falling'};
-Blockly.Words['pushover_sound_gamelan']     = {'en': 'gamelan',                 'de': 'gamelan',                            'ru': 'gamelan'};
-Blockly.Words['pushover_sound_incoming']    = {'en': 'incoming',                'de': 'incoming',                           'ru': 'incoming'};
-Blockly.Words['pushover_sound_intermission'] = {'en': 'intermission',           'de': 'intermission',                       'ru': 'intermission'};
-Blockly.Words['pushover_sound_magic']       = {'en': 'magic',                   'de': 'magic',                              'ru': 'magic'};
-Blockly.Words['pushover_sound_mechanical']  = {'en': 'mechanical',              'de': 'mechanical',                         'ru': 'mechanical'};
-Blockly.Words['pushover_sound_pianobar']    = {'en': 'pianobar',                'de': 'pianobar',                           'ru': 'pianobar'};
-Blockly.Words['pushover_sound_siren']       = {'en': 'siren',                   'de': 'siren',                              'ru': 'siren'};
-Blockly.Words['pushover_sound_spacealarm']  = {'en': 'spacealarm',              'de': 'spacealarm',                         'ru': 'spacealarm'};
-Blockly.Words['pushover_sound_tugboat']     = {'en': 'tugboat',                 'de': 'tugboat',                            'ru': 'tugboat'};
-Blockly.Words['pushover_sound_alien']       = {'en': 'alien',                   'de': 'alien',                              'ru': 'alien'};
-Blockly.Words['pushover_sound_climb']       = {'en': 'climb',                   'de': 'climb',                              'ru': 'climb'};
-Blockly.Words['pushover_sound_persistent']  = {'en': 'persistent',              'de': 'persistent',                         'ru': 'persistent'};
-Blockly.Words['pushover_sound_echo']        = {'en': 'echo',                    'de': 'echo',                               'ru': 'echo'};
-Blockly.Words['pushover_sound_updown']      = {'en': 'updown',                  'de': 'updown',                             'ru': 'updown'};
-Blockly.Words['pushover_sound_none']        = {'en': 'none',                    'de': 'keins',                              'ru': 'без звука'};
-
-Blockly.Words['pushover_custom_sound']      = {'en': 'custom sound',            'de': 'Eigene Klang',                       'ru': 'Польз. звук'};
-Blockly.Words['pushover_log']               = {'en': 'log level',               'de': 'Loglevel',                           'ru': 'Протокол'};
-Blockly.Words['pushover_log_none']          = {'en': 'none',                    'de': 'keins',                              'ru': 'нет'};
-Blockly.Words['pushover_log_info']          = {'en': 'info',                    'de': 'info',                               'ru': 'инфо'};
-Blockly.Words['pushover_log_debug']         = {'en': 'debug',                   'de': 'debug',                              'ru': 'debug'};
-Blockly.Words['pushover_log_warn']          = {'en': 'warning',                 'de': 'warning',                            'ru': 'warning'};
-Blockly.Words['pushover_log_error']         = {'en': 'error',                   'de': 'error',                              'ru': 'ошибка'};
-Blockly.Words['pushover_anyInstance']       = {'en': 'all instances',           'de': 'Alle Instanzen',                     'ru': 'На все драйвера'};
-Blockly.Words['pushover_tooltip']           = {'en': 'Send message to pushover', 'de': 'Sende eine Meldung über Pushover',  'ru': 'Послать сообщение через Pushover'};
-Blockly.Words['pushover_help']              = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'de': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md', 'ru': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md'};
-
-Blockly.Sendto.blocks['pushover'] =
-    '<block type="pushover">' +
-    '  <field name="INSTANCE"></field>' +
-    '  <field name="SOUND"></field>' +
-    '  <field name="PRIORITY">0</field>' +
-    '  <field name="LOG"></field>' +
-    '  <value name="MESSAGE">' +
-    '    <shadow type="text">' +
-    '      <field name="TEXT">text</field>' +
-    '    </shadow>' +
-    '  </value>' +
-    '  <value name="SOUND_CUSTOM">' +
-    '    <shadow type="text">' +
-    '      <field name="TEXT"></field>' +
-    '    </shadow>' +
-    '  </value>' +
-    '</block>';
-
-Blockly.Blocks['pushover'] = {
-    init: function() {
-        const options = [[Blockly.Translate('pushover_anyInstance'), '']];
-        if (typeof main !== 'undefined' && main.instances) {
-            for (let i = 0; i < main.instances.length; i++) {
-                const m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
-                if (m) {
-                    const n = parseInt(m[1], 10);
-                    options.push(['pushover.' + n, '.' + n]);
-                }
-            }
+  // src-blockly/blocks/glances.ts
+  var Blockly2 = window.Blockly;
+  function installGlances() {
+    Blockly2.Sendto.blocks.glances = `<block type="glances">
+  <field name="INSTANCE"></field>
+  <field name="LOG"></field>
+  <value name="MESSAGE">
+    <shadow type="text">
+      <field name="TEXT">text</field>
+    </shadow>
+  </value>
+</block>`;
+    Blockly2.Blocks.glances = {
+      init: function() {
+        this.appendDummyInput("INSTANCE").appendField(Blockly2.Translate("glances")).appendField(new Blockly2.FieldDropdown(instanceOptions()), "INSTANCE");
+        this.appendValueInput("MESSAGE").appendField(Blockly2.Translate("pushover_message"));
+        for (const [name, word, check] of [
+          ["TITLE", "pushover_title", "String"],
+          ["SUBTEXT", "glances_subtext", "String"],
+          ["COUNT", "glances_count", "Number"],
+          // the original had 'number' here, which matches no output type at all - a number
+          // block could not be plugged into this input
+          ["PERCENT", "glances_percent", "Number"],
+          ["DEVICE", "pushover_device", "String"]
+        ]) {
+          makeOptional(this.appendValueInput(name).setCheck(check).appendField(Blockly2.Translate(word)));
         }
-
-        if (!options.length) {
-            for (let u = 0; u <= 4; u++) {
-                options.push(['pushover.' + u, '.' + u]);
-            }
-        }
-
-        this.appendDummyInput('INSTANCE')
-            .appendField(Blockly.Translate('pushover'))
-            .appendField(new Blockly.FieldDropdown(options), "INSTANCE");
-
-        this.appendValueInput('MESSAGE')
-            .appendField(Blockly.Translate('pushover_message'));
-
-        this.appendDummyInput('SOUND')
-            .appendField(Blockly.Translate('pushover_sound'))
-            .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_sound_default'), ''],
-                [Blockly.Translate('pushover_sound_pushover'), 'pushover'],
-                [Blockly.Translate('pushover_sound_bike'), 'bike'],
-                [Blockly.Translate('pushover_sound_bugle'), 'bugle'],
-                [Blockly.Translate('pushover_sound_cashregister'), 'cashregister'],
-                [Blockly.Translate('pushover_sound_classical'), 'classical'],
-                [Blockly.Translate('pushover_sound_cosmic'), 'cosmic'],
-                [Blockly.Translate('pushover_sound_falling'), 'falling'],
-                [Blockly.Translate('pushover_sound_gamelan'), 'gamelan'],
-                [Blockly.Translate('pushover_sound_incoming'), 'incoming'],
-                [Blockly.Translate('pushover_sound_intermission'), 'intermission'],
-                [Blockly.Translate('pushover_sound_magic'), 'magic'],
-                [Blockly.Translate('pushover_sound_mechanical'), 'mechanical'],
-                [Blockly.Translate('pushover_sound_pianobar'), 'pianobar'],
-                [Blockly.Translate('pushover_sound_siren'), 'siren'],
-                [Blockly.Translate('pushover_sound_spacealarm'), 'spacealarm'],
-                [Blockly.Translate('pushover_sound_tugboat'), 'tugboat'],
-                [Blockly.Translate('pushover_sound_alien'), 'alien'],
-                [Blockly.Translate('pushover_sound_climb'), 'climb'],
-                [Blockly.Translate('pushover_sound_persistent'), 'persistent'],
-                [Blockly.Translate('pushover_sound_echo'), 'echo'],
-                [Blockly.Translate('pushover_sound_updown'), 'updown'],
-                [Blockly.Translate('pushover_sound_none'), 'none'],
-            ]), 'SOUND');
-
-        this.appendValueInput('SOUND_CUSTOM')
-            .setCheck(null)
-            .appendField(Blockly.Translate('pushover_custom_sound'));
-
-        this.appendDummyInput('PRIORITY')
-            .appendField(Blockly.Translate('pushover_priority'))
-            .appendField(
-                new Blockly.FieldDropdown([
-                    [Blockly.Translate('pushover_normal'), '0'],
-                    [Blockly.Translate('pushover_high'), '1'],
-                    [Blockly.Translate('pushover_quiet'), '-1'],
-                    [Blockly.Translate('pushover_lowest'), '-2'],
-                    [Blockly.Translate('pushover_confirmation'), '2'],
-                ]),
-                'PRIORITY',
-            );
-
-        let input = this.appendValueInput('TITLE')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_title'));
-
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('URL')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_url'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('URL_TITLE')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_url_title'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('ATTACHMENT')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_attachment'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('DEVICE')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_device'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('TAGS')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_tags'));
-        if (input.connection) {
-        	input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('TIMESTAMP')
-            .setCheck('Date')
-            .appendField(Blockly.Translate('pushover_timestamp'));
-
-        if (input.connection)  {
-            input.connection._optional = true;
-        }
-
-        this.appendDummyInput('LOG')
-            .appendField(Blockly.Translate('pushover_log'))
-            .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_log_none'),  ''],
-                [Blockly.Translate('pushover_log_info'),  'log'],
-                [Blockly.Translate('pushover_log_debug'), 'debug'],
-                [Blockly.Translate('pushover_log_warn'),  'warn'],
-                [Blockly.Translate('pushover_log_error'), 'error']
-            ]), 'LOG');
-
-        input = this.appendValueInput('TTL')
-            .setCheck('Number')
-            .appendField(Blockly.Translate('pushover_ttl'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        this.appendDummyInput('FORMAT')
-            .appendField(Blockly.Translate('pushover_format'))
-            .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_format_none'),  'none'],
-                [Blockly.Translate('pushover_format_html'),  'html'],
-                [Blockly.Translate('pushover_format_mono'),  'monospace'],
-            ]), 'FORMAT');
-
+        this.appendDummyInput("LOG").appendField(Blockly2.Translate("pushover_log")).appendField(new Blockly2.FieldDropdown(logLevelOptions()), "LOG");
         this.setInputsInline(false);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
+        this.setColour(Blockly2.Sendto.HUE);
+        this.setTooltip(Blockly2.Translate("pushover_tooltip"));
+        this.setHelpUrl(Blockly2.Translate("pushover_help"));
+      }
+    };
+    registerGenerator("glances", (block) => {
+      const instance = block.getFieldValue("INSTANCE");
+      const logLevel = block.getFieldValue("LOG");
+      const message = Blockly2.JavaScript.valueToCode(block, "MESSAGE", Blockly2.JavaScript.ORDER_ATOMIC);
+      const lines = ["{\n"];
+      if (message) {
+        lines.push(`  message: ${message},
+`);
+      }
+      for (const [input, key] of [
+        ["COUNT", "count"],
+        ["PERCENT", "percent"]
+      ]) {
+        const value = Blockly2.JavaScript.valueToCode(block, input, Blockly2.JavaScript.ORDER_ATOMIC);
+        if (value) {
+          lines.push(`  ${key}: parseInt(${value}, 10),
+`);
+        }
+      }
+      for (const [input, key] of [
+        ["SUBTEXT", "subtext"],
+        ["TITLE", "title"],
+        ["DEVICE", "device"]
+      ]) {
+        const value = Blockly2.JavaScript.valueToCode(block, input, Blockly2.JavaScript.ORDER_ATOMIC);
+        if (value) {
+          lines.push(`  ${key}: ${value},
+`);
+        }
+      }
+      lines.push("}");
+      return `sendTo('pushover${instance}', 'glances', ${lines.join("")});
+${logLine(logLevel, `pushover${instance} (glances)`, message)}`;
+    });
+  }
 
-        this.setColour(Blockly.Sendto.HUE);
-        this.setTooltip(Blockly.Translate('pushover_tooltip'));
-        this.setHelpUrl(Blockly.Translate('pushover_help'));
-    },
-};
+  // src-blockly/sounds.ts
+  var SOUND_IDS = [
+    "",
+    "pushover",
+    "bike",
+    "bugle",
+    "cashregister",
+    "classical",
+    "cosmic",
+    "falling",
+    "gamelan",
+    "incoming",
+    "intermission",
+    "magic",
+    "mechanical",
+    "pianobar",
+    "siren",
+    "spacealarm",
+    "tugboat",
+    "alien",
+    "climb",
+    "persistent",
+    "echo",
+    "updown",
+    "none"
+  ];
+  function soundOptions() {
+    return SOUND_IDS.map((id) => [window.Blockly.Translate(`pushover_sound_${id || "default"}`), id]);
+  }
 
-Blockly.JavaScript['pushover'] = function(block) {
-    const dropdown_instance = block.getFieldValue('INSTANCE');
-    const logLevel = block.getFieldValue('LOG');
-    const message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
-    const customSound = Blockly.JavaScript.valueToCode(block, 'SOUND_CUSTOM', Blockly.JavaScript.ORDER_ATOMIC);
-
-
-    let text = '{\n';
-    text += `  message: ${message},\n`;
-    if (customSound && customSound !== "''") {
-        text += `  sound: ${customSound},\n`;
-    } else {
-        text += `  sound: '${block.getFieldValue('SOUND')}',\n`;
-    }
-
-    const priority = parseInt(block.getFieldValue('PRIORITY'), 10);
-    if (priority) {
-        text += '  priority: ' + priority + ',\n';
-
+  // src-blockly/blocks/pushover.ts
+  var Blockly3 = window.Blockly;
+  function installPushover() {
+    Blockly3.Sendto.blocks.pushover = `<block type="pushover">
+  <field name="INSTANCE"></field>
+  <field name="SOUND"></field>
+  <field name="PRIORITY">0</field>
+  <field name="LOG"></field>
+  <value name="MESSAGE">
+    <shadow type="text">
+      <field name="TEXT">text</field>
+    </shadow>
+  </value>
+  <value name="SOUND_CUSTOM">
+    <shadow type="text">
+      <field name="TEXT"></field>
+    </shadow>
+  </value>
+</block>`;
+    Blockly3.Blocks.pushover = {
+      init: function() {
+        this.appendDummyInput("INSTANCE").appendField(Blockly3.Translate("pushover")).appendField(new Blockly3.FieldDropdown(instanceOptions()), "INSTANCE");
+        this.appendValueInput("MESSAGE").appendField(Blockly3.Translate("pushover_message"));
+        this.appendDummyInput("SOUND").appendField(Blockly3.Translate("pushover_sound")).appendField(new Blockly3.FieldDropdown(soundOptions()), "SOUND");
+        this.appendValueInput("SOUND_CUSTOM").setCheck(null).appendField(Blockly3.Translate("pushover_custom_sound"));
+        this.appendDummyInput("PRIORITY").appendField(Blockly3.Translate("pushover_priority")).appendField(
+          new Blockly3.FieldDropdown([
+            [Blockly3.Translate("pushover_normal"), "0"],
+            [Blockly3.Translate("pushover_high"), "1"],
+            [Blockly3.Translate("pushover_quiet"), "-1"],
+            [Blockly3.Translate("pushover_lowest"), "-2"],
+            [Blockly3.Translate("pushover_confirmation"), "2"]
+          ]),
+          "PRIORITY"
+        );
+        for (const [name, word, check] of [
+          ["TITLE", "pushover_title", "String"],
+          ["URL", "pushover_url", "String"],
+          ["URL_TITLE", "pushover_url_title", "String"],
+          ["ATTACHMENT", "pushover_attachment", "String"],
+          ["DEVICE", "pushover_device", "String"],
+          ["TAGS", "pushover_tags", "String"],
+          ["TIMESTAMP", "pushover_timestamp", "Date"]
+        ]) {
+          makeOptional(this.appendValueInput(name).setCheck(check).appendField(Blockly3.Translate(word)));
+        }
+        this.appendDummyInput("LOG").appendField(Blockly3.Translate("pushover_log")).appendField(new Blockly3.FieldDropdown(logLevelOptions()), "LOG");
+        makeOptional(
+          this.appendValueInput("TTL").setCheck("Number").appendField(Blockly3.Translate("pushover_ttl"))
+        );
+        this.appendDummyInput("FORMAT").appendField(Blockly3.Translate("pushover_format")).appendField(
+          new Blockly3.FieldDropdown([
+            [Blockly3.Translate("pushover_format_none"), "none"],
+            [Blockly3.Translate("pushover_format_html"), "html"],
+            [Blockly3.Translate("pushover_format_mono"), "monospace"]
+          ]),
+          "FORMAT"
+        );
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(Blockly3.Sendto.HUE);
+        this.setTooltip(Blockly3.Translate("pushover_tooltip"));
+        this.setHelpUrl(Blockly3.Translate("pushover_help"));
+      }
+    };
+    registerGenerator("pushover", (block) => {
+      const instance = block.getFieldValue("INSTANCE");
+      const logLevel = block.getFieldValue("LOG");
+      const message = Blockly3.JavaScript.valueToCode(block, "MESSAGE", Blockly3.JavaScript.ORDER_ATOMIC);
+      const customSound = Blockly3.JavaScript.valueToCode(block, "SOUND_CUSTOM", Blockly3.JavaScript.ORDER_ATOMIC);
+      const lines = ["{\n"];
+      if (message) {
+        lines.push(`  message: ${message},
+`);
+      }
+      if (customSound && customSound !== "''") {
+        lines.push(`  sound: ${customSound},
+`);
+      } else {
+        lines.push(`  sound: '${block.getFieldValue("SOUND")}',
+`);
+      }
+      const priority = parseInt(block.getFieldValue("PRIORITY"), 10);
+      if (priority) {
+        lines.push(`  priority: ${priority},
+`);
         if (priority === 2) {
-            text += '  retry: 60,\n';
-            text += '  expire: 3600,\n';
+          lines.push("  retry: 60,\n");
+          lines.push("  expire: 3600,\n");
         }
-    }
-
-    const url = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC);
-    if (url) {
-        text += `  url: ${url},\n`;
-    }
-
-    const urlTitle = Blockly.JavaScript.valueToCode(block, 'URL_TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (urlTitle) {
-        text += `  url_title: ${urlTitle},\n`;
-    }
-
-    const attachment = Blockly.JavaScript.valueToCode(block, 'ATTACHMENT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (attachment) {
-        text += `  file: ${attachment},\n`;
-    }
-
-    const title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (title) {
-        text += `  title: ${title},\n`;
-    }
-
-    const device = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (device) {
-        text += `  device: ${device},\n`;
-    }
-
-    const tags = Blockly.JavaScript.valueToCode(block, 'TAGS', Blockly.JavaScript.ORDER_ATOMIC);
-    if (tags) {
-        text += `  tags: ${tags},\n`;
-    }
-
-    const timestamp = Blockly.JavaScript.valueToCode(block, 'TIMESTAMP', Blockly.JavaScript.ORDER_ATOMIC);
-    if (timestamp) {
-        text += `  timestamp: ${timestamp},\n`;
-    }
-
-    const ttl = Blockly.JavaScript.valueToCode(block, 'TTL', Blockly.JavaScript.ORDER_ATOMIC);
-    if (ttl) {
-        text += `  ttl: ${ttl},\n`;
-    }
-
-    const format = block.getFieldValue('FORMAT');
-    switch (format){
-        case 'html':
-            text += `  html: 1,\n`;
-            break;
-        case 'monospace':
-            text += `  monospace: 1,\n`;
-            break;
+      }
+      for (const [input, key] of [
+        ["URL", "url"],
+        ["URL_TITLE", "url_title"],
+        ["ATTACHMENT", "file"],
+        ["TITLE", "title"],
+        ["DEVICE", "device"],
+        ["TAGS", "tags"],
+        ["TIMESTAMP", "timestamp"],
+        ["TTL", "ttl"]
+      ]) {
+        const value = Blockly3.JavaScript.valueToCode(block, input, Blockly3.JavaScript.ORDER_ATOMIC);
+        if (value) {
+          lines.push(`  ${key}: ${value},
+`);
+        }
+      }
+      switch (block.getFieldValue("FORMAT")) {
+        case "html":
+          lines.push("  html: 1,\n");
+          break;
+        case "monospace":
+          lines.push("  monospace: 1,\n");
+          break;
         default:
-            break;
-    }
+          break;
+      }
+      lines.push("}");
+      return `sendTo('pushover${instance}', 'send', ${lines.join("")});
+${logLine(logLevel, `pushover${instance}`, message)}`;
+    });
+  }
 
-    text += '}';
+  // src-blockly/i18n/de.json
+  var de_default = {
+    glances: "glances",
+    glances_count: "Anzahl",
+    glances_percent: "Prozent",
+    glances_subtext: "Zweite Reihe",
+    glances_tooltip: "Kurze Nachricht (glances) an Pushover senden",
+    pushover: "pushover",
+    pushover_anyInstance: "Alle Instanzen",
+    pushover_attachment: "Anhang (optional)",
+    pushover_confirmation: "Mit Bestätigung",
+    pushover_custom_sound: "Eigene Klang",
+    pushover_device: "Gerät ID (optional)",
+    pushover_format: "Formatierung (optional)",
+    pushover_format_html: "HTML",
+    pushover_format_mono: "monospace",
+    pushover_format_none: "keine",
+    pushover_high: "Hohe Priorität",
+    pushover_log: "Loglevel",
+    pushover_log_debug: "debug",
+    pushover_log_error: "error",
+    pushover_log_info: "info",
+    pushover_log_none: "keins",
+    pushover_log_warn: "warning",
+    pushover_lowest: "Niedrigste Priorität",
+    pushover_message: "Meldung",
+    pushover_normal: "Normal",
+    pushover_priority: "Priorität",
+    pushover_quiet: "Leise",
+    pushover_sound: "Klang",
+    pushover_sound_alien: "alien",
+    pushover_sound_bike: "bike",
+    pushover_sound_bugle: "bugle",
+    pushover_sound_cashregister: "cashregister",
+    pushover_sound_classical: "classical",
+    pushover_sound_climb: "climb",
+    pushover_sound_cosmic: "cosmic",
+    pushover_sound_default: "normal",
+    pushover_sound_echo: "echo",
+    pushover_sound_falling: "falling",
+    pushover_sound_gamelan: "gamelan",
+    pushover_sound_incoming: "incoming",
+    pushover_sound_intermission: "intermission",
+    pushover_sound_magic: "magic",
+    pushover_sound_mechanical: "mechanical",
+    pushover_sound_none: "keins",
+    pushover_sound_persistent: "persistent",
+    pushover_sound_pianobar: "pianobar",
+    pushover_sound_pushover: "pushover",
+    pushover_sound_siren: "siren",
+    pushover_sound_spacealarm: "spacealarm",
+    pushover_sound_tugboat: "tugboat",
+    pushover_sound_updown: "updown",
+    pushover_tags: "Tags (optional)",
+    pushover_timestamp: "Zeit in ms (optional)",
+    pushover_title: "Betreff (optional)",
+    pushover_tooltip: "Sende eine Meldung über Pushover",
+    pushover_ttl: "Dauer in Sekunden (optional)",
+    pushover_url: "URL (optional)",
+    pushover_url_title: "URL Betreff (optional)"
+  };
 
-    let logText = '';
-    if (logLevel) {
-        logText = `console.${logLevel}('pushover${dropdown_instance}: ' + ${message});\n`;
-    }
+  // src-blockly/i18n/en.json
+  var en_default = {
+    glances: "glances",
+    glances_count: "Count",
+    glances_percent: "Percent",
+    glances_subtext: "Second line",
+    glances_tooltip: "Send short message to pushover (glances)",
+    pushover: "pushover",
+    pushover_anyInstance: "all instances",
+    pushover_attachment: "attachment (optional)",
+    pushover_confirmation: "with confirmation",
+    pushover_custom_sound: "custom sound",
+    pushover_device: "device ID (optional)",
+    pushover_format: "formatting (optional)",
+    pushover_format_html: "HTML",
+    pushover_format_mono: "monospace",
+    pushover_format_none: "none",
+    pushover_high: "high priority",
+    pushover_log: "log level",
+    pushover_log_debug: "debug",
+    pushover_log_error: "error",
+    pushover_log_info: "info",
+    pushover_log_none: "none",
+    pushover_log_warn: "warning",
+    pushover_lowest: "lowest",
+    pushover_message: "message",
+    pushover_normal: "default",
+    pushover_priority: "priority",
+    pushover_quiet: "quiet",
+    pushover_sound: "sound",
+    pushover_sound_alien: "alien",
+    pushover_sound_bike: "bike",
+    pushover_sound_bugle: "bugle",
+    pushover_sound_cashregister: "cashregister",
+    pushover_sound_classical: "classical",
+    pushover_sound_climb: "climb",
+    pushover_sound_cosmic: "cosmic",
+    pushover_sound_default: "default",
+    pushover_sound_echo: "echo",
+    pushover_sound_falling: "falling",
+    pushover_sound_gamelan: "gamelan",
+    pushover_sound_incoming: "incoming",
+    pushover_sound_intermission: "intermission",
+    pushover_sound_magic: "magic",
+    pushover_sound_mechanical: "mechanical",
+    pushover_sound_none: "none",
+    pushover_sound_persistent: "persistent",
+    pushover_sound_pianobar: "pianobar",
+    pushover_sound_pushover: "pushover",
+    pushover_sound_siren: "siren",
+    pushover_sound_spacealarm: "spacealarm",
+    pushover_sound_tugboat: "tugboat",
+    pushover_sound_updown: "updown",
+    pushover_tags: "tags (optional)",
+    pushover_timestamp: "time in ms (optional)",
+    pushover_title: "title (optional)",
+    pushover_tooltip: "Send message to pushover",
+    pushover_ttl: "TTL in seconds (optional)",
+    pushover_url: "URL (optional)",
+    pushover_url_title: "URL title (optional)"
+  };
 
-    return `sendTo('pushover${dropdown_instance}', 'send', ${text});\n` + logText;
-};
+  // src-blockly/i18n/es.json
+  var es_default = {
+    glances_count: "Contar",
+    glances_percent: "Por ciento",
+    glances_subtext: "Segunda linea",
+    glances_tooltip: "Enviar mensaje corto a pushover (glances)"
+  };
 
-/// --- SendTo glances --------------------------------------------------
-Blockly.Words['glances']               = {'en': 'glances',                    'de': 'glances',                           'ru': 'glances'};
+  // src-blockly/i18n/fr.json
+  var fr_default = {
+    glances_count: "Compter",
+    glances_percent: "Pour cent",
+    glances_subtext: "Deuxième ligne",
+    glances_tooltip: "Envoyer un court message à pushover (glances)"
+  };
 
-Blockly.Words['glances_count']      = {
-    "en": "Count",
-    "de": "Anzahl",
-    "ru": "Счётчик",
-    "pt": "Contar",
-    "nl": "Tel",
-    "fr": "Compter",
-    "it": "Contare",
-    "es": "Contar",
-    "pl": "Liczyć",
-    "zh-cn": "数数"
-};
-Blockly.Words['glances_percent']    = {
-    "en": "Percent",
-    "de": "Prozent",
-    "ru": "Проценты",
-    "pt": "Por cento",
-    "nl": "procent",
-    "fr": "Pour cent",
-    "it": "Per cento",
-    "es": "Por ciento",
-    "pl": "Procent",
-    "zh-cn": "百分"
-};
-Blockly.Words['glances_subtext']    =  {
-    "en": "Second line",
-    "de": "Zweite Reihe",
-    "ru": "Вторая строка",
-    "pt": "Segunda linha",
-    "nl": "Tweede lijn",
-    "fr": "Deuxième ligne",
-    "it": "Seconda linea",
-    "es": "Segunda linea",
-    "pl": "Druga linia",
-    "zh-cn": "第二行"
-};
+  // src-blockly/i18n/it.json
+  var it_default = {
+    glances_count: "Contare",
+    glances_percent: "Per cento",
+    glances_subtext: "Seconda linea",
+    glances_tooltip: "Invia un breve messaggio a pushover (glances)"
+  };
 
-Blockly.Words['glances_tooltip']    =  {
-    "en": "Send short message to pushover (glances)",
-    "de": "Kurze Nachricht (glances) an Pushover senden",
-    "ru": "Отправить короткое сообщение (glances) pushover",
-    "pt": "Envie uma mensagem curta para pushover (glances)",
-    "nl": "Stuur een kort bericht naar pushover (glances)",
-    "fr": "Envoyer un court message à pushover (glances)",
-    "it": "Invia un breve messaggio a pushover (glances)",
-    "es": "Enviar mensaje corto a pushover (glances)",
-    "pl": "Wyślij krótką wiadomość do pushover (glances)",
-    "zh-cn": "发送短消息到pushover (glances)"
-};
-Blockly.Words['glances_help']       = {'en': 'https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md#glances'};
+  // src-blockly/i18n/nl.json
+  var nl_default = {
+    glances_count: "Tel",
+    glances_percent: "procent",
+    glances_subtext: "Tweede lijn",
+    glances_tooltip: "Stuur een kort bericht naar pushover (glances)"
+  };
 
-Blockly.Sendto.blocks['glances'] =
-    '<block type="glances">' +
-    '  <field name="INSTANCE"></field>' +
-    '  <field name="LOG"></field>' +
-    '  <value name="MESSAGE">' +
-    '    <shadow type="text">' +
-    '      <field name="TEXT">text</field>' +
-    '    </shadow>' +
-    '  </value>' +
-    '</block>';
+  // src-blockly/i18n/pl.json
+  var pl_default = {
+    glances_count: "Liczyć",
+    glances_percent: "Procent",
+    glances_subtext: "Druga linia",
+    glances_tooltip: "Wyślij krótką wiadomość do pushover (glances)"
+  };
 
-Blockly.Blocks['glances'] = {
-    init: function() {
-        const options = [[Blockly.Translate('pushover_anyInstance'), '']];
-        if (typeof main !== 'undefined' && main.instances) {
-            for (let i = 0; i < main.instances.length; i++) {
-                const m = main.instances[i].match(/^system.adapter.pushover.(\d+)$/);
-                if (m) {
-                    const n = parseInt(m[1], 10);
-                    options.push(['pushover.' + n, '.' + n]);
-                }
-            }
+  // src-blockly/i18n/pt.json
+  var pt_default = {
+    glances_count: "Contar",
+    glances_percent: "Por cento",
+    glances_subtext: "Segunda linha",
+    glances_tooltip: "Envie uma mensagem curta para pushover (glances)"
+  };
+
+  // src-blockly/i18n/ru.json
+  var ru_default = {
+    glances: "glances",
+    glances_count: "Счётчик",
+    glances_percent: "Проценты",
+    glances_subtext: "Вторая строка",
+    glances_tooltip: "Отправить короткое сообщение (glances) pushover",
+    pushover: "pushover",
+    pushover_anyInstance: "На все драйвера",
+    pushover_attachment: "вложение (не обяз.)",
+    pushover_confirmation: "с подтверждением",
+    pushover_custom_sound: "Польз. звук",
+    pushover_device: "ID устройства (не обяз.)",
+    pushover_format: "форматирование (не обяз.)",
+    pushover_format_html: "HTML",
+    pushover_format_mono: "monospace",
+    pushover_format_none: "никто",
+    pushover_high: "приоритетное",
+    pushover_log: "Протокол",
+    pushover_log_debug: "debug",
+    pushover_log_error: "ошибка",
+    pushover_log_info: "инфо",
+    pushover_log_none: "нет",
+    pushover_log_warn: "warning",
+    pushover_lowest: "низкий приоритет",
+    pushover_message: "сообщение",
+    pushover_normal: "по умолчанию",
+    pushover_priority: "приоритет",
+    pushover_quiet: "тихое",
+    pushover_sound: "звук",
+    pushover_sound_alien: "alien",
+    pushover_sound_bike: "bike",
+    pushover_sound_bugle: "bugle",
+    pushover_sound_cashregister: "cashregister",
+    pushover_sound_classical: "classical",
+    pushover_sound_climb: "climb",
+    pushover_sound_cosmic: "cosmic",
+    pushover_sound_default: "по умолчанию",
+    pushover_sound_echo: "echo",
+    pushover_sound_falling: "falling",
+    pushover_sound_gamelan: "gamelan",
+    pushover_sound_incoming: "incoming",
+    pushover_sound_intermission: "intermission",
+    pushover_sound_magic: "magic",
+    pushover_sound_mechanical: "mechanical",
+    pushover_sound_none: "без звука",
+    pushover_sound_persistent: "persistent",
+    pushover_sound_pianobar: "pianobar",
+    pushover_sound_pushover: "pushover",
+    pushover_sound_siren: "siren",
+    pushover_sound_spacealarm: "spacealarm",
+    pushover_sound_tugboat: "tugboat",
+    pushover_sound_updown: "updown",
+    pushover_tags: "тэги (не обяз.)",
+    pushover_timestamp: "время в мс (не обяз.)",
+    pushover_title: "заголовок (не обяз.)",
+    pushover_tooltip: "Послать сообщение через Pushover",
+    pushover_ttl: "время жизни в сек. (не обяз.)",
+    pushover_url: "URL (не обяз.)",
+    pushover_url_title: "заголовок для URL (не обяз.)"
+  };
+
+  // src-blockly/i18n/zh-cn.json
+  var zh_cn_default = {
+    glances_count: "数数",
+    glances_percent: "百分",
+    glances_subtext: "第二行",
+    glances_tooltip: "发送短消息到pushover (glances)"
+  };
+
+  // src-blockly/words.ts
+  var Blockly4 = window.Blockly;
+  var LANGUAGES = {
+    de: de_default,
+    en: en_default,
+    es: es_default,
+    fr: fr_default,
+    it: it_default,
+    nl: nl_default,
+    pl: pl_default,
+    pt: pt_default,
+    ru: ru_default,
+    "zh-cn": zh_cn_default
+  };
+  var README = "https://github.com/ioBroker/ioBroker.pushover/blob/master/README.md";
+  function installWords() {
+    Blockly4.Translate || (Blockly4.Translate = function(word, lang) {
+      lang || (lang = window.systemLang);
+      const entry = Blockly4.Words?.[word];
+      return entry ? entry[lang || "en"] || entry.en : word;
+    });
+    const words = {};
+    for (const [lang, texts] of Object.entries(LANGUAGES)) {
+      for (const [word, text] of Object.entries(texts)) {
+        if (text) {
+          (words[word] || (words[word] = {}))[lang] = text;
         }
-
-        if (!options.length) {
-            for (let u = 0; u <= 4; u++) {
-                options.push(['pushover.' + u, '.' + u]);
-            }
-        }
-
-        this.appendDummyInput('INSTANCE')
-            .appendField(Blockly.Translate('glances'))
-            .appendField(new Blockly.FieldDropdown(options), 'INSTANCE');
-
-        this.appendValueInput('MESSAGE')
-            .appendField(Blockly.Translate('pushover_message'));
-
-        let input = this.appendValueInput('TITLE')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_title'));
-
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('SUBTEXT')
-            .setCheck('String')
-            .appendField(Blockly.Translate('glances_subtext'));
-
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('COUNT')
-            .setCheck('Number')
-            .appendField(Blockly.Translate('glances_count'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('PERCENT')
-            .setCheck('number')
-            .appendField(Blockly.Translate('glances_percent'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        input = this.appendValueInput('DEVICE')
-            .setCheck('String')
-            .appendField(Blockly.Translate('pushover_device'));
-        if (input.connection) {
-            input.connection._optional = true;
-        }
-
-        this.appendDummyInput('LOG')
-            .appendField(Blockly.Translate('pushover_log'))
-            .appendField(new Blockly.FieldDropdown([
-                [Blockly.Translate('pushover_log_none'),  ''],
-                [Blockly.Translate('pushover_log_info'),  'log'],
-                [Blockly.Translate('pushover_log_debug'), 'debug'],
-                [Blockly.Translate('pushover_log_warn'),  'warn'],
-                [Blockly.Translate('pushover_log_error'), 'error'],
-            ]), 'LOG');
-
-        this.setInputsInline(false);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-
-        this.setColour(Blockly.Sendto.HUE);
-        this.setTooltip(Blockly.Translate('pushover_tooltip'));
-        this.setHelpUrl(Blockly.Translate('pushover_help'));
-    },
-};
-
-Blockly.JavaScript['glances'] = function(block) {
-    const dropdown_instance = block.getFieldValue('INSTANCE');
-    const logLevel = block.getFieldValue('LOG');
-    const message  = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
-
-    let text = '{\n';
-    text += `  message: ${message},\n`;
-
-    const count = Blockly.JavaScript.valueToCode(block, 'COUNT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (count) {
-        text += `  count: ${parseInt(count, 10)},\n`;
+      }
     }
+    Object.assign(Blockly4.Words, words);
+    Blockly4.Words.pushover_help = { en: README };
+    Blockly4.Words.glances_help = { en: `${README}#glances` };
+  }
 
-    const percent = Blockly.JavaScript.valueToCode(block, 'PERCENT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (percent) {
-        text += `  percent: ${parseInt(percent, 10)},\n`;
-    }
-
-    const subtext = Blockly.JavaScript.valueToCode(block, 'SUBTEXT', Blockly.JavaScript.ORDER_ATOMIC);
-    if (subtext) {
-        text += `  subtext: ${subtext},\n`;
-    }
-
-    const title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (title) {
-        text += `  title: ${title},\n`;
-    }
-
-    const device = Blockly.JavaScript.valueToCode(block, 'DEVICE', Blockly.JavaScript.ORDER_ATOMIC);
-    if (device) {
-        text += `  device: ${device},\n`;
-    }
-
-    text += '}';
-    let logText = '';
-
-    if (logLevel) {
-        logText = `console.${logLevel}('pushover${dropdown_instance} (glances): ' + ${message});\n`;
-    }
-
-    return `sendTo('pushover${dropdown_instance}', 'glances', ${text});\n` + logText;
-};
+  // src-blockly/blockly.ts
+  installWords();
+  installPushover();
+  installGlances();
+})();
