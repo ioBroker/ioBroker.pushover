@@ -27,7 +27,7 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 6.0.0 (2026-08-15)
 * (@GermanBluefox) Blockly migrated to TypeScript
 * (@GermanBluefox) Dropped support for node 22
 
@@ -51,11 +51,6 @@
 * (@klein0r) Updated dependencies
 * (@klein0r) Fixed blockly definitions
 * (@klein0r) Updated translations
-
-### 3.0.6 (2023-11-06)
-* (ticaki) Caught the error by sending of sendToAsync if no configuration exists
-
-[Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License
 
