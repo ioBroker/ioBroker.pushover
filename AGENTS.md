@@ -13,6 +13,8 @@ Use Node.js 20 or newer as required by `package.json`.
 - `npm test` runs JavaScript tests plus package validation.
 - `npm run test:integration` runs the ioBroker integration test suite.
 - `npm run release-patch`, `npm run release-minor`, and `npm run release-major` perform scripted releases.
+- `npm run build:blockly` regenerates `admin/blockly.js` from `src-blockly/`. That file is build
+  output - never edit it by hand. `npm run build` runs it after the TypeScript build.
 
 There is no separate build step in this repository; changes are committed directly to the shipped JavaScript and admin assets.
 
