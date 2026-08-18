@@ -3,19 +3,6 @@
     "name": "pushover",
     "version": "6.0.0",
     "news": {
-      "6.0.0": {
-        "en": "Blockly migrated to TypeScript\nDropped support for node 22",
-        "de": "Blockly migrierte zu TypeScript\nDie Unterstützung für Knoten 22 wurde eingestellt.",
-        "ru": "Blockly перешёл на TypeScript.\nПрекращена поддержка узла 22.",
-        "pt": "Blockly migrou para TypeScript.\nSuporte para o Node 22 foi descontinuado.",
-        "nl": "Blockly is overgestapt op TypeScript.\nOndersteuning voor node 22 is stopgezet.",
-        "fr": "Blockly a migré vers TypeScript\nAbandon de la prise en charge de Node 22",
-        "it": "Blockly è passato a TypeScript\nSupporto per il nodo 22 interrotto.",
-        "es": "Blockly migró a TypeScript.\nSe eliminó la compatibilidad con el nodo 22.",
-        "pl": "Blockly migrowane do TypeScript\nUsunięto wsparcie dla węzła 22",
-        "uk": "Блоково перенесено на TypeScript\nПрипинено підтримку вузла 22",
-        "zh-cn": "Blockly 已迁移到 TypeScript\n已停止支持 Node 22"
-      },
       "5.0.0": {
         "en": "Updated packages\nDropped support for node 18\nMigrated to TypeScript\nAdded the lowest priority to messages",
         "de": "Aktualisierte Pakete\nDropped-Unterstützung für Knoten 183\nZu TypeScript migriert\nDie niedrigste Priorität für Nachrichten hinzugefügt",
