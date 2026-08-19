@@ -27,7 +27,7 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 6.0.1 (2026-08-18)
 * (@GermanBluefox) Blockly migrated to TypeScript
 * (@GermanBluefox) Dropped support for Node.js lower than 22
 
