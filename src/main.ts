@@ -39,6 +39,24 @@ interface PushoverMessage {
     [key: string]: unknown;
 }
 
+interface NotificationInstanceMessage {
+    ts: number;
+    message: string;
+}
+
+interface NotificationCategoryInstance {
+    messages: NotificationInstanceMessage[];
+}
+
+interface NotificationMessage {
+    host: string;
+    category: {
+        name: string;
+        description: string;
+        instances: Record<string, NotificationCategoryInstance>;
+    };
+}
+
 interface PushoverClientOptions {
     user: string;
     token: string;
@@ -87,9 +105,45 @@ export default class Pushover extends Adapter {
             this.processMessage(obj);
         } else if (obj.command === 'glances' && obj.message) {
             this.sendGlances(obj);
+        } else if (obj.command === 'sendNotification' && obj.message) {
+            this.processNotification(obj);
         } else if (obj.callback) {
-            this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
+            this.sendTo(obj.from, obj.command, { error: 'Unsupported' }, obj.callback);
         }
+    }
+
+    private processNotification(obj: ioBroker.Message): void {
+        const notification = obj.message as NotificationMessage;
+
+        const instances = Object.entries(notification.category.instances).map(([instance, entry]) => {
+            const newestMessage = [...entry.messages].sort((a, b) => b.ts - a.ts)[0];
+
+            const instanceName = instance.startsWith('system.adapter.')
+                ? instance.substring('system.adapter.'.length)
+                : instance;
+
+            if (!newestMessage) {
+                return instanceName;
+            }
+
+            return `${instanceName}: ${new Date(newestMessage.ts).toLocaleString()} ${newestMessage.message}`;
+        });
+
+        const message: PushoverMessage = {
+            title: notification.category.name,
+            message: `${notification.category.description}\n${notification.host}:\n${instances.join('\n')}`,
+        };
+
+        this.sendNotification(message, error => {
+            if (obj.callback) {
+                this.sendTo(
+                    obj.from,
+                    'sendNotification',
+                    { sent: !error },
+                    obj.callback,
+                );
+            }
+        });
     }
 
     private processMessage(obj: ioBroker.Message): void {
