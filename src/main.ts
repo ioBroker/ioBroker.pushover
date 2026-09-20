@@ -136,12 +136,7 @@ export default class Pushover extends Adapter {
 
         this.sendNotification(message, error => {
             if (obj.callback) {
-                this.sendTo(
-                    obj.from,
-                    'sendNotification',
-                    { sent: !error },
-                    obj.callback,
-                );
+                this.sendTo(obj.from, 'sendNotification', { sent: !error }, obj.callback);
             }
         });
     }

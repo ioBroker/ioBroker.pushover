@@ -32,9 +32,34 @@ class Pushover extends adapter_core_1.Adapter {
         else if (obj.command === 'glances' && obj.message) {
             this.sendGlances(obj);
         }
-        else if (obj.callback) {
-            this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
+        else if (obj.command === 'sendNotification' && obj.message) {
+            this.processNotification(obj);
         }
+        else if (obj.callback) {
+            this.sendTo(obj.from, obj.command, { error: 'Unsupported' }, obj.callback);
+        }
+    }
+    processNotification(obj) {
+        const notification = obj.message;
+        const instances = Object.entries(notification.category.instances).map(([instance, entry]) => {
+            const newestMessage = [...entry.messages].sort((a, b) => b.ts - a.ts)[0];
+            const instanceName = instance.startsWith('system.adapter.')
+                ? instance.substring('system.adapter.'.length)
+                : instance;
+            if (!newestMessage) {
+                return instanceName;
+            }
+            return `${instanceName}: ${new Date(newestMessage.ts).toLocaleString()} ${newestMessage.message}`;
+        });
+        const message = {
+            title: notification.category.name,
+            message: `${notification.category.description}\n${notification.host}:\n${instances.join('\n')}`,
+        };
+        this.sendNotification(message, error => {
+            if (obj.callback) {
+                this.sendTo(obj.from, 'sendNotification', { sent: !error }, obj.callback);
+            }
+        });
     }
     processMessage(obj) {
         const message = this.normalizeMessage(obj.message);
