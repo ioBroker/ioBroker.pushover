@@ -36,8 +36,34 @@ interface PushoverMessage {
     timestamp?: number;
     retry?: number | string;
     expire?: number | string;
+    file?: string | { name: string; data: Buffer; type?: string };
     [key: string]: unknown;
 }
+
+const PUSHOVER_NOTIFICATION_FIELDS = [
+    'user',
+    'token',
+    'title',
+    'message',
+    'device',
+    'html',
+    'monospace',
+    'timestamp',
+    'priority',
+    'retry',
+    'expire',
+    'sound',
+    'url',
+    'url_title',
+    'callback',
+    'tags',
+    'ttl',
+    'attachment_base64',
+    'attachment_type',
+    'encrypted',
+    'file',
+    'attachment',
+] as const;
 
 interface NotificationInstanceMessage {
     ts: number;
@@ -55,6 +81,7 @@ interface NotificationMessage {
         description: string;
         instances: Record<string, NotificationCategoryInstance>;
     };
+    [key: string]: unknown;
 }
 
 interface PushoverClientOptions {
@@ -132,6 +159,7 @@ export default class Pushover extends Adapter {
         const message: PushoverMessage = {
             title: notification.category.name,
             message: `${notification.category.description}\n${notification.host}:\n${instances.join('\n')}`,
+            ...this.getNotificationPushoverOptions(notification),
         };
 
         this.sendNotification(message, error => {
@@ -139,6 +167,31 @@ export default class Pushover extends Adapter {
                 this.sendTo(obj.from, 'sendNotification', { sent: !error }, obj.callback);
             }
         });
+    }
+
+    private getNotificationPushoverOptions(notification: NotificationMessage): PushoverMessage {
+        const received = notification as Record<string, unknown>;
+        const options: Record<string, unknown> = {};
+
+        for (const field of PUSHOVER_NOTIFICATION_FIELDS) {
+            if (Object.prototype.hasOwnProperty.call(received, field) && received[field] !== undefined) {
+                options[field] = received[field];
+            }
+        }
+
+        if (!Object.prototype.hasOwnProperty.call(options, 'message') && typeof received.text === 'string') {
+            options.message = received.text;
+        }
+
+        // The pushover-notifications library uses `file` for the API's multipart `attachment` parameter.
+        if (options.attachment !== undefined) {
+            if (options.file === undefined) {
+                options.file = options.attachment;
+            }
+            delete options.attachment;
+        }
+
+        return options as PushoverMessage;
     }
 
     private processMessage(obj: ioBroker.Message): void {
@@ -280,32 +333,44 @@ export default class Pushover extends Adapter {
     ): void {
         const normalizedMessage = this.normalizeMessage(message) ?? {};
 
-        if (!this.pushover) {
-            if (this.config.user && this.config.token) {
-                this.pushover = new PushoverClient({
-                    user: this.config.user,
-                    token: this.config.token,
-                    onerror: this.onError.bind(this),
-                });
-            } else {
-                this.log.error('Cannot send notification while not configured');
-            }
-        }
+        const user = typeof normalizedMessage.user === 'string' && normalizedMessage.user
+            ? normalizedMessage.user
+            : this.config.user;
+        const token = typeof normalizedMessage.token === 'string' && normalizedMessage.token
+            ? normalizedMessage.token
+            : this.config.token;
+        delete normalizedMessage.user;
+        delete normalizedMessage.token;
 
-        if (!this.pushover) {
+        if (!user || !token) {
+            this.log.error('Cannot send notification while not configured');
             callback?.('Cannot send notification while not configured');
             return;
         }
 
-        if (Object.prototype.hasOwnProperty.call(normalizedMessage, 'token')) {
-            this.pushover.token = typeof normalizedMessage.token === 'string' ? normalizedMessage.token : undefined;
-        } else {
-            this.pushover.token = this.config.token;
-        }
+        let pushover = this.pushover;
+        if (!pushover || user !== this.config.user) {
+            pushover = new PushoverClient({
+                user,
+                token,
+                onerror: this.onError.bind(this),
+            });
 
-        normalizedMessage.title ||= this.config.title;
-        normalizedMessage.sound ||= this.config.sound || undefined;
-        normalizedMessage.priority ||= this.config.priority;
+            if (user === this.config.user) {
+                this.pushover = pushover;
+            }
+        }
+        pushover.token = token;
+
+        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'title')) {
+            normalizedMessage.title = this.config.title;
+        }
+        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'sound')) {
+            normalizedMessage.sound = this.config.sound || undefined;
+        }
+        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'priority')) {
+            normalizedMessage.priority = this.config.priority;
+        }
         normalizedMessage.message = typeof normalizedMessage.message === 'string' ? normalizedMessage.message : '';
 
         if (typeof normalizedMessage.timestamp === 'number' && normalizedMessage.timestamp > 946681200000) {
@@ -321,7 +386,7 @@ export default class Pushover extends Adapter {
             `Sending pushover notification: ${JSON.stringify(normalizedMessage)}`,
         );
 
-        this.pushover.send(normalizedMessage, async (err, result, response) => {
+        pushover.send(normalizedMessage, async (err, result, response) => {
             this.log.debug(`Pushover response: ${JSON.stringify(response?.headers)}`);
 
             if (err) {
