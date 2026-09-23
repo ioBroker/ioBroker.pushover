@@ -1,4 +1,10 @@
 # Older changes
+## 4.0.0 (2024-07-13)
+* Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required
+* (@klein0r) Updated dependencies
+* (@klein0r) Fixed blockly definitions
+* (@klein0r) Updated translations
+
 ## 3.0.6 (2023-11-06)
 * (ticaki) Caught the error by sending of sendToAsync if no configuration exists
 

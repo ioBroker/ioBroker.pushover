@@ -27,7 +27,7 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 6.1.0 (2026-09-23)
 * (BenAhrdt) Added support for the system notifications (notification-manager)
 * (BenAhrdt) `user` and `token` can be overwritten per message
 * (BenAhrdt) Unsupported commands are answered with the command name instead of `send`
@@ -53,12 +53,6 @@
 * (isi07) added HTML/monospace options to blockly
 * (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
 * (isi07) fixed the error when log level selected by duplicate quotes
-
-### 4.0.0 (2024-07-13)
-* Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required
-* (@klein0r) Updated dependencies
-* (@klein0r) Fixed blockly definitions
-* (@klein0r) Updated translations
 
 ## License
 

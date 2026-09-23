@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "6.0.1",
+    "version": "6.1.0",
     "news": {
+      "6.1.0": {
+        "en": "Added support for the system notifications (notification-manager)\n`user` and `token` can be overwritten per message\nUnsupported commands are answered with the command name instead of `send`\nInvalid notifications are rejected instead of crashing the message handler\nFixed: empty `title`/`sound`/`priority` (e.g. from Blockly) fall back to the instance settings again, an explicit priority 0 is kept\nAdded documentation and tests for the system notifications",
+        "de": "Unterstützung für Systemmeldungen hinzugefügt (Notification-Manager)\n`User` und `Token` pro Nachricht überschreibbar\nUnunterstützte Befehle werden mit dem Befehlsnamen statt `senden` beantwortet\nUngültige Meldungen werden abgewiesen, statt den Mail-Handler abzustürzen\nBehoben: leerer `title`/`sound`/`priority` (z. B. von Blockly), zurück zu Instanzeinstellungen, explizite Priorität 0\nDokumentation und Tests für Systemmeldungen hinzugefügt",
+        "ru": "Добавлена поддержка системных уведомлений (менеджер уведомлений)\n`user` и `token` можно перезаписать в каждом сообщении\nДля ответа на неподдерживаемые команды вместо `send` используется имя команды\nНеверные уведомления отклоняются вместо сбоя обработчика сообщений\nИсправлено: пустые `title`/`sound`/`priority` (например, из Blockly) снова возвращаются к настройкам экземпляра, явный приоритет 0 сохраняется\nДобавлена документация и тесты для системных уведомлений",
+        "pt": "Adicionado suporte às notificações do sistema (Notification-Manager)\n`user` e `token` podem ser sobrescritos por mensagem\nComandos não suportados são respondidos com o nome em vez de `send`\nNotificações inválidas são rejeitadas em vez de travar o gerenciador\nCorrigido: `title`/`sound`/`priority` vazios (ex. do Blockly) retornam às configurações da instância.\nMais documentação e testes para as notificações do sistema",
+        "nl": "Ondersteuning toegevoegd voor de systeemmeldingen (meldingsmanager)\n`user` en `token` kunnen per bericht worden overschreven\nOpdrachten die niet worden ondersteund, worden beantwoord met de naam van de opdracht in plaats van „send”\nOngeldige meldingen worden geweigerd in plaats van dat de berichtenverwerker crasht\nOpgelost: lege `titel`/`sound`/`prioriteit` (bijvoorbeeld van Blockly), ik val weer terug naar de instantie-instellingen, een expliciete prioriteit 0 blijft behouden\nDocumentatie en tests toegevoegd voor de systeemmeldingen",
+        "fr": "Ajout du support pour les notifications du système (notification-manager)\n`user` et `token` peuvent être remplacés par message\nLes commandes non prises en charge reçoivent le nom de la commande au lieu de « send »\nLes notifications non valides sont rejetées au lieu de planter le gestionnaire de messages\nCorrigé : un `title`/`sound`/`priority` vide (par exemple depuis Blockly) revenait aux paramètres de l'instance, la priorité 0 est conservée\nDocumentation ajoutée et tests pour les notifications du système",
+        "it": "Aggiunto supporto per le notifiche di sistema (notification-manager)\n`user` e `token` sovrascrivibili per messaggio\nAi comandi non supportati si risponde con il nome invece di `send`\nLe notifiche non valide vengono rifiutate anziché bloccare il gestore\nRisolto: torna alle impostazioni dell'istanza vuote `title`/`sound`/`priority` (ad es. da Blockly), con priorità 0\nAggiunti documenti e test per le notifiche di sistema",
+        "es": "Se ha añadido soporte para las notificaciones del sistema (gestor de notificaciones)\nSe pueden sobrescribir «usuario» y «token» por mensaje\nLos comandos no compatibles se responden con el nombre del comando en lugar de con «enviar»\nLas notificaciones no válidas se rechazan en lugar de bloquear el gestor de mensajes\nCorregido: `título/`sonido`/`prioridad» vacíos (por ejemplo, de Blockly) vuelven a la configuración de la instancia, se mantiene la prioridad explícita 0\nSe agregaron documentación y pruebas para las notificaciones del sistema",
+        "pl": "Dodano obsługę powiadomień systemowych (menedżer powiadomień)\n`user` i `token` mogą być nadpisane na każdą wiadomość\nNieobsługiwane polecenia są odpowiadane nazwą polecenia zamiast `send`\nNieprawidłowe powiadomienia są odrzucane zamiast awarii obsługi wiadomości\nNaprawiono: puste `title`/`sound`/`priority` (np. z Blockly) wracają ponownie do ustawień instancji, zachowany jest wyraźny priorytet 0\nDodano dokumentację i testy powiadomień systemowych",
+        "uk": "Додана підтримка системних повідомлень (сповіщення-менеджер)\n`user` і `token` можна перезаписувати за кожне повідомлення\nНа непідтримувані команди відповідають ім'я команди замість `send`\nНедійсні сповіщення відхиляються замість того, щоб завершити роботу обробника повідомлень\nВиправлено: порожній `title`/`sound`/`priority` (наприклад, від Blockly) знову повертається до налаштувань екземпляра, зберігається явний пріоритет 0\nДодана документація і тести для системних повідомлень",
+        "zh-cn": "增加了对系统通知的支持（通知管理器）\n每条消息的 “用户” 和 “令牌” 可以被覆盖\n使用命令名称而不是 “send” 来回答不支持的命令\n无效的通知会被拒绝，而不是使消息处理程序崩溃\n修复：空的 “标题”/“声音”/“优先级”（例如来自 Blockly）再次回退到实例设置，保留明确的优先级 0\n添加了系统通知的文档和测试"
+      },
       "6.0.1": {
         "en": "Blockly migrated to TypeScript\nDropped support for Node.js lower than 22",
         "de": "Blockly migrierte zu TypeScript\nDie Unterstützung für Node.js-Versionen unter 22 wurde eingestellt.",
@@ -80,19 +93,6 @@
         "pl": "Uszkodził błąd wysyłając wysyłając wysyłając z niego wiadomość. ToAsynsynoza, jeśli żadna konfiguracja nie istnieje",
         "uk": "Спіймана похибкою по відправці ToAsync якщо немає конфігурації",
         "zh-cn": "D. 发送错误 如果没有组合"
-      },
-      "3.0.5": {
-        "en": "Updated packages",
-        "de": "Aktualisierte Pakete",
-        "ru": "Обновленные пакеты",
-        "pt": "Pacotes atualizados",
-        "nl": "Verouderde pakketten",
-        "fr": "Forfaits mis à jour",
-        "it": "Pacchetti aggiornati",
-        "es": "Paquetes actualizados",
-        "pl": "Pakiet upoważniony",
-        "uk": "Оновлені пакети",
-        "zh-cn": "最新一揽子计划"
       }
     },
     "titleLang": {

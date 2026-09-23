@@ -1,78 +1,78 @@
 {
-    "name": "iobroker.pushover",
-    "description": "ioBroker Adapter to send Pushover notifications",
-    "version": "6.0.1",
-    "author": "bluefox <dogafox@gmail.com>",
-    "contributors": [
-        {
-            "name": "bluefox",
-            "email": "dogafox@gmail.com"
-        },
-        {
-            "name": "Apollon77",
-            "email": "ingo@fischer-ka.de"
-        },
-        {
-            "name": "Matthias Kleine",
-            "email": "info@haus-automatisierung.com"
-        }
-    ],
-    "homepage": "https://github.com/ioBroker/ioBroker.pushover",
-    "license": "MIT",
-    "keywords": [
-        "ioBroker",
-        "pushover",
-        "home automation"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/ioBroker/ioBroker.pushover"
+  "name": "iobroker.pushover",
+  "description": "ioBroker Adapter to send Pushover notifications",
+  "version": "6.1.0",
+  "author": "bluefox <dogafox@gmail.com>",
+  "contributors": [
+    {
+      "name": "bluefox",
+      "email": "dogafox@gmail.com"
     },
-    "engines": {
-        "node": ">=22.19.0"
+    {
+      "name": "Apollon77",
+      "email": "ingo@fischer-ka.de"
     },
-    "dependencies": {
-        "@iobroker/adapter-core": "^3.4.3",
-        "axios": "^1.20.0",
-        "pushover-notifications": "^1.2.3"
-    },
-    "devDependencies": {
-        "@alcalzone/release-script": "^5.2.1",
-        "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
-        "@alcalzone/release-script-plugin-license": "^5.2.2",
-        "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
-        "@iobroker/adapter-dev": "^1.5.0",
-        "@iobroker/eslint-config": "^2.3.4",
-        "@iobroker/testing": "^6.2.2",
-        "@types/node": "^26.6.2",
-        "blockly": "^13.3.0",
-        "esbuild": "^0.28.2",
-        "typescript": "~6.0.3"
-    },
-    "bugs": {
-        "url": "https://github.com/ioBroker/ioBroker.pushover/issues"
-    },
-    "main": "build/main.js",
-    "files": [
-        "admin/",
-        "build/",
-        "io-package.json",
-        "LICENSE"
-    ],
-    "scripts": {
-        "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
-        "test:package": "mocha test/package --exit",
-        "test:integration": "mocha test/integration --exit",
-        "test": "npm run test:js && npm run test:package",
-        "build:tsc": "tsc -p tsconfig.build.json",
-        "build:blockly": "tsc -p src-blockly/tsconfig.json && node src-blockly/build.mjs",
-        "build": "npm run build:tsc && npm run build:blockly",
-        "lint": "eslint -c eslint.config.mjs",
-        "translate": "translate-adapter -b admin/i18n/en.json -b src-blockly/i18n/en.json",
-        "release": "release-script",
-        "release-patch": "release-script patch --yes",
-        "release-minor": "release-script minor --yes",
-        "release-major": "release-script major --yes",
-        "update-packages": "npx -y npm-check-updates --upgrade"
+    {
+      "name": "Matthias Kleine",
+      "email": "info@haus-automatisierung.com"
     }
+  ],
+  "homepage": "https://github.com/ioBroker/ioBroker.pushover",
+  "license": "MIT",
+  "keywords": [
+    "ioBroker",
+    "pushover",
+    "home automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ioBroker/ioBroker.pushover"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  },
+  "dependencies": {
+    "@iobroker/adapter-core": "^3.4.3",
+    "axios": "^1.20.0",
+    "pushover-notifications": "^1.2.3"
+  },
+  "devDependencies": {
+    "@alcalzone/release-script": "^5.2.1",
+    "@alcalzone/release-script-plugin-iobroker": "^5.2.0",
+    "@alcalzone/release-script-plugin-license": "^5.2.2",
+    "@alcalzone/release-script-plugin-manual-review": "^5.2.0",
+    "@iobroker/adapter-dev": "^1.5.0",
+    "@iobroker/eslint-config": "^2.3.4",
+    "@iobroker/testing": "^6.2.2",
+    "@types/node": "^26.6.2",
+    "blockly": "^13.3.0",
+    "esbuild": "^0.28.2",
+    "typescript": "~6.0.3"
+  },
+  "bugs": {
+    "url": "https://github.com/ioBroker/ioBroker.pushover/issues"
+  },
+  "main": "build/main.js",
+  "files": [
+    "admin/",
+    "build/",
+    "io-package.json",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:package": "mocha test/package --exit",
+    "test:integration": "mocha test/integration --exit",
+    "test": "npm run test:js && npm run test:package",
+    "build:tsc": "tsc -p tsconfig.build.json",
+    "build:blockly": "tsc -p src-blockly/tsconfig.json && node src-blockly/build.mjs",
+    "build": "npm run build:tsc && npm run build:blockly",
+    "lint": "eslint -c eslint.config.mjs",
+    "translate": "translate-adapter -b admin/i18n/en.json -b src-blockly/i18n/en.json",
+    "release": "release-script",
+    "release-patch": "release-script patch --yes",
+    "release-minor": "release-script minor --yes",
+    "release-major": "release-script major --yes",
+    "update-packages": "npx -y npm-check-updates --upgrade"
+  }
 }
