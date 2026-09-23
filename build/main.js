@@ -7,6 +7,30 @@ const adapter_core_1 = require("@iobroker/adapter-core");
 const axios_1 = __importDefault(require("axios"));
 // @ts-expect-error no types
 const pushover_notifications_1 = __importDefault(require("pushover-notifications"));
+const PUSHOVER_NOTIFICATION_FIELDS = [
+    'user',
+    'token',
+    'title',
+    'message',
+    'device',
+    'html',
+    'monospace',
+    'timestamp',
+    'priority',
+    'retry',
+    'expire',
+    'sound',
+    'url',
+    'url_title',
+    'callback',
+    'tags',
+    'ttl',
+    'attachment_base64',
+    'attachment_type',
+    'encrypted',
+    'file',
+    'attachment',
+];
 const PushoverClient = pushover_notifications_1.default;
 class Pushover extends adapter_core_1.Adapter {
     pushover;
@@ -32,9 +56,55 @@ class Pushover extends adapter_core_1.Adapter {
         else if (obj.command === 'glances' && obj.message) {
             this.sendGlances(obj);
         }
-        else if (obj.callback) {
-            this.sendTo(obj.from, 'send', { error: 'Unsupported' }, obj.callback);
+        else if (obj.command === 'sendNotification' && obj.message) {
+            this.processNotification(obj);
         }
+        else if (obj.callback) {
+            this.sendTo(obj.from, obj.command, { error: 'Unsupported' }, obj.callback);
+        }
+    }
+    processNotification(obj) {
+        const notification = obj.message;
+        const instances = Object.entries(notification.category.instances).map(([instance, entry]) => {
+            const newestMessage = [...entry.messages].sort((a, b) => b.ts - a.ts)[0];
+            const instanceName = instance.startsWith('system.adapter.')
+                ? instance.substring('system.adapter.'.length)
+                : instance;
+            if (!newestMessage) {
+                return instanceName;
+            }
+            return `${instanceName}: ${new Date(newestMessage.ts).toLocaleString()} ${newestMessage.message}`;
+        });
+        const message = {
+            title: notification.category.name,
+            message: `${notification.category.description}\n${notification.host}:\n${instances.join('\n')}`,
+            ...this.getNotificationPushoverOptions(notification),
+        };
+        this.sendNotification(message, error => {
+            if (obj.callback) {
+                this.sendTo(obj.from, 'sendNotification', { sent: !error }, obj.callback);
+            }
+        });
+    }
+    getNotificationPushoverOptions(notification) {
+        const received = notification;
+        const options = {};
+        for (const field of PUSHOVER_NOTIFICATION_FIELDS) {
+            if (Object.prototype.hasOwnProperty.call(received, field) && received[field] !== undefined) {
+                options[field] = received[field];
+            }
+        }
+        if (!Object.prototype.hasOwnProperty.call(options, 'message') && typeof received.text === 'string') {
+            options.message = received.text;
+        }
+        // The pushover-notifications library uses `file` for the API's multipart `attachment` parameter.
+        if (options.attachment !== undefined) {
+            if (options.file === undefined) {
+                options.file = options.attachment;
+            }
+            delete options.attachment;
+        }
+        return options;
     }
     processMessage(obj) {
         const message = this.normalizeMessage(obj.message);
@@ -150,31 +220,40 @@ class Pushover extends adapter_core_1.Adapter {
     }
     sendNotification(message, callback) {
         const normalizedMessage = this.normalizeMessage(message) ?? {};
-        if (!this.pushover) {
-            if (this.config.user && this.config.token) {
-                this.pushover = new PushoverClient({
-                    user: this.config.user,
-                    token: this.config.token,
-                    onerror: this.onError.bind(this),
-                });
-            }
-            else {
-                this.log.error('Cannot send notification while not configured');
-            }
-        }
-        if (!this.pushover) {
+        const user = typeof normalizedMessage.user === 'string' && normalizedMessage.user
+            ? normalizedMessage.user
+            : this.config.user;
+        const token = typeof normalizedMessage.token === 'string' && normalizedMessage.token
+            ? normalizedMessage.token
+            : this.config.token;
+        delete normalizedMessage.user;
+        delete normalizedMessage.token;
+        if (!user || !token) {
+            this.log.error('Cannot send notification while not configured');
             callback?.('Cannot send notification while not configured');
             return;
         }
-        if (Object.prototype.hasOwnProperty.call(normalizedMessage, 'token')) {
-            this.pushover.token = typeof normalizedMessage.token === 'string' ? normalizedMessage.token : undefined;
+        let pushover = this.pushover;
+        if (!pushover || user !== this.config.user) {
+            pushover = new PushoverClient({
+                user,
+                token,
+                onerror: this.onError.bind(this),
+            });
+            if (user === this.config.user) {
+                this.pushover = pushover;
+            }
         }
-        else {
-            this.pushover.token = this.config.token;
+        pushover.token = token;
+        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'title')) {
+            normalizedMessage.title = this.config.title;
         }
-        normalizedMessage.title ||= this.config.title;
-        normalizedMessage.sound ||= this.config.sound || undefined;
-        normalizedMessage.priority ||= this.config.priority;
+        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'sound')) {
+            normalizedMessage.sound = this.config.sound || undefined;
+        }
+        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'priority')) {
+            normalizedMessage.priority = this.config.priority;
+        }
         normalizedMessage.message = typeof normalizedMessage.message === 'string' ? normalizedMessage.message : '';
         if (typeof normalizedMessage.timestamp === 'number' && normalizedMessage.timestamp > 946681200000) {
             normalizedMessage.timestamp = Math.round(normalizedMessage.timestamp / 1000);
@@ -184,7 +263,7 @@ class Pushover extends adapter_core_1.Adapter {
             normalizedMessage.expire = parseInt(String(normalizedMessage.expire), 10) || 3600;
         }
         (this.config.showLog ? this.log.info : this.log.debug)(`Sending pushover notification: ${JSON.stringify(normalizedMessage)}`);
-        this.pushover.send(normalizedMessage, async (err, result, response) => {
+        pushover.send(normalizedMessage, async (err, result, response) => {
             this.log.debug(`Pushover response: ${JSON.stringify(response?.headers)}`);
             if (err) {
                 try {
