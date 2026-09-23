@@ -29,7 +29,11 @@
 -->
 ### **WORK IN PROGRESS**
 * (BenAhrdt) Added support for the system notifications (notification-manager)
-* (@GermanBluefox) Fixed: empty `title`/`sound`/`priority` (e.g. from Blockly) fall back to the instance settings again
+* (BenAhrdt) `user` and `token` can be overwritten per message
+* (BenAhrdt) Unsupported commands are answered with the command name instead of `send`
+* (@GermanBluefox) Invalid notifications are rejected instead of crashing the message handler
+* (@GermanBluefox) Fixed: empty `title`/`sound`/`priority` (e.g. from Blockly) fall back to the instance settings again, an explicit priority 0 is kept
+* (@GermanBluefox) Added documentation and tests for the system notifications
 
 ### 6.0.1 (2026-08-18)
 * (@GermanBluefox) Blockly migrated to TypeScript
