@@ -63,6 +63,13 @@ sendTo('pushover', {
 });
 ```
 
+## Systembenachrichtigungen
+
+Der Adapter kann die Systembenachrichtigungen von ioBroker (z. B. "Adapter wurde zu oft neu gestartet"
+oder "Festplatte läuft voll") über den Notification-Manager empfangen. Dazu wird die Pushover-Instanz
+in der Konfiguration des Notification-Manager-Adapters ausgewählt. Die Nachricht enthält Name und
+Beschreibung der Kategorie, den Host und die neueste Meldung jeder betroffenen Instanz.
+
 ## Glances
 
 Mit Pushover Glances können dauerhaft sichtbare Informationen versendet werden. Diese können zum Beispiel auf einer Apple Watch dargestellt werden.

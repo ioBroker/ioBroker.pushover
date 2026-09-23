@@ -3,6 +3,7 @@ import axios from 'axios';
 // @ts-expect-error no types
 import PushoverNotifications from 'pushover-notifications';
 import type { MessagePriority, MessageSound, PushoverAdapterConfig } from './types';
+import { formatNotification, isNotificationMessage, type NotificationMessage } from './notification';
 
 interface PushoverHeaders {
     'x-limit-app-limit'?: string;
@@ -65,25 +66,6 @@ const PUSHOVER_NOTIFICATION_FIELDS = [
     'attachment',
 ] as const;
 
-interface NotificationInstanceMessage {
-    ts: number;
-    message: string;
-}
-
-interface NotificationCategoryInstance {
-    messages: NotificationInstanceMessage[];
-}
-
-interface NotificationMessage {
-    host: string;
-    category: {
-        name: string;
-        description: string;
-        instances: Record<string, NotificationCategoryInstance>;
-    };
-    [key: string]: unknown;
-}
-
 interface PushoverClientOptions {
     user: string;
     token: string;
@@ -103,6 +85,10 @@ interface PushoverClientConstructor {
 }
 
 const PushoverClient = PushoverNotifications as unknown as PushoverClientConstructor;
+
+function isEmpty(value: unknown): boolean {
+    return value === undefined || value === null || value === '';
+}
 
 export default class Pushover extends Adapter {
     declare config: PushoverAdapterConfig;
@@ -140,25 +126,18 @@ export default class Pushover extends Adapter {
     }
 
     private processNotification(obj: ioBroker.Message): void {
-        const notification = obj.message as NotificationMessage;
+        const notification: unknown = obj.message;
 
-        const instances = Object.entries(notification.category.instances).map(([instance, entry]) => {
-            const newestMessage = [...entry.messages].sort((a, b) => b.ts - a.ts)[0];
-
-            const instanceName = instance.startsWith('system.adapter.')
-                ? instance.substring('system.adapter.'.length)
-                : instance;
-
-            if (!newestMessage) {
-                return instanceName;
+        if (!isNotificationMessage(notification)) {
+            this.log.warn(`Invalid notification received: ${JSON.stringify(notification)}`);
+            if (obj.callback) {
+                this.sendTo(obj.from, 'sendNotification', { sent: false, error: 'Invalid notification' }, obj.callback);
             }
-
-            return `${instanceName}: ${new Date(newestMessage.ts).toLocaleString()} ${newestMessage.message}`;
-        });
+            return;
+        }
 
         const message: PushoverMessage = {
-            title: notification.category.name,
-            message: `${notification.category.description}\n${notification.host}:\n${instances.join('\n')}`,
+            ...formatNotification(notification),
             ...this.getNotificationPushoverOptions(notification),
         };
 
@@ -170,7 +149,7 @@ export default class Pushover extends Adapter {
     }
 
     private getNotificationPushoverOptions(notification: NotificationMessage): PushoverMessage {
-        const received = notification as Record<string, unknown>;
+        const received: Record<string, unknown> = notification;
         const options: Record<string, unknown> = {};
 
         for (const field of PUSHOVER_NOTIFICATION_FIELDS) {
@@ -191,7 +170,7 @@ export default class Pushover extends Adapter {
             delete options.attachment;
         }
 
-        return options as PushoverMessage;
+        return options;
     }
 
     private processMessage(obj: ioBroker.Message): void {
@@ -333,12 +312,14 @@ export default class Pushover extends Adapter {
     ): void {
         const normalizedMessage = this.normalizeMessage(message) ?? {};
 
-        const user = typeof normalizedMessage.user === 'string' && normalizedMessage.user
-            ? normalizedMessage.user
-            : this.config.user;
-        const token = typeof normalizedMessage.token === 'string' && normalizedMessage.token
-            ? normalizedMessage.token
-            : this.config.token;
+        const user =
+            typeof normalizedMessage.user === 'string' && normalizedMessage.user
+                ? normalizedMessage.user
+                : this.config.user;
+        const token =
+            typeof normalizedMessage.token === 'string' && normalizedMessage.token
+                ? normalizedMessage.token
+                : this.config.token;
         delete normalizedMessage.user;
         delete normalizedMessage.token;
 
@@ -362,13 +343,14 @@ export default class Pushover extends Adapter {
         }
         pushover.token = token;
 
-        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'title')) {
+        // Empty values (e.g. `sound: ''` from Blockly) fall back to the instance settings, an explicit priority 0 does not
+        if (isEmpty(normalizedMessage.title)) {
             normalizedMessage.title = this.config.title;
         }
-        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'sound')) {
+        if (isEmpty(normalizedMessage.sound)) {
             normalizedMessage.sound = this.config.sound || undefined;
         }
-        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'priority')) {
+        if (isEmpty(normalizedMessage.priority)) {
             normalizedMessage.priority = this.config.priority;
         }
         normalizedMessage.message = typeof normalizedMessage.message === 'string' ? normalizedMessage.message : '';

@@ -27,6 +27,10 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (BenAhrdt) Added support for the system notifications (notification-manager)
+* (@GermanBluefox) Fixed: empty `title`/`sound`/`priority` (e.g. from Blockly) fall back to the instance settings again
+
 ### 6.0.1 (2026-08-18)
 * (@GermanBluefox) Blockly migrated to TypeScript
 * (@GermanBluefox) Dropped support for Node.js lower than 22

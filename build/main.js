@@ -7,6 +7,7 @@ const adapter_core_1 = require("@iobroker/adapter-core");
 const axios_1 = __importDefault(require("axios"));
 // @ts-expect-error no types
 const pushover_notifications_1 = __importDefault(require("pushover-notifications"));
+const notification_1 = require("./notification");
 const PUSHOVER_NOTIFICATION_FIELDS = [
     'user',
     'token',
@@ -32,6 +33,9 @@ const PUSHOVER_NOTIFICATION_FIELDS = [
     'attachment',
 ];
 const PushoverClient = pushover_notifications_1.default;
+function isEmpty(value) {
+    return value === undefined || value === null || value === '';
+}
 class Pushover extends adapter_core_1.Adapter {
     pushover;
     lastMessageTime = 0;
@@ -65,19 +69,15 @@ class Pushover extends adapter_core_1.Adapter {
     }
     processNotification(obj) {
         const notification = obj.message;
-        const instances = Object.entries(notification.category.instances).map(([instance, entry]) => {
-            const newestMessage = [...entry.messages].sort((a, b) => b.ts - a.ts)[0];
-            const instanceName = instance.startsWith('system.adapter.')
-                ? instance.substring('system.adapter.'.length)
-                : instance;
-            if (!newestMessage) {
-                return instanceName;
+        if (!(0, notification_1.isNotificationMessage)(notification)) {
+            this.log.warn(`Invalid notification received: ${JSON.stringify(notification)}`);
+            if (obj.callback) {
+                this.sendTo(obj.from, 'sendNotification', { sent: false, error: 'Invalid notification' }, obj.callback);
             }
-            return `${instanceName}: ${new Date(newestMessage.ts).toLocaleString()} ${newestMessage.message}`;
-        });
+            return;
+        }
         const message = {
-            title: notification.category.name,
-            message: `${notification.category.description}\n${notification.host}:\n${instances.join('\n')}`,
+            ...(0, notification_1.formatNotification)(notification),
             ...this.getNotificationPushoverOptions(notification),
         };
         this.sendNotification(message, error => {
@@ -245,13 +245,14 @@ class Pushover extends adapter_core_1.Adapter {
             }
         }
         pushover.token = token;
-        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'title')) {
+        // Empty values (e.g. `sound: ''` from Blockly) fall back to the instance settings, an explicit priority 0 does not
+        if (isEmpty(normalizedMessage.title)) {
             normalizedMessage.title = this.config.title;
         }
-        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'sound')) {
+        if (isEmpty(normalizedMessage.sound)) {
             normalizedMessage.sound = this.config.sound || undefined;
         }
-        if (!Object.prototype.hasOwnProperty.call(normalizedMessage, 'priority')) {
+        if (isEmpty(normalizedMessage.priority)) {
             normalizedMessage.priority = this.config.priority;
         }
         normalizedMessage.message = typeof normalizedMessage.message === 'string' ? normalizedMessage.message : '';

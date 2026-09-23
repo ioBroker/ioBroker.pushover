@@ -63,6 +63,13 @@ sendTo('pushover', {
 });
 ```
 
+## System notifications
+
+The adapter can receive the system notifications of ioBroker (e.g. "adapter was restarted too often"
+or "disk is running full") via the notification-manager. Select the pushover instance in the configuration
+of the notification-manager adapter. The message contains the name and description of the category,
+the host and the newest message of each affected instance.
+
 ## Glances
 
 With Pushover's Glances, you can push small bits of data directly to a constantly-updated screen, 
