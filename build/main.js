@@ -8,6 +8,7 @@ const axios_1 = __importDefault(require("axios"));
 // @ts-expect-error no types
 const pushover_notifications_1 = __importDefault(require("pushover-notifications"));
 const notification_1 = require("./notification");
+const help_1 = require("./help");
 const PUSHOVER_NOTIFICATION_FIELDS = [
     'user',
     'token',
@@ -54,7 +55,13 @@ class Pushover extends adapter_core_1.Adapter {
         }
     }
     onMessage(obj) {
-        if (obj.command === 'send' && obj.message) {
+        if (obj.command === 'help') {
+            // A description of all commands for AI agents and scripts
+            if (obj.callback) {
+                this.sendTo(obj.from, obj.command, { help: help_1.HELP, commands: help_1.COMMANDS }, obj.callback);
+            }
+        }
+        else if (obj.command === 'send' && obj.message) {
             this.processMessage(obj);
         }
         else if (obj.command === 'glances' && obj.message) {

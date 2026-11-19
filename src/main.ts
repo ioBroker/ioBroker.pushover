@@ -4,6 +4,7 @@ import axios from 'axios';
 import PushoverNotifications from 'pushover-notifications';
 import type { MessagePriority, MessageSound, PushoverAdapterConfig } from './types';
 import { formatNotification, isNotificationMessage, type NotificationMessage } from './notification';
+import { COMMANDS, HELP } from './help';
 
 interface PushoverHeaders {
     'x-limit-app-limit'?: string;
@@ -114,7 +115,12 @@ export default class Pushover extends Adapter {
     }
 
     private onMessage(obj: ioBroker.Message): void {
-        if (obj.command === 'send' && obj.message) {
+        if (obj.command === 'help') {
+            // A description of all commands for AI agents and scripts
+            if (obj.callback) {
+                this.sendTo(obj.from, obj.command, { help: HELP, commands: COMMANDS }, obj.callback);
+            }
+        } else if (obj.command === 'send' && obj.message) {
             this.processMessage(obj);
         } else if (obj.command === 'glances' && obj.message) {
             this.sendGlances(obj);

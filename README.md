@@ -17,6 +17,12 @@
 
 [🇩🇪 Dokumentation](./docs/de/README.md)
 
+## Messages for scripts and AI agents
+
+`sendTo('pushover.0', 'help', {})` answers `{ help, commands }`: a description of all messages (`send`, `glances` ...)
+with their parameters and answers for AI agents (e.g. ioBroker.pi-agent) and script authors, and the list of all
+commands with `write` (whether the command has an effect, e.g. sends a message).
+
 ## Sentry
 
 **This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
@@ -27,6 +33,9 @@
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Added the message `help`: a description of all messages for AI agents (e.g. pi-agent), and `common.supportedMessages.help`
+
 ### 6.1.0 (2026-09-23)
 * (BenAhrdt) Added support for the system notifications (notification-manager)
 * (BenAhrdt) `user` and `token` can be overwritten per message

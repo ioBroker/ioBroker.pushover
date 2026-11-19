@@ -143,7 +143,9 @@
       "config": "json"
     },
     "supportedMessages": {
-      "notifications": true
+      "custom": true,
+      "notifications": true,
+      "help": true
     },
     "docs": {
       "en": "docs/en/README.md",
