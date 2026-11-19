@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "pushover",
-    "version": "6.1.0",
+    "version": "6.2.0",
     "news": {
+      "6.2.0": {
+        "en": "Added the message `help`: a description of all messages for AI agents (e.g. pi-agent), and `common.supportedMessages.help`",
+        "de": "Die Meldung `help`, eine Beschreibung aller Nachrichten für KI-Agenten (z. B. pi-agent), und `common.supportedMessages.Help` hinzugefügt",
+        "ru": "Добавлено сообщение `help`: описание всех сообщений для агентов искусственного интеллекта (например, pi-agent) и `Common.supportedMessages.help`",
+        "pt": "Adicionada a mensagem `help`: uma descrição de todas as mensagens dos agentes de IA (p. ex. pi-agent) e `common.supportedMessages.help`",
+        "nl": "De boodschap `help` toegevoegd: een beschrijving van alle berichten voor AI-agenten (bijv. pi-agent), en `Common.SupportedMessages.help`",
+        "fr": "Ajout du message « help » : description de tous les messages pour les agents IA (p.ex. pi-agent) et de « common.supportedMessages.help »",
+        "it": "Aggiunto «help»: una descrizione di tutti i messaggi per gli agenti AI (es. pi-agent) e `common.supportedMessages.help`",
+        "es": "Añadió el mensaje `help`: una descripción de todos los mensajes de los agentes de IA (p. ej. pi-agent) y `Common.SupportedMessages.Help`",
+        "pl": "Dodano komunikat „help”: opis wszystkich wiadomości dla agentów AI (np. pi-agent) oraz `common.supportedMessages.Help`",
+        "uk": "Додано повідомлення `help`: опис усіх повідомлень для агентів штучного інтелекту (наприклад, pi-агент) та `Common.SupportedMessages.help`",
+        "zh-cn": "添加了消息 “帮助”：对 AI 代理（例如 pi-agent）的所有消息的描述，以及 “common.supportedMessages.Help”"
+      },
       "6.1.0": {
         "en": "Added support for the system notifications (notification-manager)\n`user` and `token` can be overwritten per message\nUnsupported commands are answered with the command name instead of `send`\nInvalid notifications are rejected instead of crashing the message handler\nFixed: empty `title`/`sound`/`priority` (e.g. from Blockly) fall back to the instance settings again, an explicit priority 0 is kept\nAdded documentation and tests for the system notifications",
         "de": "Unterstützung für Systemmeldungen hinzugefügt (Notification-Manager)\n`User` und `Token` pro Nachricht überschreibbar\nUnunterstützte Befehle werden mit dem Befehlsnamen statt `senden` beantwortet\nUngültige Meldungen werden abgewiesen, statt den Mail-Handler abzustürzen\nBehoben: leerer `title`/`sound`/`priority` (z. B. von Blockly), zurück zu Instanzeinstellungen, explizite Priorität 0\nDokumentation und Tests für Systemmeldungen hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Zmiany łamania: NodeJS > = 18.x i kontroler js- > = 5 są wymagane\nAktualizacja zależności\nPoprawione definicje blokowane\nAktualizacja tłumaczeń",
         "uk": "Зміни прориву: NodeJS >= 18.x та js-controller >= 5 обов'язкові\nОновлені залежності\nФіксовані визначення блоків\nОновлені переклади",
         "zh-cn": "断裂变化:节点JS QQ 18.x和js控制器 QQ 需要5个\n更新的依赖关系\n固定的区块定义\n最新翻译"
-      },
-      "3.0.6": {
-        "en": "Caught the error by sending of sendToAsync if no configuration exists",
-        "de": "Erwischt den Fehler durch Senden von senden ToAsync wenn keine Konfiguration vorhanden ist",
-        "ru": "Поймали ошибку, отправив отправку ToAsync если никакая конфигурация не существует",
-        "pt": "Apanhado o erro enviando de envio ToAsync se nenhuma configuração existe",
-        "nl": "Greep de fout door te sturen ToAsync als er geen vertrouwen bestaat",
-        "fr": "Caught the error by sending of send ToAsync si aucune configuration n'existe",
-        "it": "Cattura l'errore inviando ToAsync se non esiste alcuna configurazione",
-        "es": "Cogido el error por el envío de envío ToAsync si no existe ninguna configuración",
-        "pl": "Uszkodził błąd wysyłając wysyłając wysyłając z niego wiadomość. ToAsynsynoza, jeśli żadna konfiguracja nie istnieje",
-        "uk": "Спіймана похибкою по відправці ToAsync якщо немає конфігурації",
-        "zh-cn": "D. 发送错误 如果没有组合"
       }
     },
     "titleLang": {

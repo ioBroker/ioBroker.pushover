@@ -1,4 +1,9 @@
 # Older changes
+## 4.1.0 (2024-08-17)
+* (isi07) added HTML/monospace options to blockly
+* (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
+* (isi07) fixed the error when log level selected by duplicate quotes
+
 ## 4.0.0 (2024-07-13)
 * Breaking changes: NodeJS >= 18.x and js-controller >= 5 are required
 * (@klein0r) Updated dependencies

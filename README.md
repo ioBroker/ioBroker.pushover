@@ -33,7 +33,7 @@ commands with `write` (whether the command has an effect, e.g. sends a message).
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 6.2.0 (2026-11-19)
 * (@GermanBluefox) Added the message `help`: a description of all messages for AI agents (e.g. pi-agent), and `common.supportedMessages.help`
 
 ### 6.1.0 (2026-09-23)
@@ -57,11 +57,6 @@ commands with `write` (whether the command has an effect, e.g. sends a message).
 ### 4.1.1 (2025-05-19)
 * (robseh) Added a field "tags" to hand over a tag to pushover-service
 * (@GermanBluefox) Updated packages
-
-### 4.1.0 (2024-08-17)
-* (isi07) added HTML/monospace options to blockly
-* (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
-* (isi07) fixed the error when log level selected by duplicate quotes
 
 ## License
 
