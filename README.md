@@ -33,6 +33,10 @@ commands with `write` (whether the command has an effect, e.g. sends a message).
 	Placeholder for the next version (at the beginning of the line):
 	### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Fixed: the message `send` with `user` and `token` answers the error in `error` like the other messages (`err` is kept)
+* (@GermanBluefox) Fixed: the message `send` answers the text of a network error instead of an empty `error` object
+
 ### 6.2.0 (2026-11-19)
 * (@GermanBluefox) Added the message `help`: a description of all messages for AI agents (e.g. pi-agent), and `common.supportedMessages.help`
 

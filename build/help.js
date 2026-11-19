@@ -31,7 +31,7 @@ Commands (sendTo pushover.0):
   1 = fixed font (not both). timestamp: the time shown (ms or s since 1970). ttl: seconds until the message is
   deleted on the devices. file: a picture, a path on the ioBroker host or {name, data: Buffer, type?}.
   user, token: another user or group key and application token than the settings; with both (and another user)
-  the defaults of title, sound and priority are not applied and the answer is {err, result}.
+  the defaults of title, sound and priority are not applied (the answer also has err, the same as error).
   All fields go to the Pushover API unchanged, so its other parameters work too.
   The same message again within 1 s is dropped without an answer.
 - glances {message, title?, subtext?, count?, percent?, device?, user?, token?}: updates the Glances widget;

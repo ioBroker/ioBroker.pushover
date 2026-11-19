@@ -91,6 +91,11 @@ function isEmpty(value: unknown): boolean {
     return value === undefined || value === null || value === '';
 }
 
+/** An Error object arrives as {} over sendTo, so answer its text; a text or no error (null) stays as it is */
+function errorText(error: unknown): unknown {
+    return error instanceof Error ? error.message : error;
+}
+
 export default class Pushover extends Adapter {
     declare config: PushoverAdapterConfig;
 
@@ -216,7 +221,8 @@ export default class Pushover extends Adapter {
                 }
 
                 if (obj.callback) {
-                    this.sendTo(obj.from, 'send', { err, result }, obj.callback);
+                    // `error` as in the other answers, `err` is kept for scripts written for the former answer
+                    this.sendTo(obj.from, 'send', { error: errorText(err), err: errorText(err), result }, obj.callback);
                 }
             });
             return;
@@ -224,7 +230,7 @@ export default class Pushover extends Adapter {
 
         this.sendNotification(message, (error, result) => {
             if (obj.callback) {
-                this.sendTo(obj.from, 'send', { error, result }, obj.callback);
+                this.sendTo(obj.from, 'send', { error: errorText(error), result }, obj.callback);
             }
         });
     }
