@@ -1,4 +1,8 @@
 # Older changes
+## 4.1.1 (2025-05-19)
+* (robseh) Added a field "tags" to hand over a tag to pushover-service
+* (@GermanBluefox) Updated packages
+
 ## 4.1.0 (2024-08-17)
 * (isi07) added HTML/monospace options to blockly
 * (isi07) fixed issue that blockly block is invalid when different priority other than normal is selected
