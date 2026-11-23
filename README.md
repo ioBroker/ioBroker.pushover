@@ -34,6 +34,7 @@ commands with `write` (whether the command has an effect, e.g. sends a message).
 	### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
+* (@GermanBluefox) Added the full-name standard command of the shared catalog `message.send` (`{text, recipient?, title?, file?, priority?}`, one picture as `{data, contentType}`, data URL, `iobfile://` or URL; answers `{ok, sent}` or `{error, reason}`); `send` keeps its answer
 * (@GermanBluefox) The message `send` also takes `text` and `recipient` (= `device`), the names of the shared catalog of message commands, and answers a double message with `{error, reason: "DUPLICATE"}`
 * (@GermanBluefox) Fixed: the message `send` with `user` and `token` answers the error in `error` like the other messages (`err` is kept)
 * (@GermanBluefox) Fixed: the message `send` answers the text of a network error instead of an empty `error` object

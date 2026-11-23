@@ -23,12 +23,13 @@ describe('help', () => {
         }
     });
 
-    it('marks no command of the shared catalog (send answers error: null on success)', () => {
+    it('marks message.send by its full name (send answers error: null on success)', () => {
         assert.deepStrictEqual(
             COMMANDS.filter(c => c.standard),
-            [],
+            [{ command: 'message.send', write: true, standard: 'message.send' }],
         );
-        assert.ok(HELP.includes('not marked as message.send'));
+        assert.ok(!COMMANDS.find(c => c.command === 'send').standard);
+        assert.ok(HELP.includes('message.send {text, recipient?, title?, file?, priority?}'));
     });
 
     it('names every command for an agent', () => {

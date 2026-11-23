@@ -5,16 +5,21 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HELP = exports.COMMANDS = void 0;
-/** Every command `onMessage` answers; `write: true` = it has an effect (sends a push message) */
+/**
+ * Every command `onMessage` answers; `write: true` = it has an effect (sends a push message); `standard` = it follows
+ * the shared catalog of commands for adapter families (message.*)
+ */
 exports.COMMANDS = [
     { command: 'help', write: false },
     { command: 'send', write: true },
+    { command: 'message.send', write: true, standard: 'message.send' },
     { command: 'glances', write: true },
     { command: 'sendNotification', write: true },
 ];
 exports.HELP = `ioBroker.pushover: sends push messages through Pushover (pushover.net) to the phones and computers of the user
 or group whose key is in the settings. An agent can send a message, with title, sound, priority, link or picture,
-and update a Glances widget (e.g. on a smartwatch).
+and update a Glances widget (e.g. on a smartwatch). message.send follows the shared catalog of message commands;
+send keeps its own answer (error: null on success), so the catalog version has the full name message.send.
 
 Commands (sendTo pushover.0):
 - send {message, title?, sound?, priority?, device?, url?, url_title?, html?, monospace?, timestamp?, ttl?, retry?,
@@ -34,14 +39,23 @@ Commands (sendTo pushover.0):
   the defaults of title, sound and priority are not applied (the answer also has err, the same as error).
   All fields go to the Pushover API unchanged, so its other parameters work too.
   text and recipient, the names of the shared catalog of message commands, work too: text = message, recipient =
-  device (message and device win when both are given). send keeps its own answer (error null on success), so it is
-  not marked as message.send.
+  device (message and device win when both are given). send keeps its own answer (error null on success); the
+  catalog version is message.send.
   The same message again within 1 s is dropped; answer {error, reason: "DUPLICATE"}.
+- message.send {text, recipient?, title?, file?, priority?}: sends a push message as the shared catalog says, to the
+  user or group of the settings. recipient: the name of a device of the user (several with "," or as an array;
+  default all devices). title: default the title of the settings. priority: -2 … 2 as in send, or lowest, low,
+  normal, high, emergency. file (or files with one entry): one picture of at most 5 MB - {data, contentType}
+  (base64 or a data URL, as cameras and charts answer), a data URL, base64 with the parameter contentType,
+  iobfile://<adapter.0>/<path> or an http(s) URL. Other fields of send (sound, url, html, ttl, ...) are passed on.
+  Answer {ok: true, sent: 1, receipt?: the receipt of an emergency message} or {error, reason?: BAD_REQUEST,
+  NOT_SUPPORTED (more than one file, not a picture), NOT_FOUND (unknown device), NOT_CONNECTED (Pushover not
+  reachable), NOT_CONFIGURED (no user key or token in the settings), DUPLICATE (the same message within 1 s)}.
 - glances {message, title?, subtext?, count?, percent?, device?, user?, token?}: updates the Glances widget;
   message (or text), title, subtext at most 100 characters each, count an integer, percent 0-100; answer
   {error: null, result: {status: 1, ...}} or {error}.
 - sendNotification: for the notification-manager (sends the system notification); answer {sent, error?}.
-- help: this text and the list of commands {help, commands: [{command, write}]}.
+- help: this text and the list of commands {help, commands: [{command, write, standard?}]}.
 Other commands are answered with {error: "Unsupported"}.
 
 How to talk to the user:

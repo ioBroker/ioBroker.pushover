@@ -9,6 +9,7 @@ const axios_1 = __importDefault(require("axios"));
 const pushover_notifications_1 = __importDefault(require("pushover-notifications"));
 const notification_1 = require("./notification");
 const help_1 = require("./help");
+const standardMessage_1 = require("./standardMessage");
 const PUSHOVER_NOTIFICATION_FIELDS = [
     'user',
     'token',
@@ -67,6 +68,9 @@ class Pushover extends adapter_core_1.Adapter {
         }
         else if (obj.command === 'send' && obj.message) {
             this.processMessage(obj);
+        }
+        else if (obj.command === 'message.send') {
+            void this.standardSend(obj);
         }
         else if (obj.command === 'glances' && obj.message) {
             this.sendGlances(obj);
@@ -172,6 +176,81 @@ class Pushover extends adapter_core_1.Adapter {
                 this.sendTo(obj.from, 'send', { error: errorText(error), result }, obj.callback);
             }
         });
+    }
+    /**
+     * message.send of the shared catalog {text, recipient?, title?, file?, files?, priority?}, under the full name
+     * because send answers error: null on success. Sends through the client of the settings like send; one picture.
+     * Answer {ok: true, sent: 1, receipt?} or {error, reason?}.
+     *
+     * @param obj the message with the command message.send
+     */
+    async standardSend(obj) {
+        const answer = (result) => {
+            if (obj.callback) {
+                this.sendTo(obj.from, obj.command, result, obj.callback);
+            }
+        };
+        const mapped = (0, standardMessage_1.toPushoverMessage)(this.normalizeMessage(obj.message) ?? {});
+        if ('failure' in mapped) {
+            return answer(mapped.failure);
+        }
+        const message = mapped.message;
+        if (mapped.file) {
+            let file;
+            try {
+                file = await this.readStandardFile(mapped.file);
+            }
+            catch (error) {
+                return answer({
+                    error: `Cannot read the picture: ${error instanceof Error ? error.message : String(error)}`,
+                    reason: 'BAD_REQUEST',
+                });
+            }
+            const problem = (0, standardMessage_1.attachmentProblem)(file);
+            if (problem) {
+                return answer(problem);
+            }
+            message.file = file;
+        }
+        const json = JSON.stringify(message);
+        if (this.isDuplicateMessage(json)) {
+            this.log.debug(`Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`);
+            return answer({ error: 'The same message was sent less than 1 s ago', reason: 'DUPLICATE' });
+        }
+        this.lastMessageTime = Date.now();
+        this.lastMessageText = json;
+        this.sendNotification(message, (error, result) => answer((0, standardMessage_1.standardAnswer)(error, result)));
+    }
+    /**
+     * The picture of message.send: given, read from the files of ioBroker, or loaded from a URL (at most 5 MB).
+     *
+     * @param source where the picture comes from
+     */
+    async readStandardFile(source) {
+        if ('data' in source) {
+            return source;
+        }
+        if ('adapter' in source) {
+            const { file, mimeType } = await this.readFileAsync(source.adapter, source.path);
+            return {
+                name: source.path.split('/').pop() || 'picture',
+                data: Buffer.isBuffer(file) ? file : Buffer.from(file),
+                type: mimeType || 'application/octet-stream',
+            };
+        }
+        const response = await axios_1.default.get(source.url, {
+            responseType: 'arraybuffer',
+            timeout: 15000,
+            maxContentLength: standardMessage_1.MAX_ATTACHMENT_BYTES,
+        });
+        const type = String(response.headers['content-type'] || 'application/octet-stream')
+            .split(';')[0]
+            .trim();
+        return {
+            name: new URL(source.url).pathname.split('/').pop() || 'picture',
+            data: Buffer.from(response.data),
+            type,
+        };
     }
     sendGlances(obj) {
         const msg = this.normalizeMessage(obj.message);
