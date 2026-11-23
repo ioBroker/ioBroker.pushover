@@ -23,6 +23,14 @@ describe('help', () => {
         }
     });
 
+    it('marks no command of the shared catalog (send answers error: null on success)', () => {
+        assert.deepStrictEqual(
+            COMMANDS.filter(c => c.standard),
+            [],
+        );
+        assert.ok(HELP.includes('not marked as message.send'));
+    });
+
     it('names every command for an agent', () => {
         for (const word of [...COMMANDS.map(c => c.command), 'sendTo pushover.0', "user's explicit request"]) {
             assert.ok(HELP.includes(word), word);

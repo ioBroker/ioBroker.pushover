@@ -122,9 +122,22 @@ class Pushover extends adapter_core_1.Adapter {
         if (!message) {
             return;
         }
+        // text and recipient of message.send (the shared catalog): the text and the device of the user
+        if (typeof message.message !== 'string' && typeof message.text === 'string') {
+            message.message = message.text;
+        }
+        if (!message.device && typeof message.recipient === 'string' && message.recipient) {
+            message.device = message.recipient;
+        }
+        delete message.text;
+        delete message.recipient;
         const json = JSON.stringify(message);
         if (this.isDuplicateMessage(json)) {
             this.log.debug(`Filter out double message [first was for ${Date.now() - this.lastMessageTime}ms]: ${json}`);
+            if (obj.callback) {
+                const error = 'The same message was sent less than 1 s ago';
+                this.sendTo(obj.from, 'send', { error, reason: 'DUPLICATE' }, obj.callback);
+            }
             return;
         }
         this.lastMessageTime = Date.now();

@@ -32,7 +32,10 @@ Commands (sendTo pushover.0):
   user, token: another user or group key and application token than the settings; with both (and another user)
   the defaults of title, sound and priority are not applied (the answer also has err, the same as error).
   All fields go to the Pushover API unchanged, so its other parameters work too.
-  The same message again within 1 s is dropped without an answer.
+  text and recipient, the names of the shared catalog of message commands, work too: text = message, recipient =
+  device (message and device win when both are given). send keeps its own answer (error null on success), so it is
+  not marked as message.send.
+  The same message again within 1 s is dropped; answer {error, reason: "DUPLICATE"}.
 - glances {message, title?, subtext?, count?, percent?, device?, user?, token?}: updates the Glances widget;
   message (or text), title, subtext at most 100 characters each, count an integer, percent 0-100; answer
   {error: null, result: {status: 1, ...}} or {error}.
